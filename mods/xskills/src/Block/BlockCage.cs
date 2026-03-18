@@ -234,7 +234,7 @@ namespace XSkills
                 }
 
                 entity.Pos.SetPos(pos);
-                entity.ServerPos.SetPos(pos);
+                entity.Pos.SetPos(pos);
                 entity.PositionBeforeFalling.Set(pos);
                 api.World.SpawnEntity(entity);
             }

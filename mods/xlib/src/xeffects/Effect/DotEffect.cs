@@ -83,11 +83,7 @@ namespace XLib.XEffects
         {
             EntityBehaviorHealth health = this.Entity?.GetBehavior<EntityBehaviorHealth>();
             if (health == null) return;
-
-            // Use configured damage directly; do not scale by stacks
-            float damage = this.Damage;
-            // apply damage
-
+            float damage = this.Damage * this.Stacks;
             health.OnEntityReceiveDamage(DamageSource, ref damage);
         }
     }//!class EffectDot

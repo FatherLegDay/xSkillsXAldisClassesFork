@@ -401,7 +401,10 @@ namespace XSkills
             {
                 for (int ii = (int)EnumCharacterDressType.ArmorHead; ii < inv.Count; ++ii)
                 {
-                    protectionTier += (inv[ii].Itemstack?.Collectible as ItemWearable)?.ProtectionModifiers?.ProtectionTier ?? 0.0f;
+                    protectionTier += inv[ii]?.Itemstack?.Collectible?
+    .GetCollectibleInterface<IWearableStatsSupplier>()?
+    .GetProtectionModifiers(inv[ii])?
+    .ProtectionTier ?? 0.0f;
                 }
                 protectionTier /= 3;
             }

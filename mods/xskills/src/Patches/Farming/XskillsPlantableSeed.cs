@@ -135,7 +135,7 @@ namespace XSkills
                             playerAbility = playerSkill[farming.CultivatedSeedsId];
                             if (playerAbility?.Tier > 0 )
                             {
-                                if (farmland.roomness > 0) farmland.TryGrowCrop(api.World.Calendar.TotalHours);
+                                if (farmland.Roomness > 0) farmland.TryGrowCrop(api.World.Calendar.TotalHours);
                                 if (byEntity.World.Rand.NextDouble() < playerAbility.SkillDependentFValue()) farmland.TryGrowCrop(api.World.Calendar.TotalHours);
                             }
                         }

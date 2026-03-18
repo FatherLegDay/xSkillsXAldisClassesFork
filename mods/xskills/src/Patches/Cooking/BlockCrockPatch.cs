@@ -8,7 +8,6 @@ namespace XSkills
     /// <summary>
     /// The patch for the BlockCrock class.
     /// </summary>
-    [HarmonyPatch(typeof(BlockCrock))]
     public class BlockCrockPatch
     {
         /// <summary>
@@ -18,7 +17,7 @@ namespace XSkills
         /// <param name="world">The world.</param>
         /// <param name="pos">The position.</param>
         [HarmonyPostfix]
-        [HarmonyPatch("OnPickBlock")]
+        [HarmonyPatch(typeof(Block), "OnPickBlock")] // Явно указываем, что ищем в классе Block
         public static void OnPickBlockPostfix(ItemStack __result, IWorldAccessor world, BlockPos pos)
         {
             QualityUtil.PickQuality(__result, world, pos);
@@ -31,7 +30,7 @@ namespace XSkills
         /// <param name="world">The world.</param>
         /// <param name="pos">The position.</param>
         [HarmonyPostfix]
-        [HarmonyPatch("GetPlacedBlockInfo")]
+        [HarmonyPatch(typeof(Block), "GetPlacedBlockInfo")] // Явно указываем, что ищем в классе Block
         public static void GetPlacedBlockInfoPostfix(ref string __result, IWorldAccessor world, BlockPos pos)
         {
             float quality = QualityUtil.GetQuality(world, pos);
@@ -43,15 +42,18 @@ namespace XSkills
         /// Postfix for the OnCreatedByCrafting method.
         /// Sealing crocks reduces quality by 20%.
         /// </summary>
-        /// <param name="allInputslots">All inputslots.</param>
+        /// <param name="allInputSlots">All inputslots.</param>
         /// <param name="outputSlot">The output slot.</param>
         [HarmonyPostfix]
-        [HarmonyPatch("OnCreatedByCrafting")]
-        public static void OnCreatedByCraftingPostfix(ItemSlot[] allInputslots, ItemSlot outputSlot)
+        [HarmonyPatch(typeof(CollectibleObject), "OnCreatedByCrafting")] // Ищем в CollectibleObject
+        public static void OnCreatedByCraftingPostfix(ItemSlot[] allInputSlots, ItemSlot outputSlot)
         {
-            for (int i = 0; i < allInputslots.Length; i++)
+            // Так как мы теперь патчим CollectibleObject, проверяем, является ли предмет горшком
+            if (!(outputSlot.Itemstack?.Collectible is BlockCrock)) return;
+
+            for (int i = 0; i < allInputSlots.Length; i++)
             {
-                ItemSlot slot = allInputslots[i];
+                ItemSlot slot = allInputSlots[i];
                 if (slot.Itemstack?.Collectible is BlockCrock)
                 {
                     float quality = QualityUtil.GetQuality(slot);
@@ -65,27 +67,33 @@ namespace XSkills
         /// Prefix for the OnContainedInteractStart method.
         /// Sealing crocks reduces quality by 20%.
         /// </summary>
+        /// <param name="be">The block entity container.</param>
         /// <param name="slot">The slot.</param>
+        /// <param name="byPlayer">The player.</param>
+        /// <param name="blockSel">The block selection.</param>
         /// <param name="__state">if set to <c>true</c> the crock was sealed.</param>
         [HarmonyPrefix]
-        [HarmonyPatch("OnContainedInteractStart")]
-        public static void OnContainedInteractStartPrefix(ItemSlot slot, out bool __state)
+        [HarmonyPatch(typeof(BlockCrock), "OnContainedInteractStart")] // Это специфично для горшка
+        public static void OnContainedInteractStartPrefix(BlockEntityContainer be, ItemSlot slot, IPlayer byPlayer, BlockSelection blockSel, out bool __state)
         {
-            __state = slot.Itemstack.Attributes.GetBool("sealed", false);
+            __state = slot.Itemstack?.Attributes.GetBool("sealed", false) ?? false;
         }
 
         /// <summary>
         /// Postfix for the OnContainedInteractStart method.
         /// Sealing crocks reduces quality by 20%.
         /// </summary>
+        /// <param name="be">The block entity container.</param>
         /// <param name="slot">The slot.</param>
+        /// <param name="byPlayer">The player.</param>
+        /// <param name="blockSel">The block selection.</param>
         /// <param name="__state">if set to <c>true</c> the crock was sealed.</param>
         [HarmonyPostfix]
-        [HarmonyPatch("OnContainedInteractStart")]
-        public static void OnContainedInteractStart(ItemSlot slot, bool __state)
+        [HarmonyPatch(typeof(BlockCrock), "OnContainedInteractStart")] // Это специфично для горшка
+        public static void OnContainedInteractStart(BlockEntityContainer be, ItemSlot slot, IPlayer byPlayer, BlockSelection blockSel, bool __state)
         {
             if (__state) return;
-            if (!slot.Itemstack.Attributes.GetBool("sealed", false)) return;
+            if (slot.Itemstack == null || !slot.Itemstack.Attributes.GetBool("sealed", false)) return;
 
             float quality = QualityUtil.GetQuality(slot);
             if (quality > 0.0f) slot.Itemstack.Attributes.SetFloat("quality", quality * 0.8f);

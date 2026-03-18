@@ -9,37 +9,37 @@ namespace XSkills
     public class BarrelRecipePatch
     {
         [HarmonyPatch("TryCraftNow")]
-        public static void Prefix(ItemSlot[] inputslots, out ItemStack __state)
+        public static void Prefix(ItemSlot[] inputSlots, out ItemStack __state)
         {
-            __state = inputslots?[1]?.Itemstack?.Clone();
+            __state = inputSlots?[1]?.Itemstack?.Clone();
         }
 
         [HarmonyPatch("TryCraftNow")]
-        public static void Postfix(ItemSlot[] inputslots, ItemStack __state, bool __result)
+        public static void Postfix(ItemSlot[] inputSlots, ItemStack __state, bool __result)
         {
             if (!__result) return;
-            if (inputslots == null || inputslots.Length < 2 || __state == null) return;
+            if (inputSlots == null || inputSlots.Length < 2 || __state == null) return;
             int size = 0;
 
-            if (inputslots[1].Itemstack == null)
+            if (inputSlots[1].Itemstack == null)
             {
                 size = 0;
-                inputslots[1].Itemstack = __state;
+                inputSlots[1].Itemstack = __state;
             }
-            else if (inputslots[1].Itemstack.Collectible != __state.Collectible) return;
-            else size = inputslots[1].Itemstack.StackSize;
+            else if (inputSlots[1].Itemstack.Collectible != __state.Collectible) return;
+            else size = inputSlots[1].Itemstack.StackSize;
 
             size += (int)((__state.StackSize - size) * (1.0f - __state.Attributes.GetFloat("usage", 1.0f)));
-            if (size > 0 && size != inputslots[1].Itemstack.StackSize)
+            if (size > 0 && size != inputSlots[1].Itemstack.StackSize)
             {
                 //round to the nearest litre
                 int remainder = size % 100;
                 size -= remainder;
                 remainder = remainder >= 50 ? 100 : 0; 
-                inputslots[1].Itemstack.StackSize = size + remainder;
+                inputSlots[1].Itemstack.StackSize = size + remainder;
             }
-            if (size <= 0) inputslots[1].Itemstack = null;
-            inputslots[1].MarkDirty();
+            if (size <= 0) inputSlots[1].Itemstack = null;
+            inputSlots[1].MarkDirty();
         }
     }//!class BarrelRecipePatch
 

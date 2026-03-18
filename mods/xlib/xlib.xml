@@ -3133,7 +3133,8 @@
             </summary>
             <param name="collObj">The collectible object.</param>
         </member>
-        <member name="M:XLib.XEffects.XLibToolBehavior.OnGetMiningSpeed(Vintagestory.API.Common.IItemStack,Vintagestory.API.Common.BlockSelection,Vintagestory.API.Common.Block,Vintagestory.API.Common.IPlayer,Vintagestory.API.Common.EnumHandling@)">
+
+        <member name="M:XLib.XEffects.XLibToolBehavior.GetMiningSpeed(Vintagestory.API.Common.ItemStack,Vintagestory.API.Common.BlockSelection,Vintagestory.API.Common.Block,Vintagestory.API.Common.IPlayer,Vintagestory.API.Common.EnumHandling@)">
             <summary>
             Multiplies resulted mining speed of the item by return value if 'bhHandling' is not equal to 'PassThrough'.
             If 'bhHandling' is not set to 'PreventDefault', the mining speed will be multiplied by standard item mining speed.

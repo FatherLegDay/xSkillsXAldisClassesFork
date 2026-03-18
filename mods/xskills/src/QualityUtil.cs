@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
@@ -238,7 +238,7 @@ namespace XSkills
             }
             if (type < 0)
             {
-                if (collectible is ItemWearableAttachment) type = 1;
+                if (collectible.HasBehavior<CollectibleBehaviorWearableAttachment>()) type = 1;
                 else return null;
             }
             string str = null;

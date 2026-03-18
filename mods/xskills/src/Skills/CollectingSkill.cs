@@ -49,7 +49,7 @@ namespace XSkills
             this.xp = properties["xp"].AsFloat(0.0f);
         }
 
-        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, ref EnumHandling handling)
+        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier, ref EnumHandling handling)
         {
             if (this.Skill == null || byPlayer == null) return;
             PlayerSkill playerSkill = byPlayer.Entity.GetBehavior<PlayerSkillSet>()?.PlayerSkills[this.Skill.Id];
@@ -97,10 +97,12 @@ namespace XSkills
         public CollectingBehavior(Block block) : base(block)
         { }
 
-        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, ref EnumHandling handling)
+        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier, ref EnumHandling handling)
         {
             if (this.Skill == null || byPlayer == null) return;
-            base.OnBlockBroken(world, pos, byPlayer, ref handling);
+
+            // Вот здесь мы передаем новый параметр в базовый метод:
+            base.OnBlockBroken(world, pos, byPlayer, dropQuantityMultiplier, ref handling);
 
             PlayerSkill playerSkill = byPlayer.Entity.GetBehavior<PlayerSkillSet>()?[this.Skill.Id];
             if (playerSkill == null) return;

@@ -129,7 +129,7 @@ namespace XSkills
                 entity.FromBytes(br, false);
 
                 entity.Pos.SetPos(Pos.Add(0.0f, 0.15f, 0.0f));
-                entity.ServerPos.SetPos(Pos.Add(0.0f, 0.15f, 0.0f));
+                entity.Pos.SetPos(Pos.Add(0.0f, 0.15f, 0.0f));
                 entity.PositionBeforeFalling.Set(Pos.Add(0.0f, 0.15f, 0.0f));
 
                 Api.World.SpawnEntity(entity);

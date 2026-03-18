@@ -260,6 +260,7 @@
     "ability-bleed": "Serrated Edge",
     "abilitydesc-bleed": "Applies a bleeding effect on melee hits that deals {0}% of the base damage per tick for {1} seconds with a {2}% chance.(Scales with melee bonus abilities)",
 
+
     "ability-temporalstable": "Temporal Stable",
     "abilitydesc-temporalstable": "Reduces the overall loss of temporal stability by {0}% and additional {1}% for each level at the temporal adaptation skill. Maxed out at {2}%.",
     "ability-caveman": "Caveman",
@@ -459,5 +460,31 @@
     "monster": "Monster",
     "book-monster": "Monster compendium",
     "meteorology": "Meteorology",
-    "book-meteorology": "Meteorology for beginners"
+    "book-meteorology": "Meteorology for beginners",
+
+    "xskills:skill-fishing": "Fishing",
+
+    "xskills:ability-strongline": "Strong Line",
+    "xskills:abilitydesc-strongline": "When using a fishing rod, there is a {0}% chance it will not lose durability.",
+
+    "xskills:ability-fisher": "Fisher",
+    "xskills:abilitydesc-fisher": "You gain {0}% more experience for the fishing skill. PROFESSION.\nThe number of professions you can learn is limited.",
+
+    "xskills:ability-fishfilleter": "Expert Filleter",
+    "xskills:abilitydesc-fishfilleter": "When filleting fish, there is a {0}% chance to get an extra fillet, plus {1} for each fishing skill level.",
+
+    "xskills:ability-goodbait": "Good Bait",
+    "xskills:abilitydesc-goodbait": "Your bait attracts fish faster. Bite waiting time is reduced by {0}%.",
+
+    "xskills:ability-autobaiter": "Nimble Hands",
+    "xskills:abilitydesc-autobaiter": "Automatically attaches bait from your inventory to the fishing rod when casting.",
+
+    "xskills:ability-baitmaster": "Bait Master",
+    "xskills:abilitydesc-baitmaster": "Your experience allows you to carefully remove the catch from the hook. There is a {0}% chance not to consume bait on a successful catch.",
+
+    "xskills:ability-doublehook": "Double Hook",
+    "xskills:abilitydesc-doublehook": "You tie a second hook to the line. On a successful catch there is a {0}% chance to pull out two fish at once.",
+
+    "xskills:ability-magnetichook": "Magnetic Hook",
+    "xskills:abilitydesc-magnetichook": "With a {0}% chance you will pull an item from the water instead of a fish. It can be useless junk or a very rare artifact."
 }

@@ -254,12 +254,12 @@ namespace XSkills
             this.forestry = XLeveling.Instance(api)?.GetSkill("forestry") as Forestry;
         }
 
-        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, ref EnumHandling handling)
+        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier, ref EnumHandling handling)
         {
             //try to to get forestry here again since the OnLoaded method is not called by bamboo 
             if (this.forestry == null)
                 this.forestry = XLeveling.Instance(world.Api)?.GetSkill("forestry") as Forestry;
-            base.OnBlockBroken(world, pos, byPlayer, ref handling);
+            base.OnBlockBroken(world, pos, byPlayer, dropQuantityMultiplier, ref handling);
         }
 
         public override List<ItemStack> GetDropsList(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropChanceMultiplier, ref EnumHandling handling)
@@ -302,7 +302,7 @@ namespace XSkills
             this.forestry = XLeveling.Instance(api)?.GetSkill("forestry") as Forestry;
         }
 
-        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, ref EnumHandling handling)
+        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier, ref EnumHandling handling)
         {
             if (this.forestry == null || byPlayer == null) return;
 

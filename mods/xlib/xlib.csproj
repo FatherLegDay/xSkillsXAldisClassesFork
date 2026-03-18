@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
@@ -8,6 +8,7 @@
     <OutputPath>.\bin</OutputPath>
     <IntermediateOutputPath>.\obj\Debug\xlib\</IntermediateOutputPath>
     <DocumentationFile>..\..\..\..\..\..\..\bin\xlib.xml</DocumentationFile>
+	<VINTAGE_STORY>C:\Users\Mrzub\AppData\Roaming\Vintagestory 1.22.2</VINTAGE_STORY>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>.\bin</OutputPath>
@@ -19,29 +20,32 @@
     <None Remove="assets\xeffects\lang\pl.json" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>D:\VS modding\Lib\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(VINTAGE_STORY)\Lib\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="protobuf-net">
-      <HintPath>D:\VS modding\Lib\protobuf-net.dll</HintPath>
+    <Reference Include="protobuf-net, Version=2.1.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(VINTAGE_STORY)\Lib\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="VintagestoryAPI">
-      <HintPath>D:\VS modding\Lib\VintagestoryAPI.dll</HintPath>
+      <HintPath>$(VINTAGE_STORY)\VintagestoryAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VintagestoryLib">
-      <HintPath>D:\VS modding\Lib\VintagestoryLib.dll</HintPath>
+    <Reference Include="VintagestoryLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(VINTAGE_STORY)\VintagestoryLib.dll</HintPath>
     </Reference>
     <Reference Include="VSSurvivalMod">
-      <HintPath>D:\VS modding\Lib\VSSurvivalMod.dll</HintPath>
+      <HintPath>$(VINTAGE_STORY)\Mods\VSSurvivalMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSEssentials">
-      <HintPath>D:\VS modding\Lib\VSEssentials.dll</HintPath>
+      <HintPath>$(VINTAGE_STORY)\Mods\VSEssentials.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSCreativeMod">
-      <HintPath>D:\VS modding\Lib\VSCreativeMod.dll</HintPath>
+      <HintPath>$(VINTAGE_STORY)\Mods\VSCreativeMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -79,13 +83,12 @@
     <Content Include="assets\xlib\lang\es-419.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <PropertyGroup />
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;$(ProjectDir)&quot; &#xD;&#xA;copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(ProjectDir)&quot;&#xD;&#xA;copy &quot;$(TargetDir)$(TargetName).xml&quot; &quot;$(ProjectDir)&quot;&#xD;&#xA;cd &quot;$(ProjectDir)&quot;&#xD;&#xA;cmd /C tar.exe -a -c  -f  &quot;..\..\releases\$(TargetName)\$(TargetName)_vout.zip&quot; &quot;$(TargetName).dll&quot; &quot;$(TargetName).xml&quot; &quot;modinfo.json&quot; &quot;assets&quot;" />
+    <Exec Command="if not exist &quot;..\..\releases\$(TargetName)&quot; mkdir &quot;..\..\releases\$(TargetName)&quot;&#xD;&#xA;copy &quot;$(TargetPath)&quot; &quot;$(ProjectDir)&quot;&#xD;&#xA;copy &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;$(ProjectDir)&quot;&#xD;&#xA;copy &quot;$(TargetDir)$(TargetName).xml&quot; &quot;$(ProjectDir)&quot;&#xD;&#xA;cd &quot;$(ProjectDir)&quot;&#xD;&#xA;tar.exe -a -c -f &quot;..\..\releases\$(TargetName)\$(TargetName)_vout.zip&quot; &quot;$(TargetName).dll&quot; &quot;$(TargetName).xml&quot; &quot;modinfo.json&quot; &quot;assets&quot;" />
   </Target>
   <ProjectExtensions><VisualStudio><UserProperties assets_4xeffects_4lang_4uk_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>

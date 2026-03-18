@@ -161,6 +161,8 @@ namespace XSkills
             this.Skills.Add(pottery.Name, pottery);
             Cooking cooking = new Cooking(api);
             this.Skills.Add(cooking.Name, cooking);
+            Fishing fishing = new Fishing(api);
+            this.Skills.Add(fishing.Name, fishing);
 
             if (api.World.Config.GetBool("temporalStability"))
             {

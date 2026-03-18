@@ -296,7 +296,7 @@ namespace XSkills
 
             if (ability.Tier > 0)
             {
-                EntityPos pos = entity.SidedPos;
+                EntityPos pos = entity.Pos;
                 if (pos == null) return;
 
                 int y1 = (int)(pos.Y - 0.05f);

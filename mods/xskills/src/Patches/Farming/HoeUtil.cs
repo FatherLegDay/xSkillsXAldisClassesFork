@@ -131,7 +131,8 @@ namespace XSkills
                     }
                     api.World.BlockAccessor.MarkBlockDirty(pos);
 
-                    if (byPlayer != null && block.Sounds != null && sound == null) sound = block.Sounds.Place;
+                    if (byPlayer != null && block.Sounds != null && sound == null)
+                        sound = block.Sounds.Place.Location;
                 }
             }
 

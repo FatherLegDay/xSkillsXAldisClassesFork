@@ -443,10 +443,11 @@ namespace XSkills
         public XSkillsStoneBehavior(Block block) : base(block)
         { }
 
-        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, ref EnumHandling handling)
+        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier, ref EnumHandling handling)
         {
-            base.OnBlockBroken(world, pos, byPlayer, ref handling);
+            base.OnBlockBroken(world, pos, byPlayer, dropQuantityMultiplier, ref handling);
             if (this.mining == null) return;
+            
 
             PlayerSkill playerSkill = byPlayer?.Entity?.GetBehavior<PlayerSkillSet>()?[this.mining.Id];
             if (playerSkill == null) return;
@@ -585,10 +586,11 @@ namespace XSkills
 
         static protected bool veinMining = false;
 
-        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, ref EnumHandling handling)
+        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier, ref EnumHandling handling)
         {
-            base.OnBlockBroken(world, pos, byPlayer, ref handling);
+            base.OnBlockBroken(world, pos, byPlayer, dropQuantityMultiplier, ref handling);
             IClientPlayer cPlayer = byPlayer as IClientPlayer;
+            
             if (this.mining == null) return;
             PlayerSkill playerSkill = byPlayer?.Entity?.GetBehavior<PlayerSkillSet>()?[this.mining.Id];
             if (playerSkill == null) return;
@@ -634,7 +636,8 @@ namespace XSkills
 
                 while (toCheck.Count > 0 && toMine.Count < max)
                 {
-                    BlockPos blockPos = toCheck.PopOne();
+                    BlockPos blockPos = toCheck[toCheck.Count - 1];
+                    toCheck.RemoveAt(toCheck.Count - 1);
 
                     ShouldVeinMine(block, blockPos.NorthCopy(), world, toCheck, toMine, max);
                     ShouldVeinMine(block, blockPos.SouthCopy(), world, toCheck, toMine, max);

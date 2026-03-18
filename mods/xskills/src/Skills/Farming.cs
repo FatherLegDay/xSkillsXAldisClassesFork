@@ -272,6 +272,99 @@ namespace XSkills
         }
     }
 
+    [HarmonyPatch]
+    public class FruitingBushHarvestPatch
+    {
+        // Указываем Harmony патчить сразу несколько методов в разных классах
+        public static IEnumerable<MethodBase> TargetMethods()
+        {
+            // 1. Новый класс кустов из 1.22
+            Type newType = AccessTools.TypeByName("Vintagestory.GameContent.BlockRequireFertileGround");
+            if (newType != null)
+            {
+                var m1 = AccessTools.Method(newType, "OnBlockInteractStep");
+                if (m1 != null) yield return m1;
+                var m2 = AccessTools.Method(newType, "OnBlockInteractStop");
+                if (m2 != null) yield return m2;
+            }
+
+            // 2. Старый класс (для поддержки модов вроде Wildcraft, если они ещё не обновились)
+            Type oldType = AccessTools.TypeByName("Vintagestory.GameContent.BlockBerryBush");
+            if (oldType != null)
+            {
+                var m3 = AccessTools.Method(oldType, "OnBlockInteractStep");
+                if (m3 != null) yield return m3;
+                var m4 = AccessTools.Method(oldType, "OnBlockInteractStop");
+                if (m4 != null) yield return m4;
+            }
+        }
+
+        [HarmonyPrefix]
+        public static void Prefix(IWorldAccessor world, BlockSelection blockSel, out string __state)
+        {
+            __state = null;
+            if (world?.Side != EnumAppSide.Server || blockSel == null) return;
+
+            // Запоминаем память блока каждый "тик" удержания кнопки
+            BlockEntity be = world.BlockAccessor.GetBlockEntity(blockSel.Position);
+            if (be != null)
+            {
+                ITreeAttribute tree = new TreeAttribute();
+                be.ToTreeAttributes(tree);
+                __state = tree.ToJsonToken();
+            }
+        }
+
+        [HarmonyPostfix]
+        public static void Postfix(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, string __state)
+        {
+            if (world?.Side != EnumAppSide.Server || blockSel == null || __state == null || byPlayer == null) return;
+            // if (byPlayer.InventoryManager?.ActiveTool == EnumTool.Knife) return;
+
+            // Читаем память блока ПОСЛЕ тика/окончания сбора
+            BlockEntity be = world.BlockAccessor.GetBlockEntity(blockSel.Position);
+            if (be == null) return;
+
+            ITreeAttribute treeAfter = new TreeAttribute();
+            be.ToTreeAttributes(treeAfter);
+            string stateAfter = treeAfter.ToJsonToken();
+
+            // Если за этот "тик" память изменилась — значит, таймер сбора дошел до конца и ягоды упали!
+            if (__state != stateAfter)
+            {
+                Farming farming = XLeveling.Instance(world.Api)?.GetSkill("farming") as Farming;
+                if (farming == null) return;
+
+                PlayerSkill playerSkill = byPlayer.Entity.GetBehavior<PlayerSkillSet>()?.PlayerSkills[farming.Id];
+                if (playerSkill == null) return;
+
+                // 1. ВЫДАЧА ОПЫТА (оставил 1.33f для теста)
+                playerSkill.AddExperience(0.33f);
+                world.Logger.Event("-> УСПЕХ: Ягоды собраны, опыт начислен!");
+
+                // 2. Логика навыка Gatherer (дополнительный дроп)
+                PlayerAbility playerAbility = playerSkill.PlayerAbilities[farming.GathererId];
+                if (playerAbility != null && playerAbility.Tier > 0)
+                {
+                    float dropMultiplier = 0.01f * playerAbility.SkillDependentValue();
+                    Block block = world.BlockAccessor.GetBlock(blockSel.Position);
+
+                    if (block != null && block.Drops != null && block.Drops.Length > 0)
+                    {
+                        ItemStack stack = block.Drops[0].GetNextItemStack(dropMultiplier);
+                        if (stack != null && stack.StackSize > 0)
+                        {
+                            if (!byPlayer.InventoryManager.TryGiveItemstack(stack))
+                            {
+                                world.SpawnItemEntity(stack, blockSel.Position.ToVec3d().Add(0.5, 0.5, 0.5));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public class XSkillsBerryBushBehavior : BlockBehaviorHarvestable
     {
         private Farming farming;
@@ -304,7 +397,10 @@ namespace XSkills
         public override void OnBlockInteractStop(float secondsUsed, IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handled)
         {
             BlockBehaviorHarvestable harvestable = this.block.GetBehavior<BlockBehaviorHarvestable>();
-            //float harvestTime = harvestable.properties["harvestTime"].AsFloat(0.6f);
+
+            // ДОБАВЛЯЕМ ПРОВЕРКУ: если старого поведения нет, просто выходим
+            if (harvestable == null) return;
+
             Type type = typeof(BlockBehaviorHarvestable);
             FieldInfo info = type.GetField("harvestTime", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             float harvestTime = info?.GetValue(harvestable) as float? ?? 1.0f;
@@ -583,7 +679,7 @@ namespace XSkills
             this.farming = XLeveling.Instance(api)?.GetSkill("farming") as Farming;
         }
 
-        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, ref EnumHandling handling)
+        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier, ref EnumHandling handling)
         {
             if (this.farming == null)
             {
@@ -799,7 +895,7 @@ namespace XSkills
             world.PlaySoundAt(new AssetLocation("game:sounds/block/plant"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
         }
 
-        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, ref EnumHandling handling)
+        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier, ref EnumHandling handling)
         {
             if (this.farming == null) return;
             PlayerSkill playerSkill = byPlayer?.Entity.GetBehavior<PlayerSkillSet>()?[this.farming.Id];
@@ -830,6 +926,8 @@ namespace XSkills
                 }
             }
         }
-    }//!class XSkillsSkepBehavior
 
+
+
+    }//!class XSkillsSkepBehavior
 }//!namespace XSkills

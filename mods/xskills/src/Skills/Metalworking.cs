@@ -207,6 +207,7 @@ namespace XSkills
             if (this.duplicatable != null) return;
             foreach (Item item in this.XLeveling.Api.World.Items)
             {
+                if (item == null || item.Code == null) continue;
                 if (item.FirstCodePart(0) == "metalbit")
                 {
                     if (item.Code?.Domain == "xskills")
@@ -237,7 +238,7 @@ namespace XSkills
                             recipe.Output = output;
                             recipe.Name = new AssetLocation("game", "recipes/grid/metalbit.json");
 
-                            if (recipe.ResolveIngredients(this.XLeveling.Api.World))
+                            if (recipe.Resolve(this.XLeveling.Api.World, "xskills"))
                             {
                                 (this.XLeveling.Api as ICoreServerAPI)?.RegisterCraftingRecipe(recipe);
                             }
@@ -262,15 +263,20 @@ namespace XSkills
             {
                 foreach (GridRecipe recipe in this.XLeveling.Api.World.GridRecipes)
                 {
-                    if (recipe.Name.Path.Contains("metalbit") || 
+                    // 1. Защита: У рецепта может не быть имени в 1.22
+                    if (recipe.Name == null || recipe.Name.Path == null) continue;
+
+                    if (recipe.Name.Path.Contains("metalbit") ||
                         recipe.Name.Path.Contains("ingot") ||
                         recipe.Name.Path.Contains("recycling"))
                     {
-                        if (recipe.resolvedIngredients.Length != 2) continue;
+                        // 2. Защита: Убедимся, что Ingredients не null
+                        if (recipe.Ingredients == null || recipe.Ingredients.Count != 2) continue;
+
                         CraftingRecipeIngredient ingredient = null;
                         bool foundTool = false;
 
-                        foreach (GridRecipeIngredient tempIngredient in recipe.resolvedIngredients)
+                        foreach (CraftingRecipeIngredient tempIngredient in recipe.Ingredients.Values)
                         {
                             if (tempIngredient == null) continue;
                             if (tempIngredient.IsTool) foundTool = true;
@@ -279,10 +285,15 @@ namespace XSkills
 
                         if ((!(ingredient?.Code?.Path.Contains("ingot") ?? true)) && foundTool)
                         {
-                            recipe.Output.ResolvedItemstack.StackSize = (int)(recipe.Output.ResolvedItemstack.StackSize * recipeRatio);
-                            recipe.Output.Quantity = recipe.Output.ResolvedItemstack.StackSize;
-                            if (recipe.Output.ResolvedItemstack.StackSize == 0)
-                                recipe.Enabled = false;
+                            // 3. Защита: У рецепта может не быть ResolvedItemStack на этапе загрузки
+                            // (Кстати, проверь в dnSpy: возможно в 1.22 это пишется как ResolvedItemstack с маленькой 's')
+                            if (recipe.Output?.ResolvedItemStack != null)
+                            {
+                                recipe.Output.ResolvedItemStack.StackSize = (int)(recipe.Output.ResolvedItemStack.StackSize * recipeRatio);
+                                recipe.Output.Quantity = recipe.Output.ResolvedItemStack.StackSize;
+                                if (recipe.Output.ResolvedItemStack.StackSize == 0)
+                                    recipe.Enabled = false;
+                            }
                         }
                     }
                 }
@@ -297,27 +308,39 @@ namespace XSkills
             }
 
             this.duplicatable = new List<SmithingRecipe>();
-            foreach (SmithingRecipe recipe in this.XLeveling.Api.ModLoader.GetModSystem<RecipeRegistrySystem>().SmithingRecipes)
-            {
-                CollectibleObject collectible = recipe.Output?.ResolvedItemstack?.Collectible;
-                if (collectible == null) continue;
 
-                int neededVoxels = 0;
-                if (collectible.CombustibleProps?.SmeltedStack?.ResolvedItemstack  != null)
+            // 1. Сначала безопасно получаем саму систему регистрации рецептов
+            RecipeRegistrySystem recipeSystem = this.XLeveling.Api.ModLoader.GetModSystem<RecipeRegistrySystem>();
+
+            // 2. Проверяем: если система найдена И в ней есть список кузнечных рецептов
+            if (recipeSystem?.SmithingRecipes != null)
+            {
+                // 3. Только теперь запускаем цикл по рецептам
+                foreach (SmithingRecipe recipe in recipeSystem.SmithingRecipes)
                 {
-                    for (int x = 0; x < 16; x++)
+                    // В 1.22 крайне важно проверять Output на null здесь
+                    if (recipe.Output?.ResolvedItemstack?.Collectible == null) continue;
+
+                    CollectibleObject collectible = recipe.Output.ResolvedItemstack.Collectible;
+
+                    int neededVoxels = 0;
+                    if (collectible.CombustibleProps?.SmeltedStack?.ResolvedItemstack != null)
                     {
-                        for (int y = 0; y < recipe.QuantityLayers; y++)
+                        for (int x = 0; x < 16; x++)
                         {
-                            for (int z = 0; z < 16; z++)
+                            for (int y = 0; y < recipe.QuantityLayers; y++)
                             {
-                                if (recipe.Voxels[x, y, z])
+                                for (int z = 0; z < 16; z++)
                                 {
-                                    neededVoxels++;
+                                    if (recipe.Voxels[x, y, z])
+                                    {
+                                        neededVoxels++;
+                                    }
                                 }
                             }
                         }
                     }
+
                     Ability ability = this[this.DuplicatorId];
                     float proportion = 1.0f + ability.Values[ability.Values.Length - 1] * 0.01f;
 

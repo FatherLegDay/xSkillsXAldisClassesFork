@@ -36,27 +36,30 @@ namespace XSkills
             if (playerSkill[metalworking.SalvagerId].Tier <= 0) return;
 
             EntityBehaviorDisassemblable bh = entitySel?.Entity.GetBehavior<EntityBehaviorDisassemblable>();
-            if (byEntity.Controls.Sneak && entitySel != null && bh != null && bh.Harvestable)
+            // Передаем slot и byEntity
+            if (byEntity.Controls.Sneak && entitySel != null && bh != null && bh.IsHarvestable(slot, byEntity))
             {
                 Animate(bh.Animation, byEntity, false);
                 handling = EnumHandHandling.PreventDefault;
                 return;
             }
         }
+
         public override bool OnHeldInteractStep(float secondsUsed, ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel)
         {
             bool result = base.OnHeldInteractStep(secondsUsed, slot, byEntity, blockSel, entitySel);
             if (result) return result;
 
             EntityBehaviorDisassemblable bh = entitySel?.Entity.GetBehavior<EntityBehaviorDisassemblable>();
-            if (entitySel != null && bh != null && bh.Harvestable)
+            // Передаем slot и byEntity
+            if (entitySel != null && bh != null && bh.IsHarvestable(slot, byEntity))
             {
                 RunningAnimation state = byEntity.AnimManager.GetAnimationState(bh.Animation);
                 if (state?.AnimProgress >= 1.0f)
                 {
                     Animate(bh.Animation, byEntity, true);
                 }
-                return secondsUsed < bh.GetHarvestDuration(byEntity) + 0.15f;
+                return secondsUsed < bh.GetHarvestDuration(slot, byEntity) + 0.15f;
             }
             return false;
         }
@@ -68,7 +71,8 @@ namespace XSkills
             if (bh == null) return;
             byEntity.StopAnimation(bh.Animation);
 
-            if (bh.Harvestable && secondsUsed >= bh.GetHarvestDuration(byEntity) - 0.1f)
+            // Передаем slot и byEntity
+            if (bh.IsHarvestable(slot, byEntity) && secondsUsed >= bh.GetHarvestDuration(slot, byEntity) - 0.1f)
             {
                 PlayerSkill playerSkill = byEntity.GetBehavior<PlayerSkillSet>()?.FindSkill("metalworking");
                 if (playerSkill == null) return;
@@ -98,23 +102,25 @@ namespace XSkills
     {
         [HarmonyPrefix]
         [HarmonyPatch("OnHeldInteractStart")]
-        public static bool OnHeldInteractStartPrefix(EntityAgent byEntity, EntitySelection entitySel)
+        // Добавили ItemSlot slot, чтобы передать его в IsHarvestable
+        public static bool OnHeldInteractStartPrefix(ItemSlot slot, EntityAgent byEntity, EntitySelection entitySel)
         {
             if (entitySel == null) return true;
             if (entitySel.Entity.HasBehavior("harvestable")) return true;
             EntityBehaviorHarvestable bh = entitySel.Entity.GetBehavior<EntityBehaviorDisassemblable>();
-            if (byEntity.Controls.Sneak && bh != null && bh.Harvestable) return false;
+            if (byEntity.Controls.Sneak && bh != null && bh.IsHarvestable(slot, byEntity)) return false;
             return true;
         }
 
         [HarmonyPrefix]
         [HarmonyPatch("OnHeldInteractStop")]
-        public static bool OnHeldInteractStopPrefix(EntityAgent byEntity, EntitySelection entitySel)
+        // Добавили ItemSlot slot
+        public static bool OnHeldInteractStopPrefix(ItemSlot slot, EntityAgent byEntity, EntitySelection entitySel)
         {
             if (entitySel == null) return true;
             if (entitySel.Entity.HasBehavior("harvestable")) return true;
             EntityBehaviorHarvestable bh = entitySel.Entity.GetBehavior<EntityBehaviorDisassemblable>();
-            if (byEntity.Controls.Sneak && bh != null && bh.Harvestable) return false;
+            if (byEntity.Controls.Sneak && bh != null && bh.IsHarvestable(slot, byEntity)) return false;
             return true;
         }
     }//!class ItemKnifePatch

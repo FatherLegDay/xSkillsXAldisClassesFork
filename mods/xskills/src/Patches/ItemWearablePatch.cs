@@ -5,7 +5,7 @@ using Vintagestory.GameContent;
 
 namespace XSkills
 {
-    [HarmonyPatch(typeof(ItemWearable))]
+    [HarmonyPatch(typeof(CollectibleBehaviorWearable))]
     public static class ItemWearablePatch
     {
         [HarmonyPostfix]
@@ -18,7 +18,7 @@ namespace XSkills
 
         //[HarmonyPostfix]
         //[HarmonyPatch("CalculateRepairValue")]
-        //public static void CalculateRepairValuePostfix(ItemSlot[] allInputslots, ItemSlot outputSlot, ref float repairValue, ref int matCostPerMatType)
+        //public static void CalculateRepairValuePostfix(ItemSlot[] allInputSlots, ItemSlot outputSlot, ref float repairValue, ref int matCostPerMatType)
         //{
         //    IPlayer player = (outputSlot.Inventory as InventoryBasePlayer)?.Player;
         //    if (player == null) return;

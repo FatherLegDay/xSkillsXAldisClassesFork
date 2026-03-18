@@ -59,21 +59,22 @@ namespace XSkills
                     if (str != MalusTraits.Last()) malus += ", ";
                 }
 
-                // Build argument list dynamically to match ValuesPerTier and available trait strings
-                var args = new List<object>();
-                for (int i = 0; i < this.ValuesPerTier; i++)
+                if (MalusTraits.Count > 0 && BonusTraits.Count > 0)
                 {
-                    int idx = begin + i;
-                    args.Add(idx < this.Values.Length ? this.Values[idx] : 0);
+                    return string.Format(this.Description, this.Values[begin], this.Values[begin + 1], bonus, malus);
                 }
-
-                if (BonusTraits.Count > 0) args.Add(bonus);
-                if (MalusTraits.Count > 0) args.Add(malus);
-
-                // If no dynamic args were produced, fall back to base behaviour
-                if (args.Count == 0) return base.FormattedDescription(tier);
-
-                return string.Format(this.Description, args.ToArray());
+                else if (MalusTraits.Count > 0)
+                {
+                    return string.Format(this.Description, this.Values[begin], malus);
+                }
+                else if (BonusTraits.Count > 0)
+                {
+                    return string.Format(this.Description, this.Values[begin], bonus);
+                }
+                else
+                {
+                    return base.FormattedDescription(tier);
+                }
             }
             catch (Exception error)
             {

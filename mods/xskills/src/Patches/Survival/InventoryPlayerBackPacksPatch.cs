@@ -6,8 +6,8 @@ using XLib.XLeveling;
 
 namespace XSkills
 {
-    [HarmonyPatch(typeof(InventoryPlayerBackPacks))]
-    public class InventoryPlayerBackPacksPatch
+    [HarmonyPatch(typeof(InventoryPlayerBackpacks))]
+    public class InventoryPlayerBackpacksPatch
     {
         public static bool Prepare(MethodBase original)
         {
@@ -23,7 +23,7 @@ namespace XSkills
 
         [HarmonyPostfix]
         [HarmonyPatch("get_Count")]
-        public static void GetCountPostfix(InventoryPlayerBackPacks __instance, ref int __result)
+        public static void GetCountPostfix(InventoryPlayerBackpacks __instance, ref int __result)
         {
             XSkillsPlayerInventory inv = __instance.Player?.InventoryManager.GetOwnInventory("xskillshotbar") as XSkillsPlayerInventory;
             if (inv?.Linked ?? false) __result += inv.Count;
@@ -31,7 +31,7 @@ namespace XSkills
 
         [HarmonyPrefix]
         [HarmonyPatch("get_Item")]
-        public static bool GetItemPostfix(InventoryPlayerBackPacks __instance, out ItemSlot __result, int slotId)
+        public static bool GetItemPostfix(InventoryPlayerBackpacks __instance, out ItemSlot __result, int slotId)
         {
             __result = null;
             if (slotId < 0) return false;
@@ -50,7 +50,7 @@ namespace XSkills
 
         [HarmonyPrefix]
         [HarmonyPatch("set_Item")]
-        public static bool SetItemPrefix(InventoryPlayerBackPacks __instance, int slotId, ItemSlot value)
+        public static bool SetItemPrefix(InventoryPlayerBackpacks __instance, int slotId, ItemSlot value)
         {
             if (slotId < 0) return true;
 
@@ -66,7 +66,7 @@ namespace XSkills
 
         [HarmonyPrefix]
         [HarmonyPatch("ActivateSlot")]
-        public static void ActivateSlotPrefix(InventoryPlayerBackPacks __instance, out object __result, int slotId, ItemSlot sourceSlot, ref ItemStackMoveOperation op)
+        public static void ActivateSlotPrefix(InventoryPlayerBackpacks __instance, out object __result, int slotId, ItemSlot sourceSlot, ref ItemStackMoveOperation op)
         {
             __result = null;
             if (slotId < 0 || !op.ShiftDown) return;

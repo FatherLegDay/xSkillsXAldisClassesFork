@@ -19,7 +19,7 @@ namespace XSkills
             {
                 EnumHandling handled = EnumHandling.PassThrough;
 
-                behavior.OnBlockBroken(world, pos, byPlayer, ref handled);
+                behavior.OnBlockBroken(world, pos, byPlayer, dropQuantityMultiplier, ref handled);
                 if (handled == EnumHandling.PreventDefault) preventDefault = true;
                 if (handled == EnumHandling.PreventSubsequent) return false;
             }
@@ -46,7 +46,8 @@ namespace XSkills
                         world.SpawnItemEntity(drop, new Vec3d(pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5), null);
                     }
                 }
-                world.PlaySoundAt(__instance.Sounds.GetBreakSound(byPlayer), pos.X, pos.Y, pos.Z, byPlayer);
+                // Use the overload that accepts a BlockPos and y-offset so we don't pass the player into the dimension parameter
+                world.PlaySoundAt(__instance.Sounds.GetBreakSound(byPlayer), pos, 0.0, byPlayer);
             }
 
             bool toolUsed = false;
