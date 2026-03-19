@@ -18,44 +18,44 @@
     <None Remove="bin\**" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VINTAGE_STORY)\Lib\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony">
+      <HintPath>D:\VS modding\Lib\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="ACulinaryArtillery">
-      <HintPath>..\..\..\vshelper\dependencies\ACulinaryArtillery.dll</HintPath>
+      <HintPath>D:\VS modding\Lib\ACulinaryArtillery.dll</HintPath>
     </Reference>
     <Reference Include="cairo-sharp">
-      <HintPath>$(VINTAGE_STORY)\Lib\cairo-sharp.dll</HintPath>
+      <HintPath>D:\VS modding\Lib\cairo-sharp.dll</HintPath>
     </Reference>
     <Reference Include="Overhaullib">
-      <HintPath>..\..\..\vshelper\dependencies\Overhaullib.dll</HintPath>
+      <HintPath>D:\VS modding\Lib\Overhaullib.dll</HintPath>
     </Reference>
     <Reference Include="primitivesurvival">
-      <HintPath>..\..\..\vshelper\dependencies\primitivesurvival.dll</HintPath>
+      <HintPath>D:\VS modding\Lib\primitivesurvival.dll</HintPath>
     </Reference>
-    <Reference Include="protobuf-net, Version=2.1.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VINTAGE_STORY)\Lib\protobuf-net.dll</HintPath>
+    <Reference Include="protobuf-net">
+      <HintPath>D:\VS modding\Lib\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="VintagestoryAPI">
-      <HintPath>$(VINTAGE_STORY)\VintagestoryAPI.dll</HintPath>
+      <HintPath>D:\VS modding\Lib\VintagestoryAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VintagestoryLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VINTAGE_STORY)\VintagestoryLib.dll</HintPath>
+    <Reference Include="VintagestoryLib">
+      <HintPath>D:\VS modding\Lib\VintagestoryLib.dll</HintPath>
+    </Reference>
+    <Reference Include="VintagestoryServer">
+      <HintPath>D:\VS modding\Lib\VintagestoryServer.dll</HintPath>
     </Reference>
     <Reference Include="VSSurvivalMod">
-      <HintPath>$(VINTAGE_STORY)\Mods\VSSurvivalMod.dll</HintPath>
+      <HintPath>D:\VS modding\Lib\VSSurvivalMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSEssentials">
-      <HintPath>$(VINTAGE_STORY)\Mods\VSEssentials.dll</HintPath>
+      <HintPath>D:\VS modding\Lib\VSEssentials.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VSCreativeMod">
-      <HintPath>$(VINTAGE_STORY)\Mods\VSCreativeMod.dll</HintPath>
+      <HintPath>D:\VS modding\Lib\VSCreativeMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

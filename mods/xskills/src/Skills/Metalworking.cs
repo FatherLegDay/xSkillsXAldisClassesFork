@@ -142,7 +142,7 @@ namespace XSkills
                 "mastersmith",
                 "xskills:ability-mastersmith",
                 "xskills:abilitydesc-mastersmith",
-                7, 2, new int[] { 2, 3, 4, 4 }));
+                7, 3, new int[] { 2, 3, 4, 4, 6, 6 }));
 
             // sends a message to the player when smelting finished
             SenseOfTime = this.AddAbility(new Ability(
@@ -170,7 +170,7 @@ namespace XSkills
                 "automatedsmithing",
                 "xskills:ability-automatedsmithing",
                 "xskills:abilitydesc-automatedsmithing",
-                10, 1, new int[] { 1 }));
+                10, 2, new int[] { 1, 2 }));
 
             //behaviors
             api.RegisterEntityBehaviorClass("disassemblable", typeof(EntityBehaviorDisassemblable));

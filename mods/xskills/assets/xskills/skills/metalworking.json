@@ -2,14 +2,12 @@
   "classexpmult": {
     "commoner": 0.1,
     "clockmaker": 0.2,
-    "forager": -0.2,
     "hunter": -0.15,
     "malefactor": -0.15,
     "blackguard": 0.15,
     "miner": 0.15,
     "archer": -0.1,
     "vanguard": 0.1,
-    "gatherer": -0.2,
     "mercenary": 0.1
   },
   "metalrecovery": {
@@ -69,13 +67,63 @@
   },
   "mastersmith": {
     "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 1,
-        "skill": "metalworking",
-        "ability": "metalworker",
-        "requiredTier": 1
-      }
+        {
+            "code": "ability",
+            "minimumTier": 1,
+            "skill": "metalworking",
+            "ability": "metalworker",
+            "requiredTier": 1
+        },
+        {
+            "code": "ability",
+            "minimumTier": 2,
+            "skill": "metalworking",
+            "ability": "metalworker",
+            "requiredTier": 1
+        },
+        {
+            "code": "ability",
+            "minimumTier": 3,
+            "skill": "metalworking",
+            "ability": "metalworker",
+            "requiredTier": 1
+        },
+        {
+            "code": "class",
+            "minimumTier": 3,
+            "classes": [
+                "blacksmith",
+                "deepforger"
+            ]
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 3,
+            "skill": "farming",
+            "ability": "brightharvest",
+            "exclusiveTier": 3
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 3,
+            "skill": "farming",
+            "ability": "greenthumb",
+            "exclusiveTier": 4
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 3,
+            "skill": "farming",
+            "ability": "demetersbless",
+            "exclusiveTier": 4
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 3,
+            "skill": "metalworking",
+            "ability": "automatedsmithing",
+            "exclusiveTier": 2
+        }
     ]
   },
   "salvager": {
@@ -95,7 +143,8 @@
             "code": "class",
             "minimumTier": 1,
             "classes": [
-              "clockmaker"
+                "clockmaker",
+                "entropic"
             ]
           }
         ]
@@ -111,7 +160,8 @@
         "code": "class",
         "minimumTier": 2,
         "classes": [
-          "clockmaker"
+            "clockmaker",
+            "entropic"
         ]
       }
     ]
@@ -136,20 +186,70 @@
   },
   "automatedsmithing": {
     "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 1,
-        "skill": "metalworking",
-        "ability": "metalworker",
-        "requiredTier": 1
-      },
-      {
-        "code": "ability",
-        "minimumTier": 1,
-        "skill": "metalworking",
-        "ability": "machinelearning",
-        "requiredTier": 1
-      }
+        {
+            "code": "ability",
+            "minimumTier": 1,
+            "skill": "metalworking",
+            "ability": "metalworker",
+            "requiredTier": 1
+        },
+        {
+            "code": "ability",
+            "minimumTier": 1,
+            "skill": "metalworking",
+            "ability": "machinelearning",
+            "requiredTier": 1
+        },
+        {
+            "code": "ability",
+            "minimumTier": 2,
+            "skill": "metalworking",
+            "ability": "metalworker",
+            "requiredTier": 1
+        },
+        {
+            "code": "ability",
+            "minimumTier": 2,
+            "skill": "metalworking",
+            "ability": "machinelearning",
+            "requiredTier": 1
+        },
+        {
+            "code": "class",
+            "minimumTier": 2,
+            "classes": [
+                "blacksmith",
+                "deepforger"
+            ]
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "farming",
+            "ability": "brightharvest",
+            "exclusiveTier": 3
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "farming",
+            "ability": "greenthumb",
+            "exclusiveTier": 4
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "farming",
+            "ability": "demetersbless",
+            "exclusiveTier": 4
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "metalworking",
+            "ability": "mastersmith",
+            "exclusiveTier": 3
+        }
     ]
   }
 }

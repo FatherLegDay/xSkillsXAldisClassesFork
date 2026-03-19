@@ -6,10 +6,8 @@
     "clockmaker": 0.0,
     "blackguard": -0.15,
     "miner": -0.15,
-    "forager": 0.2,
     "archer": 0.1,
     "vanguard": -0.2,
-    "gatherer": 0.2,
     "mercenary": -0.1
   },
   "fastfood": {

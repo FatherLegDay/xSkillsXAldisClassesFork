@@ -71,7 +71,7 @@ namespace XSkills
                 "greenthumb",
                 "xskills:ability-greenthumb",
                 "xskills:abilitydesc-greenthumb",
-                1, 3, new int[] { 10, 2, 30, 20, 4, 60, 20, 4, 100 }));
+                1, 4, new int[] { 10, 2, 30, 20, 4, 60, 20, 4, 100, 25, 5, 150 }));
 
             // more seeds
             // 0: base value
@@ -81,7 +81,7 @@ namespace XSkills
                 "demetersbless",
                 "xskills:ability-demetersbless",
                 "xskills:abilitydesc-demetersbless",
-                1, 3, new int[] { 5, 1, 15, 10, 2, 30, 10, 2, 50 }));
+                1, 4, new int[] { 5, 1, 15, 10, 2, 30, 10, 2, 50, 15, 3, 90 }));
 
             // more berries and mushrooms and 
             // 0: base value
@@ -141,7 +141,7 @@ namespace XSkills
                 "brightharvest",
                 "xskills:ability-brightharvest",
                 "xskills:abilitydesc-brightharvest",
-                5, 2, new int[] { 40, 80 }));
+                5, 3, new int[] { 40, 80, 160 }));
 
             // chance to skip a growth stage, skips always in greenhouse
             // 0: base value
