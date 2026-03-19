@@ -124,7 +124,7 @@ namespace XSkills
                 "allrounder",
                 "xskills:ability-allrounder",
                 "xskills:abilitydesc-allrounder",
-                5, 1, new int[] { 1 }));
+                5, 4, new int[] { 1, 2, 3, 4 }));
 
             // increased health generation in the sunlight
             // 0: value

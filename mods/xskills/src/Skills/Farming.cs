@@ -151,7 +151,7 @@ namespace XSkills
                 "cultivatedseeds",
                 "xskills:ability-cultivatedseeds",
                 "xskills:abilitydesc-cultivatedseeds",
-                5, 2, new int[] { 10, 1, 30, 10, 2, 50 }));
+                5, 3, new int[] { 10, 1, 30, 10, 2, 50, 20, 2, 60 }));
 
             // more drops from skeps
             // 0: value
@@ -159,7 +159,7 @@ namespace XSkills
                 "beekeeper",
                 "xskills:ability-beekeeper",
                 "xskills:abilitydesc-beekeeper",
-                5, 3, new int[] { 1, 2, 3 }));
+                5, 4, new int[] { 1, 2, 3, 4 }));
 
             // can till land, irrigate and plant seeds in a greater area
             // 0: range

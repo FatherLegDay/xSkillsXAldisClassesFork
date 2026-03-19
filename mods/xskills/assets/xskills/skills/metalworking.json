@@ -120,6 +120,20 @@
         {
             "code": "exclusiveAbility",
             "minimumTier": 3,
+            "skill": "farming",
+            "ability": "cultivatedseeds",
+            "exclusiveTier": 3
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 3,
+            "skill": "farming",
+            "ability": "beekeeper",
+            "exclusiveTier": 4
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 3,
             "skill": "metalworking",
             "ability": "automatedsmithing",
             "exclusiveTier": 2
