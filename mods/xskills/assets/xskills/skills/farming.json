@@ -30,7 +30,9 @@
                 "code": "class",
                 "minimumTier": 4,
                 "classes": [
-                    "farmer"
+                    "farmer",
+                    "lumberjack",
+                    "timberborn"
                 ]
             },
             {
