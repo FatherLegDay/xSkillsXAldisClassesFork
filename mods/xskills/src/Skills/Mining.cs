@@ -158,7 +158,7 @@ namespace XSkills
                 "tunneldigger",
                 "xskills:ability-tunneldigger",
                 "xskills:abilitydesc-tunneldigger",
-                12, 1, new int[] { 50, 20 }));
+                12, 2, new int[] { 50, 20, 40, 10 }));
 
             //blocks are affected by abilities when they exploded
             BlasterId = this.AddAbility(new Ability(

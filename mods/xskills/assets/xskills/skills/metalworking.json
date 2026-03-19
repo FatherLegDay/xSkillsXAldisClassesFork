@@ -130,6 +130,13 @@
             "skill": "mining",
             "ability": "veinminer",
             "exclusiveTier": 2
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "mining",
+            "ability": "tunneldigger",
+            "exclusiveTier": 2
         }
     ]
   },
@@ -262,6 +269,13 @@
             "minimumTier": 2,
             "skill": "mining",
             "ability": "veinminer",
+            "exclusiveTier": 2
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "mining",
+            "ability": "tunneldigger",
             "exclusiveTier": 2
         }
     ]
