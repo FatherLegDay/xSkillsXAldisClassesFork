@@ -60,6 +60,13 @@
                 "skill": "metalworking",
                 "ability": "automatedsmithing",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "mining",
+                "ability": "veinminer",
+                "exclusiveTier": 2
             }
         ]
     },
@@ -112,6 +119,13 @@
                 "minimumTier": 4,
                 "skill": "metalworking",
                 "ability": "automatedsmithing",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "mining",
+                "ability": "veinminer",
                 "exclusiveTier": 2
             }
         ]
@@ -240,6 +254,13 @@
                 "minimumTier": 3,
                 "skill": "metalworking",
                 "ability": "automatedsmithing",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "mining",
+                "ability": "veinminer",
                 "exclusiveTier": 2
             }
         ]

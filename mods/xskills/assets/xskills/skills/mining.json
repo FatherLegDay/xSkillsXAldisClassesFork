@@ -184,24 +184,69 @@
   },
   "veinminer": {
     "requirements": [
-      {
-        "code": "or",
-        "minimumTier": 1,
-        "requirements": [
-          {
-            "code": "ability",
-            "skill": "mining",
-            "ability": "oreminer",
-            "requiredTier": 3
-          },
-          {
-            "code": "ability",
-            "skill": "mining",
-            "ability": "gemstoneminer",
-            "requiredTier": 3
-          }
-        ]
-      }
+        {
+            "code": "or",
+            "minimumTier": 1,
+            "requirements": [
+                {
+                    "code": "ability",
+                    "skill": "mining",
+                    "ability": "oreminer",
+                    "requiredTier": 3
+                },
+                {
+                    "code": "ability",
+                    "skill": "mining",
+                    "ability": "gemstoneminer",
+                    "requiredTier": 3
+                }
+            ]
+        },
+        {
+            "code": "class",
+            "minimumTier": 2,
+            "classes": [
+                "miner",
+                "deepforger",
+                "earthshaper",
+                "mason"
+            ]
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "farming",
+            "ability": "brightharvest",
+            "exclusiveTier": 3
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "farming",
+            "ability": "greenthumb",
+            "exclusiveTier": 4
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "farming",
+            "ability": "demetersbless",
+            "exclusiveTier": 4
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "metalworking",
+            "ability": "automatedsmithing",
+            "exclusiveTier": 2
+        }
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "metalworking",
+            "ability": "mastersmith",
+            "exclusiveTier": 3
+        }
     ]
   },
   "tunneldigger": {
