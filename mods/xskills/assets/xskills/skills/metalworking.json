@@ -99,6 +99,13 @@
         {
             "code": "exclusiveAbility",
             "minimumTier": 3,
+            "skill": "survival",
+            "ability": "allrounder",
+            "exclusiveTier": 4
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 3,
             "skill": "farming",
             "ability": "brightharvest",
             "exclusiveTier": 3
@@ -281,6 +288,13 @@
         {
             "code": "exclusiveAbility",
             "minimumTier": 2,
+            "skill": "survival",
+            "ability": "allrounder",
+            "exclusiveTier": 4
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
             "skill": "farming",
             "ability": "brightharvest",
             "exclusiveTier": 3
@@ -297,6 +311,20 @@
             "minimumTier": 2,
             "skill": "farming",
             "ability": "demetersbless",
+            "exclusiveTier": 4
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "farming",
+            "ability": "cultivatedseeds",
+            "exclusiveTier": 3
+        },
+        {
+            "code": "exclusiveAbility",
+            "minimumTier": 2,
+            "skill": "farming",
+            "ability": "beekeeper",
             "exclusiveTier": 4
         },
         {
