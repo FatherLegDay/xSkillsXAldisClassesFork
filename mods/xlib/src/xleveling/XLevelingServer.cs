@@ -250,7 +250,7 @@ namespace XLib.XLeveling
         private void LoadConfiguration()
         {
             //load general configuration
-            string path = Path.Combine("XLeveling", "xleveling.json");
+            string path = Path.Combine("XLevelingXAldisClasses", "xleveling.json");
             ICoreServerAPI api = XLeveling.Api as ICoreServerAPI;
             try
             {
@@ -259,7 +259,7 @@ namespace XLib.XLeveling
             }
             catch (Exception error)
             {
-                api.Server.LogError("[XLeveling] Error while loading: " + path);
+                api.Server.LogError("[XLevelingXAldisClasses] Error while loading: " + path);
                 api.Server.LogError(error.Message);
             }
 
@@ -274,7 +274,7 @@ namespace XLib.XLeveling
             foreach (Skill skill in this.XLeveling.SkillSetTemplate.Skills)
             {
                 SkillConfig skillConfig;
-                path = Path.Combine("XLeveling", skill.Name + ".json");
+                path = Path.Combine("XLevelingXAldisClasses", skill.Name + ".json");
                 try
                 {
                     this.XLeveling.Mod.Logger.Debug("Load: " + path);
@@ -283,7 +283,7 @@ namespace XLib.XLeveling
                 }
                 catch (Exception error)
                 {
-                    api.Server.LogError("[XLeveling] Error while loading: " + path);
+                    api.Server.LogError("[XLevelingXAldisClasses] Error while loading: " + path);
                     api.Server.LogError(error.Message);
                 }
 
@@ -328,7 +328,7 @@ namespace XLib.XLeveling
                 JsonSerializerSettings settings = new JsonSerializerSettings();
                 settings.Error = (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs err) => 
                 {
-                    XLeveling.Api.Logger.Log(EnumLogType.Error, "[XLeveling] Error while loading: " + fileName + ": \n" + err.ErrorContext.Error.Message);
+                    XLeveling.Api.Logger.Log(EnumLogType.Error, "[XLevelingXAldisClasses] Error while loading: " + fileName + ": \n" + err.ErrorContext.Error.Message);
                     err.ErrorContext.Handled = true;
                 };
 
@@ -336,7 +336,7 @@ namespace XLib.XLeveling
                 if (DiscPlayerSkillSets == null)
                 {
                     this.DiscPlayerSkillSets = new Dictionary<string, SavedPlayerSkillSet>();
-                    XLeveling.Api.Logger.Log(EnumLogType.Error, "[XLeveling] Error while loading: " + fileName + "\nThe file seems to be damaged.");
+                    XLeveling.Api.Logger.Log(EnumLogType.Error, "[XLevelingXAldisClasses] Error while loading: " + fileName + "\nThe file seems to be damaged.");
                     return -1;
                 }
                 foreach (PlayerSkillSet playerSkillSet in this.PlayerSkillSets.Values)
@@ -346,7 +346,7 @@ namespace XLib.XLeveling
             }
             catch (Exception error)
             {
-                XLeveling.Api.Logger.Log(EnumLogType.Error, "[XLeveling] Error while loading: " + fileName + ": \n" + error.Message);
+                XLeveling.Api.Logger.Log(EnumLogType.Error, "[XLevelingXAldisClasses] Error while loading: " + fileName + ": \n" + error.Message);
                 return -1;
             }
             return 1;
@@ -361,7 +361,7 @@ namespace XLib.XLeveling
             if (result > 0) return;
             if (result < 0) 
             {
-                XLeveling.Api.Logger.Warning("[XLeveling] Failed to load save file. Try to load backup.");
+                XLeveling.Api.Logger.Warning("[XLevelingXAldisClasses] Failed to load save file. Try to load backup.");
                 result = LoadFromFile(this.BackupSaveFileName);
             }
             if (result > 0) return;
@@ -1116,7 +1116,7 @@ namespace XLib.XLeveling
             }
 
             string fileName = arguments[1] as string;
-            string newFile = Path.Combine(GamePaths.Saves, "XLeveling", fileName + ".json");
+            string newFile = Path.Combine(GamePaths.Saves, "XLevelingXAldisClasses", fileName + ".json");
 
             if (cmd == "save")
             {

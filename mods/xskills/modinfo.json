@@ -8,7 +8,7 @@
   "dependencies": {
     "game": "1.21.0",
     "survival": "1.21.0",
-    "xlibxaldisclasses": "0.1.1",
+    "xlibxaldisclasses": "0.2.0",
     "xskillgildedxadlisclasses": "2.0.0",
     "aldiclasses": "*"
   }

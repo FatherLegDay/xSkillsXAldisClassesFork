@@ -99,7 +99,7 @@ namespace XLib.XLeveling
         private void LoadConfiguration()
         {
             //load general configuration
-            string path = Path.Combine("XLeveling", "xleveling.json");
+            string path = Path.Combine("XLevelingXAldisClasses", "xleveling.json");
             ICoreClientAPI api = XLeveling.Api as ICoreClientAPI;
             try
             {
@@ -146,7 +146,7 @@ namespace XLib.XLeveling
             Skill skill = this.LocalPlayerSkillSet[skillConfig.id]?.Skill;
             if(skill == null || skill.Name != skillConfig.name)
             {
-                XLeveling.Api.Logger.Error("XLeveling: " + "The configuration of the server is not compatible with your Version!");
+                XLeveling.Api.Logger.Error("XLevelingXAldisClasses: " + "The configuration of the server is not compatible with your Version!");
                 return;
             }
             skill.FromConfig(skillConfig);
