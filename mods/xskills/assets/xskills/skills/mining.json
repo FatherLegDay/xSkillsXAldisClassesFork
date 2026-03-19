@@ -59,13 +59,6 @@
                 "code": "exclusiveAbility",
                 "minimumTier": 4,
                 "skill": "farming",
-                "ability": "brightharvest",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "farming",
                 "ability": "greenthumb",
                 "exclusiveTier": 4
             },
@@ -75,6 +68,13 @@
                 "skill": "farming",
                 "ability": "demetersbless",
                 "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "farming",
+                "ability": "brightharvest",
+                "exclusiveTier": 3
             },
             {
                 "code": "exclusiveAbility",
@@ -190,13 +190,6 @@
                 "code": "exclusiveAbility",
                 "minimumTier": 4,
                 "skill": "farming",
-                "ability": "brightharvest",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "farming",
                 "ability": "greenthumb",
                 "exclusiveTier": 4
             },
@@ -206,6 +199,13 @@
                 "skill": "farming",
                 "ability": "demetersbless",
                 "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "farming",
+                "ability": "brightharvest",
+                "exclusiveTier": 3
             },
             {
                 "code": "exclusiveAbility",
@@ -321,13 +321,6 @@
                 "code": "exclusiveAbility",
                 "minimumTier": 4,
                 "skill": "farming",
-                "ability": "brightharvest",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "farming",
                 "ability": "greenthumb",
                 "exclusiveTier": 4
             },
@@ -337,6 +330,13 @@
                 "skill": "farming",
                 "ability": "demetersbless",
                 "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "farming",
+                "ability": "brightharvest",
+                "exclusiveTier": 3
             },
             {
                 "code": "exclusiveAbility",
@@ -452,13 +452,6 @@
                 "code": "exclusiveAbility",
                 "minimumTier": 4,
                 "skill": "farming",
-                "ability": "brightharvest",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "farming",
                 "ability": "greenthumb",
                 "exclusiveTier": 4
             },
@@ -468,6 +461,13 @@
                 "skill": "farming",
                 "ability": "demetersbless",
                 "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "farming",
+                "ability": "brightharvest",
+                "exclusiveTier": 3
             },
             {
                 "code": "exclusiveAbility",
@@ -617,13 +617,6 @@
                 "code": "exclusiveAbility",
                 "minimumTier": 2,
                 "skill": "farming",
-                "ability": "brightharvest",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 2,
-                "skill": "farming",
                 "ability": "greenthumb",
                 "exclusiveTier": 4
             },
@@ -633,6 +626,13 @@
                 "skill": "farming",
                 "ability": "demetersbless",
                 "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "farming",
+                "ability": "brightharvest",
+                "exclusiveTier": 3
             },
             {
                 "code": "exclusiveAbility",
@@ -730,13 +730,6 @@
                 "code": "exclusiveAbility",
                 "minimumTier": 2,
                 "skill": "farming",
-                "ability": "brightharvest",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 2,
-                "skill": "farming",
                 "ability": "greenthumb",
                 "exclusiveTier": 4
             },
@@ -746,6 +739,13 @@
                 "skill": "farming",
                 "ability": "demetersbless",
                 "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "farming",
+                "ability": "brightharvest",
+                "exclusiveTier": 3
             },
             {
                 "code": "exclusiveAbility",
