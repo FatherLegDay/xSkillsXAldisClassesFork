@@ -18,6 +18,9 @@
     <None Remove="bin\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="assets\xskills\skills\farming.json~RF1c0d2104.TMP" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>D:\VS modding\Lib\0Harmony.dll</HintPath>
     </Reference>

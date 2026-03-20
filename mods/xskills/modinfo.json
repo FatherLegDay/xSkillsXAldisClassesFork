@@ -4,7 +4,7 @@
   "name": "xSkills X Aldis Classes [Fork]",
   "authors": [ "Xandu, FatherLegDay" ],
   "description": "Adds higher skill levels for certain classes in Aldis Classes.",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "dependencies": {
     "game": "1.21.0",
     "survival": "1.21.0",
