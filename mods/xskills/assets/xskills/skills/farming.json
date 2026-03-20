@@ -51,6 +51,13 @@
                 "code": "exclusiveAbility",
                 "minimumTier": 4,
                 "skill": "farming",
+                "ability": "orchardist",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "farming",
                 "ability": "brightharvest",
                 "exclusiveTier": 3
             },
@@ -167,6 +174,13 @@
                 "code": "exclusiveAbility",
                 "minimumTier": 4,
                 "skill": "farming",
+                "ability": "orchardist",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "farming",
                 "ability": "brightharvest",
                 "exclusiveTier": 3
             },
@@ -249,6 +263,112 @@
                 "minimumTier": 2,
                 "skill": "farming",
                 "requiredLevel": 8
+            },
+            {
+                "code": "class",
+                "minimumTier": 3,
+                "classes": [
+                    "innkeeper",
+                    "druid"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "survival",
+                "ability": "allrounder",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "farming",
+                "ability": "greenthumb",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "farming",
+                "ability": "demetersbless",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "farming",
+                "ability": "brightharvest",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "farming",
+                "ability": "cultivatedseeds",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "farming",
+                "ability": "beekeeper",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "metalworking",
+                "ability": "automatedsmithing",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "metalworking",
+                "ability": "mastersmith",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "mining",
+                "ability": "stonebreaker",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "mining",
+                "ability": "stonecutter",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "mining",
+                "ability": "oreminer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "mining",
+                "ability": "gemstoneminer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "mining",
+                "ability": "tunneldigger",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "mining",
+                "ability": "veinminer",
+                "exclusiveTier": 2
             }
         ]
     },
@@ -362,6 +482,13 @@
                 "skill": "farming",
                 "ability": "demetersbless",
                 "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "farming",
+                "ability": "orchardist",
+                "exclusiveTier": 3
             },
             {
                 "code": "exclusiveAbility",
@@ -484,6 +611,13 @@
                 "code": "exclusiveAbility",
                 "minimumTier": 3,
                 "skill": "farming",
+                "ability": "orchardist",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "farming",
                 "ability": "brightharvest",
                 "exclusiveTier": 3
             },
@@ -589,6 +723,13 @@
                 "skill": "farming",
                 "ability": "demetersbless",
                 "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "farming",
+                "ability": "orchardist",
+                "exclusiveTier": 3
             },
             {
                 "code": "exclusiveAbility",

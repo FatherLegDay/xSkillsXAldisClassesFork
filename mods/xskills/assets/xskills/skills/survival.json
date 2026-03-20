@@ -132,6 +132,13 @@
                 "code": "exclusiveAbility",
                 "minimumTier": 4,
                 "skill": "farming",
+                "ability": "orchardist",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "farming",
                 "ability": "cultivatedseeds",
                 "exclusiveTier": 3
             },

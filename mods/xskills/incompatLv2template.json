@@ -24,6 +24,13 @@
         "code": "exclusiveAbility",
         "minimumTier": 2,
         "skill": "farming",
+        "ability": "orchardist",
+        "exclusiveTier": 3
+    },
+    {
+        "code": "exclusiveAbility",
+        "minimumTier": 2,
+        "skill": "farming",
         "ability": "brightharvest",
         "exclusiveTier": 3
     },
@@ -87,14 +94,14 @@
         "code": "exclusiveAbility",
         "minimumTier": 2,
         "skill": "mining",
-        "ability": "tunneldigger",
+        "ability": "veinminer",
         "exclusiveTier": 2
-    },
+    }
     {
         "code": "exclusiveAbility",
         "minimumTier": 2,
         "skill": "mining",
-        "ability": "veinminer",
+        "ability": "tunneldigger",
         "exclusiveTier": 2
     }
 }

@@ -101,7 +101,7 @@ namespace XSkills
                 "orchardist",
                 "xskills:ability-orchardist",
                 "xskills:abilitydesc-orchardist",
-                3, 2, new int[] { 10, 2, 30, 20, 4, 60 }));
+                3, 3, new int[] { 10, 2, 30, 20, 4, 60, 30, 4, 90 }));
 
             //harvesting non-matured crops drops always the seeds
             RepottingId = this.AddAbility(new Ability(
