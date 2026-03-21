@@ -3236,6 +3236,10 @@
         <member name="F:XLib.XLeveling.Config.skillBookUnlearnPoints">
             <summary>
             Global fallback number of unlearn points a skillbook gives (if the item doesn't specify `unlearnPoints`).
+        <member name="F:XLib.XLeveling.Config.configVersion">
+            <summary>
+            The configuration version used for migrations and compatibility checks.
+            Increment this value when changing the config layout.
             </summary>
         </member>
         <member name="M:XLib.XLeveling.Config.#ctor">
@@ -6925,6 +6929,15 @@
             <exception cref="T:System.Exception">Is thrown if this function was called on the wrong side.</exception>
         </member>
         <member name="M:XLib.XLeveling.XLevelingServer.LoadConfiguration">
+            <summary>
+            Loads the configuration.
+            </summary>
+            <summary>
+            Loads the configuration.
+            </summary>
+            <summary>
+            Loads the configuration.
+            </summary>
             <summary>
             Loads the configuration.
             </summary>
