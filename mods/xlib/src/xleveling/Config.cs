@@ -82,6 +82,14 @@ namespace XLib.XLeveling
         /// </summary>
         public bool trackExpGain;
 
+        // --- ДОБАВЛЯЕМ ВЕРСИЮ КОНФИГА ---
+        /// <summary>
+        /// The configuration version used for migrations and compatibility checks.
+        /// Increment this value when changing the config layout.
+        /// </summary>
+        [ProtoMember(10)]
+        [DefaultValue(1)]
+        public int configVersion;
         /// <summary>
         /// If true, skip checking for lit firepits / campfire to qualify as "resting".
         /// When enabled, the well-rested ability will not require a nearby fire.
