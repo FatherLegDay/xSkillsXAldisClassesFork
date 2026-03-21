@@ -247,15 +247,34 @@ namespace XLib.XLeveling
         /// <summary>
         /// Loads the configuration.
         /// </summary>
+        /// <summary>
+        /// Loads the configuration.
+        /// </summary>
         private void LoadConfiguration()
         {
+            // =========================================================================
+            // ВАЖНАЯ НАСТРОЙКА: Установить TRUE перед компиляцией, если нужно 
+            // принудительно обновить/сбросить все конфиги (xleveling.json и все навыки) 
+            // у игроков до твоих новых стандартных значений.
+            // =========================================================================
+            bool forceConfigReset = true;
+
             //load general configuration
             string path = Path.Combine("XLevelingXAldisClasses", "xleveling.json");
             ICoreServerAPI api = XLeveling.Api as ICoreServerAPI;
             try
             {
                 this.XLeveling.Mod.Logger.Debug("Load: " + path);
-                this.Config = api.LoadModConfig<Config>(path) ?? this.Config;
+
+                if (forceConfigReset)
+                {
+                    this.Config = new Config(); // Принудительно берем чистый конфиг из кода
+                    api.Server.LogNotification("[XLeveling] FORCED RESET: xleveling.json updated to defaults.");
+                }
+                else
+                {
+                    this.Config = api.LoadModConfig<Config>(path) ?? new Config();
+                }
             }
             catch (Exception error)
             {
@@ -278,8 +297,18 @@ namespace XLib.XLeveling
                 try
                 {
                     this.XLeveling.Mod.Logger.Debug("Load: " + path);
-                    skillConfig = api.LoadModConfig<SkillConfig>(path);
-                    if (skillConfig != null) skill.FromConfig(skillConfig);
+
+                    if (forceConfigReset)
+                    {
+                        api.Server.LogNotification($"[XLeveling] FORCED RESET: {skill.Name}.json updated to defaults.");
+                    }
+                    else
+                    {
+                        SkillConfig loaded = api.LoadModConfig<SkillConfig>(path);
+                        if (loaded != null) skillConfig = loaded;
+                    }
+
+                    skill.FromConfig(skillConfig);
                 }
                 catch (Exception error)
                 {
@@ -288,7 +317,7 @@ namespace XLib.XLeveling
                 }
 
                 this.XLeveling.Mod.Logger.Debug("Save: " + path);
-                skillConfig = new SkillConfig(skill);
+                // Сохраняем новые (или загруженные) значения обратно в файл
                 api.StoreModConfig(skillConfig, path);
             }
 
