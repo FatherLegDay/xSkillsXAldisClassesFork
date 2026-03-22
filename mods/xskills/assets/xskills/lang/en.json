@@ -232,7 +232,7 @@
   "ability-heavyarmorexpert": "Heavy Armor Expert",
   "abilitydesc-heavyarmorexpert": "Decreases some trait values you receive from your armor by {0}%. But also increases some trait values by {1}%.\nDecreases traits: {2}\nIncreases traits: {3}",
   "ability-lightarmorexpert": "Light Armor Expert",
-  "abilitydesc-lightarmorexpert": "As long as you don't wear armor that reduces your walkspeed the following trait values are increased by {0}%: {1}",
+  "abilitydesc-lightarmorexpert": "As long as you don't wear armor that reduces your walkspeed the following trait values are increased by {0}%: {1}"
   "ability-armoredagility": "Armored Agility",
   "abilitydesc-armoredagility": "Reduces walkspeed penalties you receive for wearing armor by {0}%.",
   "ability-warrior": "Warrior",
@@ -250,7 +250,7 @@
   "ability-vampire": "Vampire",
   "abilitydesc-vampire": "Every time you hit an enemy you will receive {0}% of the dealt damage as healing. But your health regeneration in the sunlight is reduced by up to {1}%.",
   "ability-drunkenmaster": "Drunken Master",
-  "abilitydesc-drunkenmaster": "Increases the damage you deal with your bare hands by up to {0}% depending on how drunk you are, but decreases your damage by {1}% if you are sober.",
+  "abilitydesc-drunkenmaster": "Increases your melee damage by up to {0}% depending on how intoxicated you are, and reduces melee damage by {1}% when you are sober.",
   "ability-burningrage": "Burning Rage",
   "abilitydesc-burningrage": "Every time you hit an enemy you have a chance of {0}% to ignite it.",
   "ability-bloodlust": "Bloodlust",

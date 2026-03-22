@@ -228,7 +228,7 @@ namespace XSkills
                 "drunkenmaster",
                 "xskills:ability-drunkenmaster",
                 "xskills:abilitydesc-drunkenmaster",
-                8, 1, new int[] { 50, 50 }));
+                8, 2, new int[] { 50, 50, 80, 30 }));
 
             // chance to ignite an enemy
             // 0: chance

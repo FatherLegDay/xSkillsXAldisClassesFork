@@ -304,6 +304,25 @@ namespace XSkills
             //burning rage
             playerAbility = playerSkill[combat.BurningRageId];
             if (playerAbility.FValue(0) > byPlayer.World.Rand.NextDouble()) this.entity.Ignite();
+            // Drunken master: apply only to melee damage as a percentage modifier
+            if (melee)
+            {
+                PlayerAbility drunkenMasterAbility = playerSkill[combat.DrunkenMasterId];
+                if (drunkenMasterAbility != null && drunkenMasterAbility.Tier > 0)
+                {
+                    float intoxication = byPlayer.WatchedAttributes.GetFloat("intoxication");
+                    if (intoxication > 0.0f)
+                    {
+                        // Increase damage by up to FValue(0) percent depending on intoxication
+                        damage *= 1.0f + drunkenMasterAbility.FValue(0) * Math.Min(intoxication, 1.0f);
+                    }
+                    else
+                    {
+                        // Decrease damage by FValue(1) percent when sober (clamped to >= 0)
+                        damage *= Math.Max(0.0f, 1.0f - drunkenMasterAbility.FValue(1));
+                    }
+                }
+            }
             return damage;
         }
 

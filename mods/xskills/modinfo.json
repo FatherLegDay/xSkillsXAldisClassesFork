@@ -1,15 +1,16 @@
 {
   "type": "code",
   "modid": "xskillsxaldisclasses",
-  "name": "xSkills X Aldis Classes [Fork]",
+  "name": "xSkills X Aldi's Classes",
   "authors": [ "Xandu, FatherLegDay" ],
-  "description": "Adds higher skill levels for certain classes in Aldis Classes.",
-  "version": "0.3.3",
+  "description": "Adds higher skill levels for certain classes in Aldi's Classes.",
+  "version": "0.4.0",
   "dependencies": {
     "game": "1.21.0",
     "survival": "1.21.0",
     "xlibxaldisclasses": "0.2.0",
-    "xskillgildedxadlisclasses": "2.0.0",
-    "aldiclasses": "*"
+    "xskillgildedxadlisclasses": "2.1.0",
+    "aldiclasses": "*",
+    "vsimgui": "*"
   }
 }

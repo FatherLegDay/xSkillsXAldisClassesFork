@@ -204,6 +204,13 @@
                 "skill": "mining",
                 "ability": "veinminer",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "combat",
+                "ability": "drunkenmaster",
+                "exclusiveTier": 1
             }
         ]
     },
