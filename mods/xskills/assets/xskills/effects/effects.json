@@ -31,4 +31,14 @@
       }
     }
   }
+  ,
+  "bleed": {
+    "code": "dot",
+    "defaults": {
+      "intensity": 1.0,
+      "duration": 1.0,
+      "maxstacks": 1,
+      "interval": 1.0
+    }
+  }
 }

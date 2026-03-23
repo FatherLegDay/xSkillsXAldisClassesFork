@@ -232,7 +232,7 @@
   "ability-heavyarmorexpert": "Heavy Armor Expert",
   "abilitydesc-heavyarmorexpert": "Decreases some trait values you receive from your armor by {0}%. But also increases some trait values by {1}%.\nDecreases traits: {2}\nIncreases traits: {3}",
   "ability-lightarmorexpert": "Light Armor Expert",
-  "abilitydesc-lightarmorexpert": "As long as you don't wear armor that reduces your walkspeed the following trait values are increased by {0}%: {1}"
+  "abilitydesc-lightarmorexpert": "As long as you don't wear armor that reduces your walkspeed the following trait values are increased by {0}%: {1}",
   "ability-armoredagility": "Armored Agility",
   "abilitydesc-armoredagility": "Reduces walkspeed penalties you receive for wearing armor by {0}%.",
   "ability-warrior": "Warrior",
@@ -257,6 +257,8 @@
   "abilitydesc-bloodlust": "Every time you kill an enemy you will get one stack of the bloodlust effect. It increases your caused damage by {0}% per stack and your received damage by {1}% per stack. This effect can stack up to {3} times and lasts {2} seconds.",
   "ability-monsterexpert": "Monster Expert",
   "abilitydesc-monsterexpert": "You will receive some additional information about the enemies you encounter.",
+  "ability-bleed": "Serrated Edge",
+  "abilitydesc-bleed": "Applies a bleeding effect on melee hits that deals {0}% of the base damage per tick for {1} seconds with a {2}% chance.(Scales with melee bonus abilities)",
 
   "ability-temporalstable": "Temporal Stable",
   "abilitydesc-temporalstable": "Reduces the overall loss of temporal stability by {0}% and additional {1}% for each level at the temporal adaptation skill. Maxed out at {2}%.",

@@ -407,141 +407,165 @@
                     "innkeeper"
                 ]
             },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "survival",
-                    "ability": "allrounder",
-                    "exclusiveTier": 4
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "farming",
-                    "ability": "greenthumb",
-                    "exclusiveTier": 4
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "farming",
-                    "ability": "demetersbless",
-                    "exclusiveTier": 4
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "farming",
-                    "ability": "orchardist",
-                    "exclusiveTier": 3
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "farming",
-                    "ability": "brightharvest",
-                    "exclusiveTier": 3
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "farming",
-                    "ability": "cultivatedseeds",
-                    "exclusiveTier": 3
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "farming",
-                    "ability": "beekeeper",
-                    "exclusiveTier": 4
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "metalworking",
-                    "ability": "automatedsmithing",
-                    "exclusiveTier": 2
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "metalworking",
-                    "ability": "mastersmith",
-                    "exclusiveTier": 3
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "mining",
-                    "ability": "stonebreaker",
-                    "exclusiveTier": 4
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "mining",
-                    "ability": "stonecutter",
-                    "exclusiveTier": 4
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "mining",
-                    "ability": "oreminer",
-                    "exclusiveTier": 4
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "mining",
-                    "ability": "gemstoneminer",
-                    "exclusiveTier": 4
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "mining",
-                    "ability": "veinminer",
-                    "exclusiveTier": 2
-                },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "mining",
-                    "ability": "tunneldigger",
-                    "exclusiveTier": 2
-                }
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "survival",
+                "ability": "allrounder",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "farming",
+                "ability": "greenthumb",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "farming",
+                "ability": "demetersbless",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "farming",
+                "ability": "orchardist",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "farming",
+                "ability": "brightharvest",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "farming",
+                "ability": "cultivatedseeds",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "farming",
+                "ability": "beekeeper",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "automatedsmithing",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "mastersmith",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "mining",
+                "ability": "stonebreaker",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "mining",
+                "ability": "stonecutter",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "mining",
+                "ability": "oreminer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "mining",
+                "ability": "gemstoneminer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "mining",
+                "ability": "veinminer",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "mining",
+                "ability": "tunneldigger",
+                "exclusiveTier": 2
+            }
         ]
     },
-        "bloodlust": {
-            "requirements": [
-                {
-                    "code": "ability",
-                    "minimumTier": 1,
-                    "skill": "combat",
-                    "ability": "warrior",
-                    "requiredTier": 1
-                },
-                {
-                    "code": "class",
-                    "minimumTier": 1,
-                    "classes": [
-                        "malefactor",
-                        "blackguard"
-                    ]
-                }
-            ]
-        },
-        "monsterexpert": {
-            "requirements": [
-                {
-                    "code": "knowledge",
-                    "minimumTier": 1,
-                    "hideUntilFulfilled": true,
-                    "name": "xskills:monster",
-                    "level": 1
-                }
-            ]
-        }
+    "bloodlust": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 1,
+                "skill": "combat",
+                "ability": "warrior",
+                "requiredTier": 1
+            },
+            {
+                "code": "class",
+                "minimumTier": 1,
+                "classes": [
+                    "malefactor",
+                    "blackguard"
+                ]
+            }
+        ]
+    },
+    "monsterexpert": {
+        "requirements": [
+            {
+                "code": "knowledge",
+                "minimumTier": 1,
+                "hideUntilFulfilled": true,
+                "name": "xskills:monster",
+                "level": 1
+            }
+        ]
+    },
+    "bleed": {
+        "requirements": [
+            {
+                "code": "or",
+                "minimumTier": 1,
+                "requirements": [
+                    {
+                        "code": "ability",
+                        "minimumTier": 1,
+                        "skill": "combat",
+                        "ability": "swordsman",
+                        "requiredTier": 1
+                    },
+                    {
+                        "code": "ability",
+                        "minimumTier": 1,
+                        "skill": "combat",
+                        "ability": "spearman",
+                        "requiredTier": 1
+                    }
+                ]
+            }
+        ]
+    }
 }

@@ -161,6 +161,9 @@ namespace XSkills
                 (dmgSource.SourceEntity as EntityThrownStone)?.FiredBy as EntityPlayer;
             if (this.combat == null || byPlayer == null) return damage;
 
+            // capture raw incoming damage before ability multipliers for effects like bleed
+            float baseDamage = damage;
+
             PlayerSkillSet playerSkillSet = byPlayer.GetBehavior<PlayerSkillSet>();
             PlayerSkill playerSkill = playerSkillSet?[this.combat.Id];
             if (playerSkill == null) return damage;
@@ -323,6 +326,14 @@ namespace XSkills
                     }
                 }
             }
+            // attempt to apply bleed / other combat skill effects that live on the Combat skill
+            try
+            {
+                // pass the modified damage (after ability multipliers) so bleed scales with melee bonuses
+                this.combat?.OnDamage(this.entity, damage, dmgSource, melee);
+            }
+            catch { }
+
             return damage;
         }
 
