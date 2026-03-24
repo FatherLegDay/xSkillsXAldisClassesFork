@@ -99,13 +99,41 @@ namespace XSkills
         /// <returns></returns>
         [HarmonyPostfix]
         [HarmonyPatch("DropLoot")]
-        public static void DropLootPostfix(List<float> __state, BlockDropItemStack[] drops)
+        public static void DropLootPostfix(List<float> __state, IPlayer byPlayer, BlockDropItemStack[] drops)
         {
             int counter = 0;
             foreach (float value in __state)
             {
                 drops[counter].Quantity.avg = value;
                 counter++;
+            }
+
+            // award XP for butchering/processing
+            if (byPlayer == null || drops == null || drops.Length == 0) return;
+
+            Husbandry husbandry = XLeveling.Instance(byPlayer.Entity.Api)?.GetSkill("husbandry") as Husbandry;
+            if (husbandry == null) return;
+
+            PlayerSkill playerSkill = byPlayer?.Entity.GetBehavior<PlayerSkillSet>()?[husbandry.Id];
+            if (playerSkill == null) return;
+
+            float xpAmount = 0.0f;
+            foreach (BlockDropItemStack drop in drops)
+            {
+                float qty = drop.Quantity?.avg ?? 0f;
+                if (qty <= 0f) continue;
+
+                // simple heuristic: meat gives more XP, hides moderate, bones/feathers/fat less
+                string first = drop.Code.FirstCodePart();
+                string path = drop.Code.Path;
+                if (first == "hide") xpAmount += qty * 1.0f;
+                else if (path.Contains("meat")) xpAmount += qty * 2.0f;
+                else if (first == "fat" || path.Contains("bone") || first == "feather") xpAmount += qty * 0.5f;
+            }
+
+            if (xpAmount > 0.0f)
+            {
+                playerSkill.AddExperience(xpAmount);
             }
         }
 
