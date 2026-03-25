@@ -199,6 +199,7 @@ namespace XSkills
             api.RegisterBlockBehaviorClass("XSkillsMushroom", typeof(XSkillsMushroomBehavior));
             api.RegisterBlockBehaviorClass("XSkillsSkep", typeof(XSkillsSkepBehavior));
             api.RegisterBlockBehaviorClass("XSkillsBerryBush", typeof(XSkillsBerryBushBehavior));
+            api.RegisterBlockBehaviorClass("XSkillsNaturalFertiliser", typeof(XSkillsNaturalFertiliser));
 
             this.ExperienceEquation = QuadraticEquation;
             this.ExpBase = 200;
@@ -830,4 +831,5 @@ namespace XSkills
             }
         }
     }//!class XSkillsSkepBehavior
+
 }//!namespace XSkills

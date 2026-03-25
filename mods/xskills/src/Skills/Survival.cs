@@ -71,13 +71,14 @@ namespace XSkills
                 1, 3, new int[] { 500, 1000, 1500 }));
 
             // more experience
-            // 0: value
-            // 1: duration
+            // 0: value (intensity)
+            // 1: duration (seconds)
+            // 2: required rest time (seconds)  <-- NEW: configurable rest threshold per tier
             WellRestedId = this.AddAbility(new Ability(
                 "wellrested",
                 "xskills:ability-wellrested",
                 "xskills:abilitydesc-wellrested",
-                1, 2, new int[] { 6, 480, 12, 600}));
+                1, 2, new int[] { 6, 480, 120, 12, 600, 90}));
 
             // boni for not wearing clothes
             // 0: walkspeed boni, 1: walkspeed mali

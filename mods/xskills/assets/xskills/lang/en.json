@@ -36,7 +36,7 @@
   "ability-hugestomach": "Huge Stomach",
   "abilitydesc-hugestomach": "Increases your maximum saturation by {0}.",
   "ability-wellrested": "Well Rested",
-  "abilitydesc-wellrested": "Increases your experience gain for every skill up to {0}% for {1} seconds depending on how rested you are after sleeping.",
+  "abilitydesc-wellrested": "Increases your experience gain for every skill up to {0}% for {1} seconds if you rest for {2} seconds at a lit firepit.",
   "ability-nudist": "Nudist",
   "abilitydesc-nudist": "Clothing is a burden. Increases your movement speed up to {0}%, your health up to {2} points, your temperature resistance up to {6} points and decreases your hunger rate up to {4}%. Every piece of cloth you wear reduces these effects and can lead into disadvantages.",
   "ability-meatshield": "Meat Shield",
