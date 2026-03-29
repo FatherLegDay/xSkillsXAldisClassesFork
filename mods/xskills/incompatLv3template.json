@@ -109,6 +109,34 @@
         "minimumTier": 3,
         "skill": "combat",
         "ability": "drunkenmaster",
-        "exclusiveTier": 1
+        "exclusiveTier": 2
+    },
+    {
+        "code": "exclusiveAbility",
+        "minimumTier": 3,
+        "skill": "cooking",
+        "ability": "juicer",
+        "exclusiveTier": 3
+    },
+    {
+        "code": "exclusiveAbility",
+        "minimumTier": 3,
+        "skill": "cooking",
+        "ability": "fastfood",
+        "exclusiveTier": 4
+    },
+    {
+        "code": "exclusiveAbility",
+        "minimumTier": 3,
+        "skill": "cooking",
+        "ability": "welldone",
+        "exclusiveTier": 4
+    },
+    {
+        "code": "exclusiveAbility",
+        "minimumTier": 3,
+        "skill": "cooking",
+        "ability": "gourmet",
+        "exclusiveTier": 3
     }
 ]

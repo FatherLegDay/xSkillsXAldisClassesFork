@@ -145,6 +145,41 @@
                 "skill": "mining",
                 "ability": "veinminer",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "combat",
+                "ability": "drunkenmaster",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "juicer",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "fastfood",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "welldone",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "gourmet",
+                "exclusiveTier": 3
             }
         ]
     },
@@ -283,6 +318,41 @@
                 "skill": "mining",
                 "ability": "veinminer",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "combat",
+                "ability": "drunkenmaster",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "juicer",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "fastfood",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "welldone",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "gourmet",
+                "exclusiveTier": 3
             }
         ]
     },
@@ -421,6 +491,41 @@
                 "skill": "mining",
                 "ability": "veinminer",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "combat",
+                "ability": "drunkenmaster",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "juicer",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "fastfood",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "welldone",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "gourmet",
+                "exclusiveTier": 3
             }
         ]
     },
@@ -559,6 +664,41 @@
                 "skill": "mining",
                 "ability": "veinminer",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "combat",
+                "ability": "drunkenmaster",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "juicer",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "fastfood",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "welldone",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "gourmet",
+                "exclusiveTier": 3
             }
         ]
     },
@@ -731,6 +871,41 @@
                 "skill": "mining",
                 "ability": "tunneldigger",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "combat",
+                "ability": "drunkenmaster",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "juicer",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "fastfood",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "welldone",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "gourmet",
+                "exclusiveTier": 3
             }
         ]
     },
@@ -851,6 +1026,41 @@
                 "skill": "mining",
                 "ability": "veinminer",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "combat",
+                "ability": "drunkenmaster",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "juicer",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "fastfood",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "welldone",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "gourmet",
+                "exclusiveTier": 3
             }
         ]
     },

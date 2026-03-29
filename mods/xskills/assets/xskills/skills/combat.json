@@ -511,6 +511,34 @@
                 "skill": "mining",
                 "ability": "tunneldigger",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "juicer",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "fastfood",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "welldone",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "gourmet",
+                "exclusiveTier": 3
             }
         ]
     },

@@ -61,7 +61,7 @@ namespace XSkills
                 "fastfood",
                 "xskills:ability-fastfood",
                 "xskills:abilitydesc-fastfood",
-                1, 3, new int[] { 10, 1, 20, 20, 2, 40, 20, 2, 60 }));
+                1, 4, new int[] { 10, 1, 20, 20, 2, 40, 20, 2, 60, 25, 3, 100 }));
 
             //increases the shelf life of your cooked servings
             // 0: base value
@@ -72,7 +72,7 @@ namespace XSkills
                 "welldone",
                 "xskills:ability-welldone",
                 "xskills:abilitydesc-welldone",
-                1, 3, new int[] { 5, 1, 15, 20, 10, 2, 30, 20, 10, 2, 50, 20 }));
+                1, 4, new int[] { 5, 1, 15, 20, 10, 2, 30, 20, 10, 2, 50, 20, 10, 3, 75, 30 }));
 
             //increases the number of servings you gain when cooking
             // 0: base value
@@ -134,7 +134,7 @@ namespace XSkills
                 "juicer",
                 "xskills:ability-juicer",
                 "xskills:abilitydesc-juicer",
-                6, 2, new int[] { 33, 60 }));
+                6, 3, new int[] { 33, 60, 100 }));
 
             // sends a message to the player when cooking a meal was finished
             EggTimerId = this.AddAbility(new Ability(
