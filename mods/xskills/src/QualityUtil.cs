@@ -92,6 +92,84 @@ namespace XSkills
         }
 
         /// <summary>
+        /// Returns the mining-speed multiplier for a given quality.
+        /// Piecewise: 0-5, 5-10, 10-15 use different slopes/curves so each range
+        /// can be tuned independently.
+        /// </summary>
+        /// <param name="quality">The quality value.</param>
+        /// <returns>Multiplier to apply to mining speed (e.g., 1.0 = no change).</returns>
+        public static float GetMiningSpeedMultiplier(float quality)
+        {
+            if (quality <= 0.0f) return 1.0f;
+
+            // Range 0 - 5: gentle scaling (e.g. 1% per quality)
+            if (quality <= 5.0f)
+            {
+                return 1.0f + quality * 0.01f;
+            }
+
+            // Range 5 - 10: stronger scaling (base from first range + 3% per point above 5)
+            if (quality <= 10.0f)
+            {
+                float baseAt5 = 1.0f + 5.0f * 0.01f; // = 1.05
+                return baseAt5 + (quality - 5.0f) * 0.03f;
+            }
+
+            // Range 10 - 15: strongest scaling (base from second range + 5% per point above 10)
+            // Note: clamp at 15 if you want a hard cap - currently this continues past 15 with the same formula.
+            float baseAt10 = 1.0f + 5.0f * 0.01f + 5.0f * 0.03f; // = 1.05 + 0.15 = 1.20
+            return baseAt10 + (quality - 10.0f) * 0.05f;
+        }
+
+        /// <summary>
+        /// Appends a human-readable mining speed bonus line to the tooltip if quality > 0.
+        /// </summary>
+        /// <param name="quality">The quality value.</param>
+        /// <param name="dsc">The string builder.</param>
+        // returns damage multiplier based on piecewise quality ranges so q=15 => +30%
+        public static float GetDamageMultiplier(float quality)
+        {
+            if (quality <= 0.0f) return 1.0f;
+
+            // 0-5: +1% per point
+            if (quality <= 5.0f)
+            {
+                return 1.0f + quality * 0.01f;
+            }
+
+            // 5-10: +2% per point above 5
+            if (quality <= 10.0f)
+            {
+                float baseAt5 = 1.0f + 5.0f * 0.01f; // 1.05
+                return baseAt5 + (quality - 5.0f) * 0.02f;
+            }
+
+            // 10-15: +3% per point above 10 (so total at 15 = 1.0 + 5*(0.01+0.02+0.03)=1.30)
+            float baseAt10 = 1.0f + 5.0f * 0.01f + 5.0f * 0.02f; // 1.20
+            return baseAt10 + (quality - 10.0f) * 0.03f;
+        }
+
+        public static void AddDamageString(float quality, StringBuilder dsc)
+        {
+            if (quality > 0.0f)
+            {
+                float mul = GetDamageMultiplier(quality);
+                float bonusPercent = (mul - 1.0f) * 100.0f;
+                dsc.AppendLine(string.Format("<font color=\"orange\">Damage: +{0:N1}%</font>", bonusPercent));
+            }
+        }
+        public static void AddMiningSpeedString(float quality, StringBuilder dsc)
+        {
+            if (quality > 0.0f)
+            {
+                float mul = GetMiningSpeedMultiplier(quality);
+                float bonusPercent = (mul - 1.0f) * 100.0f;
+                // Use one decimal to show partial percent values for clarity
+                dsc.AppendLine(string.Format("<font color=\"lightgreen\">Mining speed: +{0:N1}%</font>", bonusPercent));
+            }
+        }
+
+        /// <summary>
         /// Picks the quality from a BlockEntityCookedContainer at a position
         /// and transfers it into a stack.
         /// </summary>
@@ -164,7 +242,8 @@ namespace XSkills
                     else if (quality < 4.0f) return string.Format("<font color=\"green\">" + Lang.Get("xskills:quality-uncommon") + "({0:N2})</font>", quality);
                     else if (quality < 6.0f) return string.Format("<font color=\"blue\">" + Lang.Get("xskills:quality-rare") + "({0:N2})</font>", quality);
                     else if (quality < 8.0f) return string.Format("<font color=\"orange\">" + Lang.Get("xskills:quality-epic") + "({0:N2})</font>", quality);
-                    else return string.Format("<font color=\"red\">" + Lang.Get("xskills:quality-legendary") + "({0:N2})</font>", quality);
+                    else if (quality < 10.0f) return string.Format("<font color=\"red\">" + Lang.Get("xskills:quality-legendary") + "({0:N2})</font>", quality);
+                    else return string.Format("<font color=\"Purple\">" + Lang.Get("xskills:quality-mythic") + "({0:N2})</font>", quality);
                 }
                 else
                 {
@@ -173,7 +252,8 @@ namespace XSkills
                     else if (quality < 4.0f) return string.Format(Lang.Get("xskills:quality-uncommon") + "({0:N2})", quality);
                     else if (quality < 6.0f) return string.Format(Lang.Get("xskills:quality-rare") + "({0:N2})", quality);
                     else if (quality < 8.0f) return string.Format(Lang.Get("xskills:quality-epic") + "({0:N2})", quality);
-                    else return string.Format(Lang.Get("xskills:quality-legendary") + "({0:N2})", quality);
+                    else if (quality < 10.0f) return string.Format(Lang.Get("xskills:quality-legendary") + "({0:N2})", quality);
+                    else return string.Format(Lang.Get("xskills:quality-mythic") + "({0:N2})", quality);
                 }
             }
             return "";

@@ -1,14 +1,28 @@
 {
     "classexpmult": {
+        "miner": 0.1,
+        "potter": -0.15,
+        "farmer": 0.05,
+        "lumberjack": 0.1,
+        "carpenter": -0.1,
+        "squire": 0.15,
+        "blacksmith": -0.05,
+        "druid": 0.15,
+        "mercenary": 0.2,
+        "wildrunner": 0.2,
+        "wanderer": 0.25,
+        "handwright": -0.2,
+        "entropic": 0.1,
+        "deepforger": 0.1,
+        "shadowstrider": 0.3,
+        "timberborn": 0.15,
         "commoner": 0.1,
         "hunter": 0.2,
         "malefactor": 0.15,
         "clockmaker": -0.2,
         "blackguard": -0.05,
-        "miner": -0.05,
         "archer": 0.05,
-        "vanguard": 0.05,
-        "mercenary": 0.1
+        "vanguard": 0.05
     },
     "longlife": {
         "requirements": [
@@ -238,6 +252,34 @@
                 "minimumTier": 4,
                 "skill": "cooking",
                 "ability": "gourmet",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "layerlayer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "infallible",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "inspiration",
                 "exclusiveTier": 3
             }
         ]

@@ -1,14 +1,30 @@
 {
     "classexpmult": {
+        "miner": 0.25,
+        "potter": 0.15,
+        "farmer": -0.15,
+        "lumberjack": -0.05,
+        "carpenter": 0.15,
+        "squire": -0.05,
+        "blacksmith": 0.15,
+        "druid": -0.1,
+        "mercenary": -0.1,
+        "wildrunner": -0.1,
+        "wanderer": -0.05,
+        "innkeeper": -0.1,
+        "entropic": 0.15,
+        "deepforger": 0.25,
+        "mason": 0.25,
+        "earthshaper": 0.25,
+        "shadowstrider": -0.05,
+        "timberborn": -0.1,
         "commoner": 0.1,
-        "miner": 0.2,
         "hunter": -0.2,
         "malefactor": -0.1,
         "clockmaker": 0.15,
         "blackguard": 0.15,
         "archer": -0.1,
-        "vanguard": 0.05,
-        "mercenary": 0.05
+        "vanguard": 0.05
     },
     "stonebreaker": {
         "requirements": [
@@ -179,6 +195,34 @@
                 "minimumTier": 4,
                 "skill": "cooking",
                 "ability": "gourmet",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "layerlayer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "infallible",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "inspiration",
                 "exclusiveTier": 3
             }
         ]
@@ -353,6 +397,34 @@
                 "skill": "cooking",
                 "ability": "gourmet",
                 "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "layerlayer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "infallible",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "inspiration",
+                "exclusiveTier": 3
             }
         ]
     },
@@ -526,6 +598,34 @@
                 "skill": "cooking",
                 "ability": "gourmet",
                 "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "layerlayer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "infallible",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "inspiration",
+                "exclusiveTier": 3
             }
         ]
     },
@@ -698,6 +798,34 @@
                 "minimumTier": 4,
                 "skill": "cooking",
                 "ability": "gourmet",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "layerlayer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "infallible",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "inspiration",
                 "exclusiveTier": 3
             }
         ]
@@ -906,6 +1034,34 @@
                 "skill": "cooking",
                 "ability": "gourmet",
                 "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "pottery",
+                "ability": "layerlayer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "pottery",
+                "ability": "infallible",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "pottery",
+                "ability": "inspiration",
+                "exclusiveTier": 3
             }
         ]
     },
@@ -1060,6 +1216,34 @@
                 "minimumTier": 2,
                 "skill": "cooking",
                 "ability": "gourmet",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "pottery",
+                "ability": "layerlayer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "pottery",
+                "ability": "infallible",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "pottery",
+                "ability": "inspiration",
                 "exclusiveTier": 3
             }
         ]

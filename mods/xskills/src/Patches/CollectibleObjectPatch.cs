@@ -19,7 +19,7 @@ namespace XSkills
 
         //    if (original.Name == "TryMergeStacks")
         //    {
-        //        return !xSkills.XLeveling.Config.mergeQualities;
+        //        return !xskills.XLeveling.Config.mergeQualities;
         //    }
         //    else return true;
         //}
@@ -94,10 +94,53 @@ namespace XSkills
         }
 
         [HarmonyPatch("GetHeldItemInfo")]
-        public static void Postfix(ItemSlot inSlot, StringBuilder dsc)
+        public static void Postfix(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world)
         {
             float quality = inSlot?.Itemstack?.Attributes.TryGetFloat("quality") ?? 0.0f;
             QualityUtil.AddQualityString(quality, dsc);
+
+            // Show "created by" tooltip (supports multiple creators in order if stored as a delimited string)
+            try
+            {
+                var attrs = inSlot?.Itemstack?.Attributes;
+                if (attrs != null && attrs.HasAttribute("createdBy"))
+                {
+                    string createdByStr = attrs.GetString("createdBy") ?? string.Empty;
+                    if (!string.IsNullOrWhiteSpace(createdByStr))
+                    {
+                        // support several common delimiters so multiple creators are shown in the order they were stored
+                        char[] separators = new char[] { ',', '|', ';' };
+                        string[] parts = createdByStr.Split(separators, StringSplitOptions.RemoveEmptyEntries)
+                                                     .Select(p => p.Trim())
+                                                     .ToArray();
+
+                        if (parts.Length == 1)
+                        {
+                            string uid = parts[0];
+                            string playerName = world?.PlayerByUid(uid)?.PlayerName ?? uid;
+                            dsc.AppendLine();
+                            dsc.Append("Created by: ");
+                            dsc.Append(playerName);
+                        }
+                        else if (parts.Length > 1)
+                        {
+                            dsc.AppendLine();
+                            dsc.Append("Created by: ");
+                            for (int i = 0; i < parts.Length; i++)
+                            {
+                                string uid = parts[i];
+                                string playerName = world?.PlayerByUid(uid)?.PlayerName ?? uid;
+                                if (i > 0) dsc.Append(", ");
+                                dsc.Append(playerName);
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // swallow any unexpected errors in tooltip rendering to avoid interfering with game UI
+            }
         }
 
         [HarmonyPostfix]
@@ -113,7 +156,10 @@ namespace XSkills
         public static void Postfix1(ref float __result, IItemStack withItemStack)
         {
             float quality = withItemStack?.Attributes.TryGetFloat("quality") ?? 0.0f;
-            if (quality > 0.0f && __result > 0.5f) __result = (float)(__result * (1.0f + quality * 0.02f));
+            if (quality > 0.0f && __result > 0.5f)
+            {
+                __result = (float)(__result * QualityUtil.GetDamageMultiplier(quality));
+            }
         }
 
         [HarmonyPostfix]
@@ -121,7 +167,7 @@ namespace XSkills
         public static void Postfix2(ref float __result, IItemStack itemstack)
         {
             float quality = itemstack?.Attributes.TryGetFloat("quality") ?? 0.0f;
-            if (quality > 0.0f) __result = (float)(__result * (1.0f + quality * 0.02f));
+            if (quality > 0.0f) __result = (float)(__result * QualityUtil.GetMiningSpeedMultiplier(quality));
         }
 
         [HarmonyPatch("OnCreatedByCrafting")]
@@ -161,6 +207,19 @@ namespace XSkills
             {
                 quality /= count;
                 if (quality > 0.05f) outputSlot.Itemstack.Attributes.SetFloat("quality", quality);
+            }
+
+            // Propagate "createdBy" from any input to the crafted output so a smithed origin survives crafting.
+            // Only apply for items that support durability (same domain where quality was applied)
+            foreach (ItemSlot slot in allInputslots)
+            {
+                if (slot?.Itemstack == null) continue;
+                string createdBy = slot.Itemstack.Attributes.GetString("createdBy");
+                if (!string.IsNullOrEmpty(createdBy))
+                {
+                    outputSlot.Itemstack.Attributes.SetString("createdBy", createdBy);
+                    break;
+                }
             }
         }
 

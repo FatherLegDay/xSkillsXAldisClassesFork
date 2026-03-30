@@ -1,14 +1,30 @@
 {
     "classexpmult": {
+        "miner": 0.05,
+        "potter": -0.1,
+        "farmer": -0.1,
+        "carpenter": -0.1,
+        "squire": 0.15,
+        "blacksmith": 0.1,
+        "druid": 0.1,
+        "mercenary": 0.25,
+        "wildrunner": 0.25,
+        "wanderer": -0.2,
+        "innkeeper": 0.05,
+        "handwright": 0.1,
+        "entropic": 0.05,
+        "threadweaver": -0.05,
+        "earthshaper": 0.05,
+        "deepforger": 0.05,
+        "shadowstrider": -0.25,
+        "timberborn": 0.1,
         "commoner": 0.1,
         "blackguard": 0.2,
         "vanguard": 0.15,
         "archer": 0.15,
         "clockmaker": -0.2,
         "hunter": 0.0,
-        "malefactor": -0.1,
-        "miner": -0.05,
-        "mercenary": 0.15
+        "malefactor": -0.1
     },
     "swordsman": {
         "requirements": [
@@ -550,14 +566,6 @@
                 "skill": "combat",
                 "ability": "warrior",
                 "requiredTier": 1
-            },
-            {
-                "code": "class",
-                "minimumTier": 1,
-                "classes": [
-                    "malefactor",
-                    "blackguard"
-                ]
             }
         ]
     },

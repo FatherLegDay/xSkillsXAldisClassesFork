@@ -138,5 +138,12 @@
         "skill": "cooking",
         "ability": "gourmet",
         "exclusiveTier": 3
+    },
+    {
+        "code": "exclusiveAbility",
+        "minimumTier": 1,
+        "skill": "metalworking",
+        "ability": "blacksmith",
+        "exclusiveTier": 3
     }
 ]

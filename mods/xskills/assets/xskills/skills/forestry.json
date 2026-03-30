@@ -1,15 +1,28 @@
 {
-  "classexpmult": {
-    "commoner": 0.1,
-    "hunter": 0.1,
-    "malefactor": -0.2,
-    "clockmaker": -0.15,
-    "blackguard": -0.05,
-    "miner": 0.1,
-    "archer": 0.15,
-    "vanguard": -0.15,
-    "mercenary": -0.15
-  },
+    "classexpmult": {
+        "potter": 0.1,
+        "farmer": -0.05,
+        "lumberjack": 0.25,
+        "carpenter": 0.15,
+        "squire": 0.15,
+        "blacksmith": -0.05,
+        "druid": -0.1,
+        "wanderer": 0.1,
+        "innkeeper": 0.15,
+        "handwright": 0.1,
+        "earthshaper": -0.1,
+        "deepforger": 0.05,
+        "timberborn": 0.25,
+        "commoner": 0.1,
+        "hunter": 0.1,
+        "malefactor": -0.2,
+        "clockmaker": -0.15,
+        "blackguard": -0.05,
+        "miner": 0.1,
+        "archer": 0.15,
+        "vanguard": -0.15,
+        "mercenary": -0.15
+    },
   "lumberjack": {
     "requirements": [
       {

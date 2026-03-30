@@ -367,6 +367,12 @@ namespace XSkills
                 }
 
                 __state.recipe.Output.ResolvedItemstack.Attributes.SetFloat("quality", quality);
+
+                // Tag the created item with the creating player's UID so it can be tracked later
+                if (byPlayer != null)
+                {
+                    __state.recipe.Output.ResolvedItemstack.Attributes.SetString("createdBy", byPlayer.PlayerUID);
+                }
             }
 
             if (finished >= 1.0f || finished < 0.0f || byPlayer == null) return true;
