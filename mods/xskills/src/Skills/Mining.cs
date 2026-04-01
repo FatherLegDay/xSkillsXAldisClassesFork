@@ -149,7 +149,7 @@ namespace XSkills
                 "veinminer",
                 "xskills:ability-veinminer",
                 "xskills:abilitydesc-veinminer",
-                12, 1, new int[] { 2, 3, 10, 100, 10, 3, 2, 14, 80, 8 }));
+                12, 2, new int[] { 2, 3, 10, 100, 10, 3, 2, 14, 80, 8 }));
 
             // you can mine a 3 by 3 area
             // 0: durability cost in percentage

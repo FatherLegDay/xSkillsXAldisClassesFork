@@ -145,5 +145,26 @@
         "skill": "metalworking",
         "ability": "blacksmith",
         "exclusiveTier": 3
+    },
+    {
+        "code": "exclusiveAbility",
+        "minimumTier": 3,
+        "skill": "pottery",
+        "ability": "layerlayer",
+        "exclusiveTier": 4
+    },
+    {
+        "code": "exclusiveAbility",
+        "minimumTier": 3,
+        "skill": "pottery",
+        "ability": "infallible",
+        "exclusiveTier": 3
+    },
+    {
+        "code": "exclusiveAbility",
+        "minimumTier": 3,
+        "skill": "pottery",
+        "ability": "inspiration",
+        "exclusiveTier": 3
     }
 ]
