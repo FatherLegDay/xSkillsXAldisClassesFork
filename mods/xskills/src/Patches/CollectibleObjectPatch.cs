@@ -1,16 +1,12 @@
 ﻿using HarmonyLib;
-using PrimitiveSurvival.ModSystem;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
-using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
-using Vintagestory.API.Util;
 using XLib.XLeveling;
 
 namespace XSkills
@@ -100,7 +96,7 @@ namespace XSkills
         }
 
         [HarmonyPatch("GetHeldItemInfo")]
-        public static void Postfix(CollectibleObject __instance, ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world)
+        public static void Postfix(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world)
         {
             float quality = inSlot?.Itemstack?.Attributes.TryGetFloat("quality") ?? 0.0f;
 
@@ -157,45 +153,103 @@ namespace XSkills
                 // Mining speed: modify only if an existing "Mining Speed:" line is present (no fallback append)
                 try
                 {
-                    string miningSpeedLabel = Lang.Get("item-tooltip-miningspeed");
                     string full = dsc.ToString();
-                    int idx = full.IndexOf(miningSpeedLabel, StringComparison.OrdinalIgnoreCase);
+                    int idx = full.IndexOf("Mining Speed:", StringComparison.OrdinalIgnoreCase);
                     if (idx >= 0)
                     {
-                        // percent increase = (multiplier - 1) * 100
-                        float multiplierPercentage = (QualityUtil.GetMiningSpeedMultiplier(quality) - 1.0f) * 100f;
-                        // Only show if there is a positive change
-                        if (multiplierPercentage > 0.0001f)
+                        int lineStart = full.LastIndexOf('\n', idx);
+                        lineStart = (lineStart >= 0) ? (lineStart + 1) : 0;
+                        int lineEnd = full.IndexOf('\n', idx);
+                        if (lineEnd < 0) lineEnd = full.Length;
+
+                        string line = full.Substring(lineStart, lineEnd - lineStart);
+
+                        float multiplier = QualityUtil.GetMiningSpeedMultiplier(quality);
+                        string replaced = Regex.Replace(line, @"(\d+(?:[.,]\d+)?)(?=x)", m =>
                         {
-                            int lineStart = full.LastIndexOf('\n', idx);
-                            lineStart = (lineStart >= 0) ? (lineStart + 1) : 0;
-                            int lineEnd = full.IndexOf('\n', idx);
-                            if (lineEnd < 0) lineEnd = full.Length;
+                            if (!float.TryParse(m.Value.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out var val))
+                                return m.Value;
+                            float newVal = val * multiplier;
+                            return newVal.ToString("#.#", CultureInfo.InvariantCulture);
+                        });
 
-                            string line = full.Substring(lineStart, lineEnd - lineStart);
-                            string appended = line + " (+" + multiplierPercentage.ToString("0.0", CultureInfo.InvariantCulture) + "%)";
-
-                            full = full.Remove(lineStart, lineEnd - lineStart).Insert(lineStart, appended);
-                            dsc.Clear();
-                            dsc.Append(full);
+                        string color = QualityUtil.QualityColor(quality);
+                        int colonIdx = replaced.IndexOf(':');
+                        string finalLine;
+                        if (colonIdx >= 0)
+                        {
+                            string prefix = replaced.Substring(0, colonIdx + 1);
+                            string rest = replaced.Substring(colonIdx + 1).TrimStart();
+                            finalLine = prefix + " <font color=\"" + color + "\">" + rest + "</font>";
                         }
+                        else
+                        {
+                            finalLine = "<font color=\"" + color + "\">" + replaced + "</font>";
+                        }
+
+                        dsc.Remove(lineStart, lineEnd - lineStart);
+                        dsc.Insert(lineStart, finalLine);
                     }
                 }
-                catch 
-                { 
-                
+                catch
+                {
+                    // swallow errors and DO NOT append fallback mining-speed line
                 }
 
-                // Modify "Durability:" line to show values and append increased percentage.
+                // Modify "Durability:" line to color values and append increased percent in quality color.
                 try
                 {
-                    int maxDurability = __instance.GetMaxDurability(inSlot.Itemstack);
-                    if (maxDurability > 1)
+                    string full = dsc.ToString();
+                    int dIdx = full.IndexOf("Durability:", StringComparison.OrdinalIgnoreCase);
+                    if (dIdx >= 0)
                     {
-                        var durabilityLine = Lang.Get("Durability: {0} / {1}", inSlot.Itemstack.Collectible.GetRemainingDurability(inSlot.Itemstack), maxDurability);
-                        string full = dsc.ToString();
-                        float multiplierPercentage = __instance.GetBehavior<XSkillsToolBehavior>().GetMaxDurabilityMultiplier(inSlot.Itemstack) * 100;
-                        full = full.Replace($"\n{durabilityLine}\n", $"\n{durabilityLine} (+{multiplierPercentage:0.0}%)\n");
+                        int lineStart = full.LastIndexOf('\n', dIdx);
+                        lineStart = (lineStart >= 0) ? (lineStart + 1) : 0;
+                        int lineEnd = full.IndexOf('\n', dIdx);
+                        if (lineEnd < 0) lineEnd = full.Length;
+
+                        string line = full.Substring(lineStart, lineEnd - lineStart);
+
+                        Match m = Regex.Match(line, @"(\d+)\s*/\s*(\d+)");
+                        string color = QualityUtil.QualityColor(quality);
+                        float increasePercent = quality * 5.0f;
+
+                        string finalLine;
+                        if (m.Success)
+                        {
+                            int colonIdx = line.IndexOf(':');
+                            string prefix = colonIdx >= 0 ? line.Substring(0, colonIdx + 1) : "Durability:";
+                            string values = m.Value;
+                            string restAfterValues = line.Substring(line.IndexOf(values) + values.Length).TrimStart();
+
+                            finalLine = prefix + " <font color=\"" + color + "\">" + values;
+                            if (!string.IsNullOrEmpty(restAfterValues))
+                            {
+                                finalLine += " " + restAfterValues;
+                            }
+                            finalLine += " Increased by " + increasePercent.ToString("F1", CultureInfo.InvariantCulture) + "%</font>";
+                        }
+                        else
+                        {
+                            int colonIdx = line.IndexOf(':');
+                            string prefix = colonIdx >= 0 ? line.Substring(0, colonIdx + 1) : "Durability:";
+                            string rest = colonIdx >= 0 ? line.Substring(colonIdx + 1).TrimStart() : "";
+                            finalLine = prefix + " <font color=\"" + color + "\">" + rest + " Increased by " + increasePercent.ToString("F1", CultureInfo.InvariantCulture) + "%</font>";
+                        }
+
+                        dsc.Remove(lineStart, lineEnd - lineStart);
+                        dsc.Insert(lineStart, finalLine);
+                    }
+                    else
+                    {
+                        if (inSlot?.Itemstack != null)
+                        {
+                            int currentDur = inSlot.Itemstack.Attributes.GetInt("durability", inSlot.Itemstack.Collectible.GetMaxDurability(inSlot.Itemstack));
+                            int maxDur = inSlot.Itemstack.Collectible.GetMaxDurability(inSlot.Itemstack);
+                            string color = QualityUtil.QualityColor(quality);
+                            float increasePercent = quality * 5.0f;
+                            dsc.AppendLine($"Durability: <font color=\"{color}\">{currentDur} / {maxDur} Increased by {increasePercent.ToString("F1", CultureInfo.InvariantCulture)}%</font>");
+                        }
                     }
                 }
                 catch
@@ -237,7 +291,7 @@ namespace XSkills
                 }
                 catch
                 {
-                    
+                    // swallow errors; do not append fallback damage
                 }
             } // end quality > 0
 
