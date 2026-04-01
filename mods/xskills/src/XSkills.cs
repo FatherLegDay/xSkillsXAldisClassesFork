@@ -82,6 +82,14 @@ namespace XSkills
                 {
                     ApplyCOPatch(xskills);
                 }
+
+                // Support CombatOverhaul (combatoverhaul) integration even if the "overhaullib" system flag isn't present.
+                // Some environments expose CombatOverhaul as a mod (mod id "combatoverhaul"), not an IS mod system named "overhaullib".
+                // If CombatOverhaul is loaded, ensure our COPatches are applied so ItemStack stats are adjusted.
+                if (api.ModLoader.IsModEnabled("combatoverhaul"))
+                {
+                    ApplyCOPatch(xskills);
+                }
             }
         }
 

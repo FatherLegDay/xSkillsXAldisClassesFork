@@ -19,14 +19,15 @@ namespace XSkills
             float quality = stack?.Attributes.TryGetFloat("quality") ?? 0.0f;
             if (quality > 0.0f)
             {
+                float damageMul = QualityUtil.GetDamageMultiplier(quality);
                 __result = new ItemStackMeleeWeaponStats(
-                    __result.DamageMultiplier * (1.0f + quality * 0.02f),
+                    __result.DamageMultiplier * damageMul,
                     __result.DamageBonus,
                     __result.DamageTierBonus,
                     __result.AttackSpeed,
                     __result.BlockTierBonus,
                     __result.ParryTierBonus,
-                    __result.ThrownDamageMultiplier * (1.0f + quality * 0.02f),
+                    __result.ThrownDamageMultiplier * damageMul,
                     __result.ThrownDamageTierBonus,
                     __result.ThrownAimingDifficulty * (1.0f - quality * 0.01f),
                     __result.ThrownProjectileSpeedMultiplier,
@@ -51,9 +52,10 @@ namespace XSkills
             float quality = stack?.Attributes.TryGetFloat("quality") ?? 0.0f;
             if (quality > 0.0f)
             {
+                float damageMul = QualityUtil.GetDamageMultiplier(quality);
                 __result = new ItemStackRangedStats(
                     __result.ReloadSpeed * (1.0f + quality * 0.01f),
-                    __result.DamageMultiplier * (1.0f + quality * 0.02f),
+                    __result.DamageMultiplier * damageMul,
                     __result.DamageTierBonus,
                     __result.ProjectileSpeed,
                     __result.DispersionMultiplier,
