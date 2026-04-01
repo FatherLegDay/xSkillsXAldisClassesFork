@@ -10,12 +10,17 @@ namespace XSkills
         public XSkillsToolBehavior(CollectibleObject collObj) : base(collObj)
         {}
 
+        public float GetMaxDurabilityMultiplier(ItemStack itemstack)
+        {
+            float quality = itemstack.Attributes.GetFloat("quality", 0.0f);
+            return (quality * 0.05f) + 1;
+        }
+
         public override int OnGetMaxDurability(ItemStack itemstack, ref EnumHandling bhHandling)
         {
             if (itemstack.Collectible.Durability <= 1) return 0;
             bhHandling = EnumHandling.Handled;
-            float quality = itemstack.Attributes.GetFloat("quality", 0.0f);
-            return (int)(itemstack.Collectible.Durability * quality * 0.05f);
+            return (int)(itemstack.Collectible.Durability * (GetMaxDurabilityMultiplier(itemstack) - 1 ));
         }
 
         public override float OnGetMiningSpeed(IItemStack itemstack, BlockSelection blockSel, Block block, IPlayer forPlayer, ref EnumHandling bhHandling)
