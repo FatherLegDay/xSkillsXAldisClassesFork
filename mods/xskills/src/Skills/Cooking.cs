@@ -108,7 +108,7 @@ namespace XSkills
                 "gourmet",
                 "xskills:ability-gourmet",
                 "xskills:abilitydesc-gourmet",
-                3, 2, new int[] { 1, 5, 2, 10 }));
+                3, 3, new int[] { 1, 5, 2, 10, 3, 15 }));
 
             // profession
             // 0: base value
