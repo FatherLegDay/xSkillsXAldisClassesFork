@@ -121,9 +121,6 @@ namespace XSkills
             return baseAt10 + (quality - 10.0f) * 0.05f;
         }
 
-        /// <summary>
-        /// Appends a human-readable mining speed bonus line to the tooltip if quality > 0.
-        /// </summary>
         /// <param name="quality">The quality value.</param>
         /// <param name="dsc">The string builder.</param>
         // returns damage multiplier based on piecewise quality ranges so q=15 => +30%
