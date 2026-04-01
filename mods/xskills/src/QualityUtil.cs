@@ -155,7 +155,8 @@ namespace XSkills
             {
                 float mul = GetDamageMultiplier(quality);
                 float bonusPercent = (mul - 1.0f) * 100.0f;
-                dsc.AppendLine(string.Format("<font color=\"orange\">Damage: +{0:N1}%</font>", bonusPercent));
+                string color = QualityColor(quality);
+                dsc.AppendLine(string.Format("<font color=\"{0}\">Damage: +{1:N1}%</font>", color, bonusPercent));
             }
         }
         public static void AddMiningSpeedString(float quality, StringBuilder dsc)
@@ -164,8 +165,9 @@ namespace XSkills
             {
                 float mul = GetMiningSpeedMultiplier(quality);
                 float bonusPercent = (mul - 1.0f) * 100.0f;
+                string color = QualityColor(quality);
                 // Use one decimal to show partial percent values for clarity
-                dsc.AppendLine(string.Format("<font color=\"lightgreen\">Mining speed: +{0:N1}%</font>", bonusPercent));
+                dsc.AppendLine(string.Format("<font color=\"{0}\">Mining speed: +{1:N1}%</font>", color, bonusPercent));
             }
         }
 
@@ -237,13 +239,14 @@ namespace XSkills
             {
                 if (formatted)
                 {
-                    if (quality < 1.0f) return string.Format("<font color=\"gray\">" + Lang.Get("xskills:quality-bad") + "({0:N2})</font>", quality);
-                    else if (quality < 2.0f) return string.Format("<font color=\"white\">" + Lang.Get("xskills:quality-common") + "({0:N2})</font>", quality);
-                    else if (quality < 4.0f) return string.Format("<font color=\"green\">" + Lang.Get("xskills:quality-uncommon") + "({0:N2})</font>", quality);
-                    else if (quality < 6.0f) return string.Format("<font color=\"blue\">" + Lang.Get("xskills:quality-rare") + "({0:N2})</font>", quality);
-                    else if (quality < 8.0f) return string.Format("<font color=\"orange\">" + Lang.Get("xskills:quality-epic") + "({0:N2})</font>", quality);
-                    else if (quality < 10.0f) return string.Format("<font color=\"red\">" + Lang.Get("xskills:quality-legendary") + "({0:N2})</font>", quality);
-                    else return string.Format("<font color=\"Purple\">" + Lang.Get("xskills:quality-mythic") + "({0:N2})</font>", quality);
+                    string color = QualityColor(quality);
+                    if (quality < 1.0f) return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-bad") + "({1:N2})</font>", color, quality);
+                    else if (quality < 2.0f) return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-common") + "({1:N2})</font>", color, quality);
+                    else if (quality < 4.0f) return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-uncommon") + "({1:N2})</font>", color, quality);
+                    else if (quality < 6.0f) return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-rare") + "({1:N2})</font>", color, quality);
+                    else if (quality < 8.0f) return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-epic") + "({1:N2})</font>", color, quality);
+                    else if (quality < 10.0f) return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-legendary") + "({1:N2})</font>", color, quality);
+                    else return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-mythic") + "({1:N2})</font>", color, quality);
                 }
                 else
                 {
@@ -257,6 +260,17 @@ namespace XSkills
                 }
             }
             return "";
+        }
+
+        public static string QualityColor(float quality)
+        {
+            if (quality < 1.0f) return "#808080";   // gray
+            if (quality < 2.0f) return "#FFFFFF";   // white
+            if (quality < 4.0f) return "#00FF00";   // green
+            if (quality < 6.0f) return "#001EFF";   // blue
+            if (quality < 8.0f) return "#DD00FF";   // epic (magenta)
+            if (quality < 10.0f) return "#FFAA00";  // legendary (orange)
+            return "#00E6FF";                       // mythic (cyan)
         }
     }//!class QualityUtil
 }//!namespace XSkills

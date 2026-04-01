@@ -2,6 +2,8 @@
 using System;
 using System.Linq;
 using System.Text;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
@@ -97,7 +99,201 @@ namespace XSkills
         public static void Postfix(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world)
         {
             float quality = inSlot?.Itemstack?.Attributes.TryGetFloat("quality") ?? 0.0f;
+
+            // Always add the quality display line only when quality > 0 (the helper already guards this)
             QualityUtil.AddQualityString(quality, dsc);
+
+            // --- Remove any standalone "Damage: +X%" fallback lines that may have been added elsewhere ---
+            if (quality > 0.0f)
+            {
+                try
+                {
+                    string current = dsc.ToString();
+                    // remove lines like: Damage: +25.3% or formatted <font ...>Damage: +25.3%</font>
+                    current = Regex.Replace(current, @"(?m)^\s*(?:<font[^>]*>)?\s*Damage:\s*\+[0-9]+(?:[.,][0-9]+)?%\s*(?:<\/font>)?\s*$", "", RegexOptions.IgnoreCase);
+                    dsc.Clear();
+                    dsc.Append(current);
+                }
+                catch { /* swallow errors - tooltip mustn't break */ }
+            }
+
+            // Only modify existing tooltip lines when the item actually has a positive quality.
+            if (quality > 0.0f)
+            {
+                // Color CombatOverhaul damage lines (e.g. "Two-handed: 8.8 (6 tier) Slashing", "Two-handed bash: 6.3 (6 tier) Slashing")
+                // We don't change numbers here, instead we append the bonus percent (increase vs. base) after the damage number and color it.
+                try
+                {
+                    string full = dsc.ToString();
+                    string color = QualityUtil.QualityColor(quality);
+                    float bonusPercent = (QualityUtil.GetDamageMultiplier(quality) - 1.0f) * 100.0f;
+
+                    // Match lines that look like CombatOverhaul damage entries containing "(N tier)"
+                    // Group 1: prefix up to the numeric value and colon/space
+                    // Group 2: numeric value
+                    // Group 3: the rest including "(N tier) ..."
+                    string pattern = @"(?m)^(.*?:\s*)(-?\d+(?:[.,]\d+)?)(\s*\(\d+\s+tier\).*)$";
+                    string replaced = Regex.Replace(full, pattern, m =>
+                    {
+                        // keep the displayed number, append colored "(+X.X%)"
+                        return m.Groups[1].Value
+                            + m.Groups[2].Value
+                            + " <font color=\"" + color + "\">(+" + bonusPercent.ToString("N1", CultureInfo.InvariantCulture) + "%)</font>"
+                            + m.Groups[3].Value;
+                    }, RegexOptions.IgnoreCase);
+
+                    if (!object.ReferenceEquals(replaced, full) && replaced != full)
+                    {
+                        dsc.Clear();
+                        dsc.Append(replaced);
+                    }
+                }
+                catch { /* swallow errors */ }
+
+                // Mining speed: modify only if an existing "Mining Speed:" line is present (no fallback append)
+                try
+                {
+                    string full = dsc.ToString();
+                    int idx = full.IndexOf("Mining Speed:", StringComparison.OrdinalIgnoreCase);
+                    if (idx >= 0)
+                    {
+                        int lineStart = full.LastIndexOf('\n', idx);
+                        lineStart = (lineStart >= 0) ? (lineStart + 1) : 0;
+                        int lineEnd = full.IndexOf('\n', idx);
+                        if (lineEnd < 0) lineEnd = full.Length;
+
+                        string line = full.Substring(lineStart, lineEnd - lineStart);
+
+                        float multiplier = QualityUtil.GetMiningSpeedMultiplier(quality);
+                        string replaced = Regex.Replace(line, @"(\d+(?:[.,]\d+)?)(?=x)", m =>
+                        {
+                            if (!float.TryParse(m.Value.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out var val))
+                                return m.Value;
+                            float newVal = val * multiplier;
+                            return newVal.ToString("#.#", CultureInfo.InvariantCulture);
+                        });
+
+                        string color = QualityUtil.QualityColor(quality);
+                        int colonIdx = replaced.IndexOf(':');
+                        string finalLine;
+                        if (colonIdx >= 0)
+                        {
+                            string prefix = replaced.Substring(0, colonIdx + 1);
+                            string rest = replaced.Substring(colonIdx + 1).TrimStart();
+                            finalLine = prefix + " <font color=\"" + color + "\">" + rest + "</font>";
+                        }
+                        else
+                        {
+                            finalLine = "<font color=\"" + color + "\">" + replaced + "</font>";
+                        }
+
+                        dsc.Remove(lineStart, lineEnd - lineStart);
+                        dsc.Insert(lineStart, finalLine);
+                    }
+                }
+                catch
+                {
+                    // swallow errors and DO NOT append fallback mining-speed line
+                }
+
+                // Modify "Durability:" line to color values and append increased percent in quality color.
+                try
+                {
+                    string full = dsc.ToString();
+                    int dIdx = full.IndexOf("Durability:", StringComparison.OrdinalIgnoreCase);
+                    if (dIdx >= 0)
+                    {
+                        int lineStart = full.LastIndexOf('\n', dIdx);
+                        lineStart = (lineStart >= 0) ? (lineStart + 1) : 0;
+                        int lineEnd = full.IndexOf('\n', dIdx);
+                        if (lineEnd < 0) lineEnd = full.Length;
+
+                        string line = full.Substring(lineStart, lineEnd - lineStart);
+
+                        Match m = Regex.Match(line, @"(\d+)\s*/\s*(\d+)");
+                        string color = QualityUtil.QualityColor(quality);
+                        float increasePercent = quality * 5.0f;
+
+                        string finalLine;
+                        if (m.Success)
+                        {
+                            int colonIdx = line.IndexOf(':');
+                            string prefix = colonIdx >= 0 ? line.Substring(0, colonIdx + 1) : "Durability:";
+                            string values = m.Value;
+                            string restAfterValues = line.Substring(line.IndexOf(values) + values.Length).TrimStart();
+
+                            finalLine = prefix + " <font color=\"" + color + "\">" + values;
+                            if (!string.IsNullOrEmpty(restAfterValues))
+                            {
+                                finalLine += " " + restAfterValues;
+                            }
+                            finalLine += " Increased by " + increasePercent.ToString("F1", CultureInfo.InvariantCulture) + "%</font>";
+                        }
+                        else
+                        {
+                            int colonIdx = line.IndexOf(':');
+                            string prefix = colonIdx >= 0 ? line.Substring(0, colonIdx + 1) : "Durability:";
+                            string rest = colonIdx >= 0 ? line.Substring(colonIdx + 1).TrimStart() : "";
+                            finalLine = prefix + " <font color=\"" + color + "\">" + rest + " Increased by " + increasePercent.ToString("F1", CultureInfo.InvariantCulture) + "%</font>";
+                        }
+
+                        dsc.Remove(lineStart, lineEnd - lineStart);
+                        dsc.Insert(lineStart, finalLine);
+                    }
+                    else
+                    {
+                        if (inSlot?.Itemstack != null)
+                        {
+                            int currentDur = inSlot.Itemstack.Attributes.GetInt("durability", inSlot.Itemstack.Collectible.GetMaxDurability(inSlot.Itemstack));
+                            int maxDur = inSlot.Itemstack.Collectible.GetMaxDurability(inSlot.Itemstack);
+                            string color = QualityUtil.QualityColor(quality);
+                            float increasePercent = quality * 5.0f;
+                            dsc.AppendLine($"Durability: <font color=\"{color}\">{currentDur} / {maxDur} Increased by {increasePercent.ToString("F1", CultureInfo.InvariantCulture)}%</font>");
+                        }
+                    }
+                }
+                catch
+                {
+                    // ignore durability tooltip errors
+                }
+
+                // Replace numeric part of existing "Attack power" line with colored adjusted value when present and append bonus percent.
+                try
+                {
+                    string full = dsc.ToString();
+                    int aIdx = full.IndexOf("Attack power:", StringComparison.OrdinalIgnoreCase);
+                    if (aIdx >= 0)
+                    {
+                        int lineStart = full.LastIndexOf('\n', aIdx);
+                        lineStart = (lineStart >= 0) ? (lineStart + 1) : 0;
+                        int lineEnd = full.IndexOf('\n', aIdx);
+                        if (lineEnd < 0) lineEnd = full.Length;
+
+                        string line = full.Substring(lineStart, lineEnd - lineStart);
+
+                        Match m = Regex.Match(line, @"(-?\d+(?:[.,]\d+)?)(?=\s*(?:hp\b)?)", RegexOptions.IgnoreCase);
+                        if (m.Success && float.TryParse(m.Groups[1].Value.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out var baseVal))
+                        {
+                            float mul = QualityUtil.GetDamageMultiplier(quality);
+                            float newVal = baseVal * mul;
+                            string color = QualityUtil.QualityColor(quality);
+                            float bonusPercent = (mul - 1.0f) * 100.0f;
+
+                            // Replace only the numeric portion with a colored numeric value and append the bonus percent
+                            string replacedLine = line.Substring(0, m.Index)
+                                + "<font color=\"" + color + "\">" + newVal.ToString("N1", CultureInfo.InvariantCulture) + " (+" + bonusPercent.ToString("N1", CultureInfo.InvariantCulture) + "%)</font>"
+                                + line.Substring(m.Index + m.Length);
+
+                            dsc.Remove(lineStart, lineEnd - lineStart);
+                            dsc.Insert(lineStart, replacedLine);
+                        }
+                    }
+                }
+                catch
+                {
+                    // swallow errors; do not append fallback damage
+                }
+            } // end quality > 0
 
             // Show "created by" tooltip (supports multiple creators in order if stored as a delimited string)
             try
