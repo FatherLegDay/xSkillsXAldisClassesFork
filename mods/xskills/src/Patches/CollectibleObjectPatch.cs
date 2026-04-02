@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using Newtonsoft.Json.Linq;
 using PrimitiveSurvival.ModSystem;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
 using XLib.XLeveling;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace XSkills
 {
@@ -103,81 +106,22 @@ namespace XSkills
         public static void Postfix(CollectibleObject __instance, ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world)
         {
             float quality = inSlot?.Itemstack?.Attributes.TryGetFloat("quality") ?? 0.0f;
-
-            // Always add the quality display line only when quality > 0 (the helper already guards this)
             QualityUtil.AddQualityString(quality, dsc);
-
-            // --- Remove any standalone "Damage: +X%" fallback lines that may have been added elsewhere ---
-            if (quality > 0.0f)
-            {
-                try
-                {
-                    string current = dsc.ToString();
-                    // remove lines like: Damage: +25.3% or formatted <font ...>Damage: +25.3%</font>
-                    current = Regex.Replace(current, @"(?m)^\s*(?:<font[^>]*>)?\s*Damage:\s*\+[0-9]+(?:[.,][0-9]+)?%\s*(?:<\/font>)?\s*$", "", RegexOptions.IgnoreCase);
-                    dsc.Clear();
-                    dsc.Append(current);
-                }
-                catch { /* swallow errors - tooltip mustn't break */ }
-            }
-
             // Only modify existing tooltip lines when the item actually has a positive quality.
             if (quality > 0.0f)
             {
-                // Color CombatOverhaul damage lines (e.g. "Two-handed: 8.8 (6 tier) Slashing", "Two-handed bash: 6.3 (6 tier) Slashing")
-                // We don't change numbers here, instead we append the bonus percent (increase vs. base) after the damage number and color it.
-                try
-                {
-                    string full = dsc.ToString();
-                    string color = QualityUtil.QualityColor(quality);
-                    float bonusPercent = (QualityUtil.GetDamageMultiplier(quality) - 1.0f) * 100.0f;
 
-                    // Match lines that look like CombatOverhaul damage entries containing "(N tier)"
-                    // Group 1: prefix up to the numeric value and colon/space
-                    // Group 2: numeric value
-                    // Group 3: the rest including "(N tier) ..."
-                    string pattern = @"(?m)^(.*?:\s*)(-?\d+(?:[.,]\d+)?)(\s*\(\d+\s+tier\).*)$";
-                    string replaced = Regex.Replace(full, pattern, m =>
-                    {
-                        // keep the displayed number, append colored "(+X.X%)"
-                        return m.Groups[1].Value
-                            + m.Groups[2].Value
-                            + " <font color=\"" + color + "\">(+" + bonusPercent.ToString("N1", CultureInfo.InvariantCulture) + "%)</font>"
-                            + m.Groups[3].Value;
-                    }, RegexOptions.IgnoreCase);
-
-                    if (!object.ReferenceEquals(replaced, full) && replaced != full)
-                    {
-                        dsc.Clear();
-                        dsc.Append(replaced);
-                    }
-                }
-                catch { /* swallow errors */ }
-
-                // Mining speed: modify only if an existing "Mining Speed:" line is present (no fallback append)
+                // Mining speed: modify only if an existing "Mining Speed:"
                 try
                 {
                     string miningSpeedLabel = Lang.Get("item-tooltip-miningspeed");
                     string full = dsc.ToString();
-                    int idx = full.IndexOf(miningSpeedLabel, StringComparison.OrdinalIgnoreCase);
-                    if (idx >= 0)
+
+                    if (full.Contains(miningSpeedLabel))
                     {
-                        // percent increase = (multiplier - 1) * 100
-                        float multiplierPercentage = (QualityUtil.GetMiningSpeedMultiplier(quality) - 1.0f) * 100f;
-                        // Only show if there is a positive change
-                        if (multiplierPercentage > 0.0001f)
+                        if (!full.Contains("Mining speed: +"))
                         {
-                            int lineStart = full.LastIndexOf('\n', idx);
-                            lineStart = (lineStart >= 0) ? (lineStart + 1) : 0;
-                            int lineEnd = full.IndexOf('\n', idx);
-                            if (lineEnd < 0) lineEnd = full.Length;
-
-                            string line = full.Substring(lineStart, lineEnd - lineStart);
-                            string appended = line + " (+" + multiplierPercentage.ToString("0.0", CultureInfo.InvariantCulture) + "%)";
-
-                            full = full.Remove(lineStart, lineEnd - lineStart).Insert(lineStart, appended);
-                            dsc.Clear();
-                            dsc.Append(full);
+                            QualityUtil.AddMiningSpeedString(quality, dsc);
                         }
                     }
                 }
@@ -186,15 +130,59 @@ namespace XSkills
                 
                 }
 
+
+                try
+                {
+                    string damageLabel = Lang.Get("Attack power: -{0} hp", __instance.GetAttackPower(inSlot.Itemstack).ToString("0.#"));
+                    string full = dsc.ToString();
+
+                    if (full.Contains(damageLabel))
+                    {
+                        if (!full.Contains("Damage: +"))
+                        {
+                            QualityUtil.AddDamageString(quality, dsc);
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+
+                try
+                {
+                    var item = inSlot.Itemstack?.Collectible as Item;
+                    if (item == null) return;
+
+                    float damage = item.AttackPower;
+
+                    if (damage > 0)
+                    {
+                        if (!dsc.ToString().Contains("Damage: +"))
+                        {
+                            QualityUtil.AddDamageString(quality, dsc);
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+
                 // Modify "Durability:" line to show values and append increased percentage.
                 try
                 {
+                    // Only modify durability if the item has durability > 1
                     int maxDurability = __instance.GetMaxDurability(inSlot.Itemstack);
                     if (maxDurability > 1)
                     {
+                        
                         var durabilityLine = Lang.Get("Durability: {0} / {1}", inSlot.Itemstack.Collectible.GetRemainingDurability(inSlot.Itemstack), maxDurability);
+                        // Note: durability line may be localized and may contain formatting, so we search for the full line instead of just "Durability:" to be safe.
                         string full = dsc.ToString();
+                        // percent increase = (multiplier - 1) * 100
                         float multiplierPercentage = __instance.GetBehavior<XSkillsToolBehavior>().GetMaxDurabilityMultiplier(inSlot.Itemstack) * 100;
+                        // Only append durability bonus if it actually provides a noticeable increase (e.g. > 0.1% increase)
                         full = full.Replace($"\n{durabilityLine}\n", $"\n{durabilityLine} (+{multiplierPercentage:0.0}%)\n");
                     }
                 }
@@ -202,43 +190,7 @@ namespace XSkills
                 {
                     // ignore durability tooltip errors
                 }
-
-                // Replace numeric part of existing "Attack power" line with colored adjusted value when present and append bonus percent.
-                try
-                {
-                    string full = dsc.ToString();
-                    int aIdx = full.IndexOf("Attack power:", StringComparison.OrdinalIgnoreCase);
-                    if (aIdx >= 0)
-                    {
-                        int lineStart = full.LastIndexOf('\n', aIdx);
-                        lineStart = (lineStart >= 0) ? (lineStart + 1) : 0;
-                        int lineEnd = full.IndexOf('\n', aIdx);
-                        if (lineEnd < 0) lineEnd = full.Length;
-
-                        string line = full.Substring(lineStart, lineEnd - lineStart);
-
-                        Match m = Regex.Match(line, @"(-?\d+(?:[.,]\d+)?)(?=\s*(?:hp\b)?)", RegexOptions.IgnoreCase);
-                        if (m.Success && float.TryParse(m.Groups[1].Value.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out var baseVal))
-                        {
-                            float mul = QualityUtil.GetDamageMultiplier(quality);
-                            float newVal = baseVal * mul;
-                            string color = QualityUtil.QualityColor(quality);
-                            float bonusPercent = (mul - 1.0f) * 100.0f;
-
-                            // Replace only the numeric portion with a colored numeric value and append the bonus percent
-                            string replacedLine = line.Substring(0, m.Index)
-                                + "<font color=\"" + color + "\">" + newVal.ToString("N1", CultureInfo.InvariantCulture) + " (+" + bonusPercent.ToString("N1", CultureInfo.InvariantCulture) + "%)</font>"
-                                + line.Substring(m.Index + m.Length);
-
-                            dsc.Remove(lineStart, lineEnd - lineStart);
-                            dsc.Insert(lineStart, replacedLine);
-                        }
-                    }
-                }
-                catch
-                {
-                    
-                }
+  
             } // end quality > 0
 
             // Show "created by" tooltip (supports multiple creators in order if stored as a delimited string)
