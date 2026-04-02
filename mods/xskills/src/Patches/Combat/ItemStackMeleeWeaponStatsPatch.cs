@@ -19,6 +19,11 @@ namespace XSkills
             float quality = stack?.Attributes.TryGetFloat("quality") ?? 0.0f;
             if (quality > 0.0f)
             {
+                bool isWeapon =
+                    __result.DamageMultiplier > 0f ||
+                    __result.DamageBonus > 0f ||
+                    __result.ThrownDamageMultiplier > 0f;
+
                 float damageMul = QualityUtil.GetDamageMultiplier(quality);
                 __result = new ItemStackMeleeWeaponStats(
                     __result.DamageMultiplier * damageMul,
@@ -34,6 +39,10 @@ namespace XSkills
                     __result.KnockbackMultiplier * (1.0f + quality * 0.01f),
                     (int)(__result.ArmorPiercingBonus * (1.0f + quality * 0.01f))
                     );
+                if (quality > 0f)
+                {
+                    stack.Attributes.SetBool("xskills-hasdamage", true);
+                }
             }
         }
     }
