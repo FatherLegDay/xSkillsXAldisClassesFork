@@ -19,11 +19,13 @@ namespace XSkills
         {
             XSkills xSkills = XSkills.Instance;
             if (xSkills == null) return false;
-            xSkills.Skills.TryGetValue("combat", out Skill skill);
+            xSkills.Skills.TryGetValue("digging", out Skill skill);
             Digging digging = skill as Digging;
 
             if (!(digging?.Enabled ?? false)) return false;
-            if (original == null) return digging[digging.QuickPanId].Enabled || digging[digging.GoldDiggerId].Enabled;
+
+            // Always patch the type so we can always add XP on CreateDrop.
+            if (original == null) return true;
 
             switch (original.Name)
             {
@@ -31,7 +33,8 @@ namespace XSkills
                 case "OnHeldInteractStop":
                     return digging[digging.QuickPanId].Enabled;
                 case "CreateDrop":
-                    return digging[digging.GoldDiggerId].Enabled;
+                    // Always patch CreateDrop so we can award digging XP for panning
+                    return true;
                 default:
                     break;
             }
@@ -64,24 +67,59 @@ namespace XSkills
         [HarmonyPatch("CreateDrop")]
         public static bool CreateDropPrefix(BlockPan __instance, EntityAgent byEntity, string fromBlockCode)
         {
-            IPlayer player = (byEntity as EntityPlayer)?.Player;
-            if (player == null) return true;
+            if (byEntity == null) return true;
+
             Digging digging = XLeveling.Instance(byEntity.Api).GetSkill("digging") as Digging;
             if (digging == null) return true;
-            PlayerAbility playerAbility = byEntity.GetBehavior<PlayerSkillSet>()?[digging.Id]?[digging.GoldDiggerId];
-            if (playerAbility == null) return true;
-            playerAbility.PlayerSkill.AddExperience(0.25f);
 
-            ItemStack[] drops = digging.GeneratePanDrops(byEntity, fromBlockCode, 1.0f + playerAbility.SkillDependentFValue(), 1);
+            // Try to get the player's skill object
+            PlayerSkill playerSkill = byEntity.GetBehavior<PlayerSkillSet>()?[digging.Id];
+            if (playerSkill == null) return true;
 
-            foreach (ItemStack drop in drops)
+            const float xpPerDrop = 0.1f;
+
+            // If the GoldDigger ability is present, handle special drop creation and award XP based on actual generated drops.
+            PlayerAbility goldAbility = playerSkill[digging.GoldDiggerId];
+            if (goldAbility != null)
             {
-                if (!player.InventoryManager.TryGiveItemstack(drop, true))
+                ItemStack[] generated = digging.GeneratePanDrops(byEntity, fromBlockCode, 1.0f + goldAbility.SkillDependentFValue(), 1);
+
+                // award xp based on how many drops were generated
+                if (generated != null && generated.Length > 0)
                 {
-                    byEntity.Api.World.SpawnItemEntity(drop, byEntity.ServerPos.XYZ);
+                    playerSkill.AddExperience(xpPerDrop * generated.Length);
                 }
+
+                IPlayer player = (byEntity as EntityPlayer)?.Player;
+                foreach (ItemStack drop in generated)
+                {
+                    if (player != null)
+                    {
+                        if (!player.InventoryManager.TryGiveItemstack(drop, true))
+                        {
+                            byEntity.Api.World.SpawnItemEntity(drop, byEntity.ServerPos.XYZ);
+                        }
+                    }
+                    else
+                    {
+                        byEntity.Api.World.SpawnItemEntity(drop, byEntity.ServerPos.XYZ);
+                    }
+                }
+
+                // prevent the original CreateDrop so we've handled gold-digger behavior
+                return false;
             }
-            return false;
+
+            // No GoldDigger ability: estimate how many drops the pan would produce and award XP accordingly.
+            // We do not alter the default drop behavior in this case; we only compute potential drops for XP.
+            ItemStack[] estimate = digging.GeneratePanDrops(byEntity, fromBlockCode, 1.0f, 8);
+            if (estimate != null && estimate.Length > 0)
+            {
+                playerSkill.AddExperience(xpPerDrop * estimate.Length);
+            }
+
+            // Allow original CreateDrop to run for default behavior
+            return true;
         }
     }
 }
