@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
@@ -102,7 +103,7 @@ namespace XSkills
         {
             if (quality <= 0.0f) return 1.0f;
 
-            // Range 0 - 5: gentle scaling (e.g. 1% per quality)
+            // Range 0 - 5: gentle scaling (1% per point upto 5)
             if (quality <= 5.0f)
             {
                 return 1.0f + quality * 0.01f;
@@ -115,10 +116,15 @@ namespace XSkills
                 return baseAt5 + (quality - 5.0f) * 0.03f;
             }
 
-            // Range 10 - 15: strongest scaling (base from second range + 5% per point above 10)
-            // Note: clamp at 15 if you want a hard cap - currently this continues past 15 with the same formula.
-            float baseAt10 = 1.0f + 5.0f * 0.01f + 5.0f * 0.03f; // = 1.05 + 0.15 = 1.20
-            return baseAt10 + (quality - 10.0f) * 0.05f;
+            // Range 10 - 15: even stronger scaling (base from second range + 3.5% per point above 10)
+            if (quality <= 10.0f)
+            { 
+                float baseAt10 = 1.0f + 5.0f * 0.01f + 5.0f * 0.03f; // = 1.05 + 0.15 = 1.20
+                return baseAt10 + (quality - 10.0f) * 0.035f;
+            }
+            // Above 15: very strong scaling (base from third range + 4% per point above 15)
+            float baseAt15 = 1.0f + 5.0f * 0.01f + 5.0f * 0.03f + 5.0f * 0.035f; // = 1.05 + 0.15 + 0.175 = 1.375
+            return baseAt15 + (quality - 15.0f) * 0.04f;
         }
 
         /// <param name="quality">The quality value.</param>
@@ -128,13 +134,13 @@ namespace XSkills
         {
             if (quality <= 0.0f) return 1.0f;
 
-            // 0-5: +1% per point
+            // 0-5: +1% per point (so total at 5 = 1.0 + 5*0.01 = 1.05)
             if (quality <= 5.0f)
             {
                 return 1.0f + quality * 0.01f;
             }
 
-            // 5-10: +2% per point above 5
+            // 5-10: +2% per point above 5 (so total at 10 = 1.0 + 5*0.01 + 5*0.02 = 1.15)
             if (quality <= 10.0f)
             {
                 float baseAt5 = 1.0f + 5.0f * 0.01f; // 1.05
@@ -142,10 +148,22 @@ namespace XSkills
             }
 
             // 10-15: +3% per point above 10 (so total at 15 = 1.0 + 5*(0.01+0.02+0.03)=1.30)
-            float baseAt10 = 1.0f + 5.0f * 0.01f + 5.0f * 0.02f; // 1.20
-            return baseAt10 + (quality - 10.0f) * 0.03f;
+            if (quality <= 15.0f)
+            {
+                float baseAt10 = 1.0f + 5.0f * 0.01f + 5.0f * 0.02f; // 1.20
+                return baseAt10 + (quality - 10.0f) * 0.03f;
+            }
+            // Above 15: +3.5% per point above 15 (so total at 20 = 1.0 + 5*(0.01+0.02+0.03) + 5*0.035 = 1.475)
+            float baseAt15 = 1.0f + 5.0f * 0.01f + 5.0f * 0.02f + 5.0f * 0.03f; // 1.30
+            return baseAt15 + (quality - 15.0f) * 0.035f; 
         }
 
+        public static float GetDurabilityMultiplier(float quality)
+        {
+            // Linear scaling: +5% durability per quality point (1.0 -> no change)
+            if (quality <= 0.0f) return 1.0f;
+            return 1.0f + 0.05f * quality;
+        }
         public static void AddDamageString(float quality, StringBuilder dsc)
         {
             if (quality > 0.0f)
@@ -153,7 +171,7 @@ namespace XSkills
                 float mul = GetDamageMultiplier(quality);
                 float bonusPercent = (mul - 1.0f) * 100.0f;
                 string color = QualityColor(quality);
-                dsc.AppendLine(string.Format("<font color=\"{0}\">Damage: +{1:N1}%</font>", color, bonusPercent));
+                dsc.AppendLine(string.Format("<font color=\"{0}\">" + Lang.Get("xskills:tooltip-damage") + "+{1:N1}%</font>", color, bonusPercent));
             }
         }
         public static void AddMiningSpeedString(float quality, StringBuilder dsc)
@@ -164,7 +182,22 @@ namespace XSkills
                 float bonusPercent = (mul - 1.0f) * 100.0f;
                 string color = QualityColor(quality);
                 // Use one decimal to show partial percent values for clarity
-                dsc.AppendLine(string.Format("<font color=\"{0}\">Mining speed: +{1:N1}%</font>", color, bonusPercent));
+                dsc.AppendLine(string.Format("<font color=\"{0}\">" + Lang.Get("xskills:tooltip-miningspeed") + "+{1:N1}%</font>", color, bonusPercent));
+            }
+        }
+
+        public static void AddDurabilityString(float quality, CollectibleObject collectible, ItemSlot inSlot, StringBuilder dsc)
+        {
+            if (quality > 0.0f)
+            {
+                float mul = GetDurabilityMultiplier(quality);
+                float bonusPercent = (mul - 1.0f) * 100.0f;
+                string color = QualityColor(quality);
+
+                // Use the collectible's base durability to avoid invoking patched GetMaxDurability.
+                int baseMax = collectible?.Durability ?? inSlot?.Itemstack?.Collectible?.Durability ?? 0;
+                int added = (int)Math.Round(baseMax * (mul - 1.0f));
+                dsc.AppendLine(string.Format("<font color=\"{0}\">" + Lang.Get("xskills:tooltip-durability") + "+{1:N1}% (+{2})</font>", color, bonusPercent, added));
             }
         }
 
@@ -243,7 +276,9 @@ namespace XSkills
                     else if (quality < 6.0f) return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-rare") + "({1:N2})</font>", color, quality);
                     else if (quality < 8.0f) return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-epic") + "({1:N2})</font>", color, quality);
                     else if (quality < 10.0f) return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-legendary") + "({1:N2})</font>", color, quality);
-                    else return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-mythic") + "({1:N2})</font>", color, quality);
+                    else if (quality < 13.0f) return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-mythic") + "({1:N2})</font>", color, quality);
+                    else if (quality < 16.0f) return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-temporal") + "({1:N2})</font>", color, quality);
+                    else return string.Format("<font color=\"{0}\">" + Lang.Get("xskills:quality-seraphim") + "({1:N2})</font>", color, quality);
                 }
                 else
                 {
@@ -253,7 +288,9 @@ namespace XSkills
                     else if (quality < 6.0f) return string.Format(Lang.Get("xskills:quality-rare") + "({0:N2})", quality);
                     else if (quality < 8.0f) return string.Format(Lang.Get("xskills:quality-epic") + "({0:N2})", quality);
                     else if (quality < 10.0f) return string.Format(Lang.Get("xskills:quality-legendary") + "({0:N2})", quality);
-                    else return string.Format(Lang.Get("xskills:quality-mythic") + "({0:N2})", quality);
+                    else if (quality < 13.0f) return string.Format(Lang.Get("xskills:quality-mythic") + "({0:N2})", quality);
+                    else if (quality < 16.0f) return string.Format(Lang.Get("xskills:quality-temporal") + "({0:N2})", quality);
+                    else return string.Format(Lang.Get("xskills:quality-seraphim") + "({0:N2})", quality);
                 }
             }
             return "";
@@ -261,13 +298,15 @@ namespace XSkills
 
         public static string QualityColor(float quality)
         {
-            if (quality < 1.0f) return "#808080";   // gray
-            if (quality < 2.0f) return "#FFFFFF";   // white
-            if (quality < 4.0f) return "#00FF00";   // green
-            if (quality < 6.0f) return "#001EFF";   // blue
+            if (quality < 1.0f) return "#C2540F";   // rusted (brown)
+            if (quality < 2.0f) return "#FFFFFF";   // common (white)
+            if (quality < 4.0f) return "#00FF00";   // uncommon (green)
+            if (quality < 6.0f) return "#001EFF";   // rare (blue)
             if (quality < 8.0f) return "#DD00FF";   // epic (magenta)
             if (quality < 10.0f) return "#FFAA00";  // legendary (orange)
-            return "#00E6FF";                       // mythic (cyan)
+            if (quality < 13.0f) return "#00A4FF";  // mythic (cyan)
+            if (quality < 16.0f) return "#00FFD9";  // temporal (cyan)
+            return "#FFF7B3";     //Seraphim (off-white)                
         }
     }//!class QualityUtil
 }//!namespace XSkills

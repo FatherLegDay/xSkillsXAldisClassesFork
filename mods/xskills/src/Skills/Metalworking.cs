@@ -95,7 +95,7 @@ namespace XSkills
                 "blacksmith",
                 "xskills:ability-blacksmith",
                 "xskills:abilitydesc-blacksmith",
-                3, 3, new int[] { 1, 5, 2, 10, 3, 15 }));
+                3, 3, new int[] { 1, 5, 2, 10, 3, 18 }));
 
             // profession
             // 0: ep bonus

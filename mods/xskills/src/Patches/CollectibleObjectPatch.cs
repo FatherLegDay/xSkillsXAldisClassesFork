@@ -14,6 +14,7 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.Util;
 using XLib.XLeveling;
+using static HarmonyLib.Code;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -120,7 +121,10 @@ namespace XSkills
 
                     if (full.Contains(miningSpeedLabel))
                     {
-                        if (!full.Contains("Mining speed: +"))
+                        float mul = QualityUtil.GetMiningSpeedMultiplier(quality);
+                        float bonusPercent = (mul - 1.0f) * 100.0f;
+                        string expectedTooltip = Lang.Get("xskills:tooltip-miningspeed", bonusPercent.ToString("N1"));
+                        if (!dsc.ToString().Contains(expectedTooltip))
                         {
                             QualityUtil.AddMiningSpeedString(quality, dsc);
                         }
@@ -139,7 +143,9 @@ namespace XSkills
 
                     if (full.Contains(damageLabel))
                     {
-                        if (!full.Contains("Damage: +"))
+                        float mul = QualityUtil.GetDamageMultiplier(quality);
+                        float bonusPercent = (mul - 1.0f) * 100.0f;
+                        string expectedTooltip = Lang.Get("xskills:tooltip-damage", bonusPercent.ToString("N1"));
                         {
                             QualityUtil.AddDamageString(quality, dsc);
                         }
@@ -154,7 +160,10 @@ namespace XSkills
                 {
                     if (inSlot.Itemstack?.Attributes.GetBool("xskills-hasdamage") == true)
                     {
-                        if (!dsc.ToString().Contains("Damage: +"))
+                        float mul = QualityUtil.GetDamageMultiplier(quality);
+                        float bonusPercent = (mul - 1.0f) * 100.0f;
+                        string expectedTooltip = Lang.Get("xskills:tooltip-damage", bonusPercent.ToString("N1"));
+                        if (!dsc.ToString().Contains(expectedTooltip))
                         {
                             QualityUtil.AddDamageString(quality, dsc);
                         }
@@ -165,29 +174,31 @@ namespace XSkills
 
                 }
 
-                // Modify "Durability:" line to show values and append increased percentage.
                 try
                 {
-                    // Only modify durability if the item has durability > 1
                     int maxDurability = __instance.GetMaxDurability(inSlot.Itemstack);
-                    if (maxDurability > 1)
+                    string durabilityLabel = Lang.Get("Durability: {0} / {1}", inSlot.Itemstack.Collectible.GetRemainingDurability(inSlot.Itemstack), maxDurability);
+                    string full = dsc.ToString();
+
+                    if (full.Contains(durabilityLabel))
                     {
-                        
-                        var durabilityLine = Lang.Get("Durability: {0} / {1}", inSlot.Itemstack.Collectible.GetRemainingDurability(inSlot.Itemstack), maxDurability);
-                        // Note: durability line may be localized and may contain formatting, so we search for the full line instead of just "Durability:" to be safe.
-                        string full = dsc.ToString();
-                        // percent increase = (multiplier - 1) * 100
-                        float multiplierPercentage = __instance.GetBehavior<XSkillsToolBehavior>().GetMaxDurabilityMultiplier(inSlot.Itemstack) * 100;
-                        // Only append durability bonus if it actually provides a noticeable increase (e.g. > 0.1% increase)
-                        full = full.Replace($"\n{durabilityLine}\n", $"\n{durabilityLine} (+{multiplierPercentage:0.0}%)\n");
+                        float mul = QualityUtil.GetDurabilityMultiplier(quality);
+                        float bonusPercent = (mul - 1.0f) * 100.0f;
+                        int baseMax = __instance.Durability;
+                        int added = (int)Math.Round(baseMax * (mul - 1.0f));
+
+                        string expectedTooltip = Lang.Get("xskills:tooltip-durability", bonusPercent.ToString("N1"), added);
+                        if (!dsc.ToString().Contains(expectedTooltip))
+                        {
+                            QualityUtil.AddDurabilityString(quality, __instance, inSlot, dsc);
+                        }
                     }
                 }
                 catch
                 {
-                    // ignore durability tooltip errors
+
                 }
-  
-            } // end quality > 0
+            }
 
             // Show "created by" tooltip (supports multiple creators in order if stored as a delimited string)
             try
