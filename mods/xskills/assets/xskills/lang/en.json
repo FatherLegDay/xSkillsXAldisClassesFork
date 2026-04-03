@@ -411,13 +411,19 @@
     "item-everlastingcharcoal": "Everlasting Charcoal",
     "itemdesc-everlastingcharcoal": "A piece of charcoal that burns quite long.",
 
-    "quality-bad": "Quality: Bad",
+    "quality-bad": "Quality: Rusted",
     "quality-common": "Quality: Common",
     "quality-uncommon": "Quality: Uncommon",
     "quality-rare": "Quality: Rare",
     "quality-epic": "Quality: Epic",
     "quality-legendary": "Quality: Legendary",
     "quality-mythic": "Quality: Mythic",
+    "quality-temporal": "Quality: Temporal",
+    "quality-seraphim": "Quality: Seraphim",
+
+    "tooltip-damage": "Damage: ",
+    "tooltip-miningspeed": "Mining Speed: ",
+    "tooltip-durability": "Durability: ",
 
     "ready-to-mate": "Ready to mate in {0:N1} days",
     "progress": "Progress: {0:P0}",
