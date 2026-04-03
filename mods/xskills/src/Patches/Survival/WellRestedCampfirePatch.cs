@@ -16,6 +16,10 @@ namespace XSkills
             if (__instance.World.Side != EnumAppSide.Server) return;
             if (!(__instance is EntityPlayer player)) return;
 
+            // If campfire checks are disabled in the config, exit early
+            var cfg = XLeveling.Instance(__instance.Api)?.Config;
+            if (cfg?.disableCampfireChecks == true) return;
+
             float accum = player.WatchedAttributes.GetFloat("restAccum", 0f) + dt;
 
             if (accum < 0.5f)
@@ -26,12 +30,21 @@ namespace XSkills
 
             player.WatchedAttributes.SetFloat("restAccum", 0f);
 
-            // Get systems
             XEffectsSystem effectSystem = __instance.Api.ModLoader.GetModSystem<XEffectsSystem>();
             if (effectSystem == null) return;
 
             AffectedEntityBehavior affectedBehavior = player.GetBehavior<AffectedEntityBehavior>();
             if (affectedBehavior == null) return;
+
+            XSkillsPlayerBehavior pbh = player.GetBehavior("XSkillsPlayer") as XSkillsPlayerBehavior;
+            if (pbh == null) return;
+
+            Survival survival = XLeveling.Instance(__instance.Api).GetSkill("survival") as Survival;
+            if (survival == null) return;
+
+            PlayerAbility playerAbility = player.GetBehavior<PlayerSkillSet>()?[survival.Id]?[survival.WellRestedId];
+            if (playerAbility == null) return;
+            if (playerAbility.Tier < 1) return;
 
             // Fire Detection
             BlockPos pos = player.ServerPos.AsBlockPos;
@@ -73,13 +86,7 @@ namespace XSkills
             // If the player has been resting for less than set ammount of seconds, don't apply the effect divided by 10 to make it = set ammount of seconds as the accum is 0.5 seconds
             // (This check is now driven by the configured ability value instead of hard-coded constant)
 
-            // Apply effect
-            XSkillsPlayerBehavior pbh = player.GetBehavior("XSkillsPlayer") as XSkillsPlayerBehavior;
-            if (pbh == null) return;
-
-            Survival survival = XLeveling.Instance(__instance.Api).GetSkill("survival") as Survival;
-            if (survival == null) return;
-            PlayerAbility playerAbility = player.GetBehavior<PlayerSkillSet>()?[survival.Id]?[survival.WellRestedId];
+            // Apply effect;
             if (playerAbility == null) return;
             if (playerAbility.Tier < 1) return;
 

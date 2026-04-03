@@ -83,6 +83,14 @@ namespace XLib.XLeveling
         public bool trackExpGain;
 
         /// <summary>
+        /// If true, skip checking for lit firepits / campfire to qualify as "resting".
+        /// When enabled, the well-rested ability will not require a nearby fire.
+        /// </summary>
+        [ProtoMember(10)]
+        [DefaultValue(false)]
+        public bool disableCampfireChecks;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Config"/> class.
         /// </summary>
         public Config()
@@ -97,6 +105,7 @@ namespace XLib.XLeveling
             this.skillBookExpMult = 0.5f;
             this.disabledRequirements = new List<string>();
             this.trackExpGain = false;
+            this.disableCampfireChecks = false;
         }
     }//!class Config
 }
