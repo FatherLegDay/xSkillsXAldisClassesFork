@@ -51,7 +51,7 @@ namespace XSkills
     {
         public static void Apply(Harmony harmony, Type type, XSkills xSkills)
         {
-            PatchMethod(harmony, type, typeof(ItemStackMeleeWeaponStatsPatch), "FromItemStack");
+            PatchMethod(harmony, type, typeof(ItemStackRangedStatsPatch), "FromItemStack");
         }
 
         [HarmonyPostfix]
