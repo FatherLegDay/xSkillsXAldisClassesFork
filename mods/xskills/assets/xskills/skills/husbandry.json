@@ -21,186 +21,260 @@
         "vanguard": -0.1,
         "mercenary": -0.1
     },
-  "hunter": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 3,
-        "skill": "husbandry",
-        "ability": "shepherd",
-        "requiredTier": 1
-      }
-    ]
-  },
-  "butcher": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 3,
-        "skill": "husbandry",
-        "ability": "shepherd",
-        "requiredTier": 1
-      },
-      {
-        "code": "exclusiveAbility",
-        "minimumTier": 3,
-        "skill": "husbandry",
-        "ability": "furrier",
-        "exclusiveTier": 3
-      },
-      {
-        "code": "exclusiveAbility",
-        "minimumTier": 3,
-        "skill": "husbandry",
-        "ability": "bonebreaker",
-        "exclusiveTier": 3
-      }
-    ]
-  },
-  "furrier": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 3,
-        "skill": "husbandry",
-        "ability": "shepherd",
-        "requiredTier": 1
-      },
-      {
-        "code": "exclusiveAbility",
-        "minimumTier": 3,
-        "skill": "husbandry",
-        "ability": "butcher",
-        "exclusiveTier": 3
-      },
-      {
-        "code": "exclusiveAbility",
-        "minimumTier": 3,
-        "skill": "husbandry",
-        "ability": "bonebreaker",
-        "exclusiveTier": 3
-      }
-    ]
-  },
-  "bonebreaker": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 3,
-        "skill": "husbandry",
-        "ability": "shepherd",
-        "requiredTier": 1
-      },
-      {
-        "code": "exclusiveAbility",
-        "minimumTier": 3,
-        "skill": "husbandry",
-        "ability": "butcher",
-        "exclusiveTier": 3
-      },
-      {
-        "code": "exclusiveAbility",
-        "minimumTier": 3,
-        "skill": "husbandry",
-        "ability": "furrier",
-        "exclusiveTier": 3
-      }
-    ]
-  },
-  "feeder": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 2,
-        "skill": "husbandry",
-        "ability": "shepherd",
-        "requiredTier": 1
-      }
-    ]
-  },
-  "lightfooted": {
-    "requirements": [
-      {
-        "code": "or",
-        "minimumTier": 2,
+    "hunter": {
         "requirements": [
-          {
-            "minimumTier": 2,
-            "code": "class",
-            "class": "hunter"
-          },
-          {
-            "minimumTier": 2,
-            "code": "class",
-            "class": "malefactor"
-          },
-          {
-            "minimumTier": 2,
-            "code": "class",
-            "class": "forger"
-          },
-          {
-            "minimumTier": 2,
-            "code": "class",
-            "class": "archer"
-          }
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "requiredTier": 1
+            }
         ]
-      }
-    ]
-  },
-  "preserver": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 1,
-        "skill": "husbandry",
-        "ability": "butcher",
-        "requiredTier": 2
-      }
-    ]
-  },
-  "tanner": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 3,
-        "skill": "husbandry",
-        "ability": "shepherd",
-        "requiredTier": 1
-      }
-    ]
-  },
-  "catcher": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 1,
-        "skill": "husbandry",
-        "ability": "shepherd",
-        "requiredTier": 1
-      }
-    ]
-  },
-  "breeder": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 1,
-        "skill": "husbandry",
-        "ability": "shepherd",
-        "requiredTier": 1
-      }
-    ]
-  },
-  "masshusbandry": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 1,
-        "skill": "husbandry",
-        "ability": "shepherd",
-        "requiredTier": 1
-      }
-    ]
-  }
+    },
+    "butcher": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "requiredTier": 1
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "husbandry",
+                "ability": "furrier",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "husbandry",
+                "ability": "bonebreaker",
+                "exclusiveTier": 3
+            }
+        ]
+    },
+    "furrier": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "requiredTier": 1
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "husbandry",
+                "ability": "butcher",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "husbandry",
+                "ability": "bonebreaker",
+                "exclusiveTier": 3
+            }
+        ]
+    },
+    "bonebreaker": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "requiredTier": 1
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "husbandry",
+                "ability": "butcher",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "husbandry",
+                "ability": "furrier",
+                "exclusiveTier": 3
+            }
+        ]
+    },
+    "feeder": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 2,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "requiredTier": 1
+            }
+        ]
+    },
+    "lightfooted": {
+        "requirements": [
+            {
+                "code": "or",
+                "minimumTier": 2,
+                "requirements": [
+                    {
+                        "minimumTier": 2,
+                        "code": "class",
+                        "class": "hunter"
+                    },
+                    {
+                        "minimumTier": 2,
+                        "code": "class",
+                        "class": "malefactor"
+                    },
+                    {
+                        "minimumTier": 2,
+                        "code": "class",
+                        "class": "forger"
+                    },
+                    {
+                        "minimumTier": 2,
+                        "code": "class",
+                        "class": "archer"
+                    }
+                ]
+            }
+        ]
+    },
+    "shepherd": {
+        "requirements": [
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "survival",
+                "ability": "allrounder",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "combat",
+                "ability": "warrior",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "chef",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "digging",
+                "ability": "digger",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "farming",
+                "ability": "farmer",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "forestry",
+                "ability": "forester",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "mining",
+                "ability": "miner",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "pottery",
+                "ability": "potter",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "temporaladaptation",
+                "ability": "timelord",
+                "exclusiveTier": 2
+            }
+        ]
+    },
+    "preserver": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 1,
+                "skill": "husbandry",
+                "ability": "butcher",
+                "requiredTier": 2
+            }
+        ]
+    },
+    "tanner": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "requiredTier": 1
+            }
+        ]
+    },
+    "catcher": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 1,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "requiredTier": 1
+            }
+        ]
+    },
+    "breeder": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 1,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "requiredTier": 1
+            }
+        ]
+    },
+    "masshusbandry": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 1,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "requiredTier": 1
+            }
+        ]
+    }
 }

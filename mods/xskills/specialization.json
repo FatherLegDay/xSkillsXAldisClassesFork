@@ -1,0 +1,91 @@
+{
+    "metalworker": {
+        "requirements": [
+            {
+                "code": "class",
+                "minimumTier": 2,
+                "classes": [
+                    "blacksmith",
+                    "deepforger"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "survival",
+                "ability": "allrounder",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "combat",
+                "ability": "warrior",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "chef",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "digging",
+                "ability": "digger",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "farming",
+                "ability": "farmer",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "forestry",
+                "ability": "forester",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "mining",
+                "ability": "miner",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "pottery",
+                "ability": "potter",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "temporaladaptation",
+                "ability": "timelord",
+                "exclusiveTier": 2
+            }
+        ]
+    }
+}

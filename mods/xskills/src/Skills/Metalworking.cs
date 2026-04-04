@@ -103,7 +103,7 @@ namespace XSkills
                 "metalworker",
                 "xskills:ability-metalworker",
                 "xskills:abilitydesc-metalworker",
-                5, 1, new int[] { 40 }));
+                5, 2, new int[] { 40, 60 }));
 
             // chance to instantly finish a smithing work
             // 0: base value

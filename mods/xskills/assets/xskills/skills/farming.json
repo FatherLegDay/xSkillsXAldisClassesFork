@@ -42,18 +42,18 @@
                 "exclusiveTier": 3
             },
             {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "farming",
+                "ability": "farmer",
+                "requiredTier": 2
+            },
+            {
                 "code": "class",
                 "minimumTier": 4,
                 "classes": [
                     "farmer"
                 ]
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "survival",
-                "ability": "allrounder",
-                "exclusiveTier": 4
             },
             {
                 "code": "exclusiveAbility",
@@ -89,125 +89,6 @@
                 "skill": "farming",
                 "ability": "beekeeper",
                 "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "metalworking",
-                "ability": "automatedsmithing",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "metalworking",
-                "ability": "mastersmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "stonebreaker",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "stonecutter",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "oreminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "gemstoneminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "tunneldigger",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "veinminer",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "combat",
-                "ability": "drunkenmaster",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "juicer",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "fastfood",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "welldone",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "gourmet",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "metalworking",
-                "ability": "blacksmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "pottery",
-                "ability": "layerlayer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "pottery",
-                "ability": "infallible",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "pottery",
-                "ability": "inspiration",
-                "exclusiveTier": 3
             }
         ]
     },
@@ -228,18 +109,18 @@
                 "exclusiveTier": 3
             },
             {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "farming",
+                "ability": "farmer",
+                "requiredTier": 2
+            },
+            {
                 "code": "class",
                 "minimumTier": 4,
                 "classes": [
                     "farmer"
                 ]
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "survival",
-                "ability": "allrounder",
-                "exclusiveTier": 4
             },
             {
                 "code": "exclusiveAbility",
@@ -275,125 +156,6 @@
                 "skill": "farming",
                 "ability": "beekeeper",
                 "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "metalworking",
-                "ability": "automatedsmithing",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "metalworking",
-                "ability": "mastersmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "stonebreaker",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "stonecutter",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "oreminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "gemstoneminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "tunneldigger",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "veinminer",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "combat",
-                "ability": "drunkenmaster",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "juicer",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "fastfood",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "welldone",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "gourmet",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "metalworking",
-                "ability": "blacksmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "pottery",
-                "ability": "layerlayer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "pottery",
-                "ability": "infallible",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "pottery",
-                "ability": "inspiration",
-                "exclusiveTier": 3
             }
         ]
     },
@@ -406,19 +168,19 @@
                 "requiredLevel": 8
             },
             {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "farming",
+                "ability": "farmer",
+                "requiredTier": 2
+            },
+            {
                 "code": "class",
                 "minimumTier": 3,
                 "classes": [
                     "innkeeper",
                     "druid"
                 ]
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "survival",
-                "ability": "allrounder",
-                "exclusiveTier": 4
             },
             {
                 "code": "exclusiveAbility",
@@ -454,125 +216,6 @@
                 "skill": "farming",
                 "ability": "beekeeper",
                 "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "metalworking",
-                "ability": "automatedsmithing",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "metalworking",
-                "ability": "mastersmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "stonebreaker",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "stonecutter",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "oreminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "gemstoneminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "tunneldigger",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "veinminer",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "combat",
-                "ability": "drunkenmaster",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "juicer",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "fastfood",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "welldone",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "gourmet",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "metalworking",
-                "ability": "blacksmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "pottery",
-                "ability": "layerlayer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "pottery",
-                "ability": "infallible",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "pottery",
-                "ability": "inspiration",
-                "exclusiveTier": 3
             }
         ]
     },
@@ -612,6 +255,80 @@
                 "skill": "farming",
                 "ability": "gatherer",
                 "requiredTier": 1
+            }
+        ]
+    },
+    "farmer": {
+        "requirements": [
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "survival",
+                "ability": "allrounder",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "combat",
+                "ability": "warrior",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "chef",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "digging",
+                "ability": "digger",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "forestry",
+                "ability": "forester",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "mining",
+                "ability": "miner",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "pottery",
+                "ability": "potter",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "temporaladaptation",
+                "ability": "timelord",
+                "exclusiveTier": 2
             }
         ]
     },
@@ -658,6 +375,13 @@
                 ]
             },
             {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "farming",
+                "ability": "farmer",
+                "requiredTier": 2
+            },
+            {
                 "code": "class",
                 "minimumTier": 3,
                 "classes": [
@@ -665,13 +389,6 @@
                     "lumberjack",
                     "timberborn"
                 ]
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "survival",
-                "ability": "allrounder",
-                "exclusiveTier": 4
             },
             {
                 "code": "exclusiveAbility",
@@ -707,125 +424,6 @@
                 "skill": "farming",
                 "ability": "beekeeper",
                 "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "metalworking",
-                "ability": "automatedsmithing",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "metalworking",
-                "ability": "mastersmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "stonebreaker",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "stonecutter",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "oreminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "gemstoneminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "tunneldigger",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "veinminer",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "combat",
-                "ability": "drunkenmaster",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "juicer",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "fastfood",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "welldone",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "gourmet",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "metalworking",
-                "ability": "blacksmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "pottery",
-                "ability": "layerlayer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "pottery",
-                "ability": "infallible",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "pottery",
-                "ability": "inspiration",
-                "exclusiveTier": 3
             }
         ]
     },
@@ -846,19 +444,19 @@
                 "requiredTier": 2
             },
             {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "farming",
+                "ability": "farmer",
+                "requiredTier": 2
+            },
+            {
                 "code": "class",
                 "minimumTier": 3,
                 "classes": [
                     "farmer",
                     "druid"
                 ]
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "survival",
-                "ability": "allrounder",
-                "exclusiveTier": 4
             },
             {
                 "code": "exclusiveAbility",
@@ -894,125 +492,6 @@
                 "skill": "farming",
                 "ability": "beekeeper",
                 "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "metalworking",
-                "ability": "automatedsmithing",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "metalworking",
-                "ability": "mastersmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "stonebreaker",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "stonecutter",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "oreminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "gemstoneminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "tunneldigger",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "mining",
-                "ability": "veinminer",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "combat",
-                "ability": "drunkenmaster",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "juicer",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "fastfood",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "welldone",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "cooking",
-                "ability": "gourmet",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "metalworking",
-                "ability": "blacksmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "pottery",
-                "ability": "layerlayer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "pottery",
-                "ability": "infallible",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 3,
-                "skill": "pottery",
-                "ability": "inspiration",
-                "exclusiveTier": 3
             }
         ]
     },
@@ -1026,19 +505,19 @@
                 "requiredTier": 1
             },
             {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "farming",
+                "ability": "farmer",
+                "requiredTier": 2
+            },
+            {
                 "code": "class",
                 "minimumTier": 4,
                 "classes": [
                     "innkeeper",
                     "druid"
                 ]
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "survival",
-                "ability": "allrounder",
-                "exclusiveTier": 4
             },
             {
                 "code": "exclusiveAbility",
@@ -1073,125 +552,6 @@
                 "minimumTier": 4,
                 "skill": "farming",
                 "ability": "cultivatedseeds",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "metalworking",
-                "ability": "automatedsmithing",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "metalworking",
-                "ability": "mastersmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "stonebreaker",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "stonecutter",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "oreminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "gemstoneminer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "tunneldigger",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "mining",
-                "ability": "veinminer",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "combat",
-                "ability": "drunkenmaster",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "juicer",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "fastfood",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "welldone",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "cooking",
-                "ability": "gourmet",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "metalworking",
-                "ability": "blacksmith",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "pottery",
-                "ability": "layerlayer",
-                "exclusiveTier": 4
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "pottery",
-                "ability": "infallible",
-                "exclusiveTier": 3
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 4,
-                "skill": "pottery",
-                "ability": "inspiration",
                 "exclusiveTier": 3
             }
         ]

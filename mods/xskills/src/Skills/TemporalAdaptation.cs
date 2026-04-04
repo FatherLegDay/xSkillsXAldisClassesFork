@@ -80,7 +80,7 @@ namespace XSkills
                 "timelord",
                 "xskills:ability-timelord",
                 "xskills:abilitydesc-timelord",
-                5, 1, new int[] { 40 }));
+                5, 2, new int[] { 40, 60 }));
 
             // increased yield from all ores in a temporal stable area
             // 0: value

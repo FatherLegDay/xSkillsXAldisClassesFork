@@ -116,7 +116,7 @@ namespace XSkills
                 "chef",
                 "xskills:ability-chef",
                 "xskills:abilitydesc-chef",
-                5, 1, new int[] { 40 }));
+                5, 2, new int[] { 40, 60 }));
 
             // chance to add a random ingredient
             // 0: base value

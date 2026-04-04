@@ -25,687 +25,314 @@
         "vanguard": 0.1,
         "mercenary": 0.1
     },
-  "metalrecovery": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 3,
-        "skill": "metalworking",
-        "ability": "metalworker",
-        "requiredTier": 1
-      }
-    ]
-  },
-  "hammerexpert": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 3,
-        "skill": "metalworking",
-        "ability": "metalworker",
-        "requiredTier": 1
-      }
-    ]
-  },
-  "blacksmith": {
-    "requirements": [
-        {
-            "code": "ability",
-            "minimumTier": 2,
-            "skill": "metalworking",
-            "ability": "metalworker",
-            "requiredTier": 1
-        },
-        {
-            "minimumTier": 3,
-            "code": "skill",
-            "skill": "metalworking",
-            "requiredTier": 15
-        },
-        {
-            "code": "class",
-            "minimumTier": 3,
-            "classes": [
-                "blacksmith",
-                "deepforger"
-            ]
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "survival",
-            "ability": "allrounder",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "greenthumb",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "demetersbless",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "orchardist",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "brightharvest",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "cultivatedseeds",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "beekeeper",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "metalworking",
-            "ability": "automatedsmithing",
-            "exclusiveTier": 2
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "metalworking",
-            "ability": "mastersmith",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "stonebreaker",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "stonecutter",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "oreminer",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "gemstoneminer",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "veinminer",
-            "exclusiveTier": 2
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "tunneldigger",
-            "exclusiveTier": 2
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "combat",
-            "ability": "drunkenmaster",
-            "exclusiveTier": 2
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "cooking",
-            "ability": "juicer",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "cooking",
-            "ability": "fastfood",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "cooking",
-            "ability": "welldone",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "cooking",
-            "ability": "gourmet",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "pottery",
-            "ability": "layerlayer",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "pottery",
-            "ability": "infallible",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "pottery",
-            "ability": "inspiration",
-            "exclusiveTier": 3
-        }
-    ]
-  },
-  "finishingtouch": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 3,
-        "skill": "metalworking",
-        "ability": "metalworker",
-        "requiredTier": 1
-      }
-    ]
-  },
-  "duplicator": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 3,
-        "skill": "metalworking",
-        "ability": "metalworker",
-        "requiredTier": 1
-      }
-    ]
-  },
-  "mastersmith": {
-    "requirements": [
-        {
-            "code": "ability",
-            "minimumTier": 1,
-            "skill": "metalworking",
-            "ability": "metalworker",
-            "requiredTier": 1
-        },
-        {
-            "code": "ability",
-            "minimumTier": 2,
-            "skill": "metalworking",
-            "ability": "metalworker",
-            "requiredTier": 1
-        },
-        {
-            "code": "ability",
-            "minimumTier": 3,
-            "skill": "metalworking",
-            "ability": "metalworker",
-            "requiredTier": 1
-        },
-        {
-            "code": "class",
-            "minimumTier": 3,
-            "classes": [
-                "blacksmith",
-                "deepforger"
-            ]
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "survival",
-            "ability": "allrounder",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "greenthumb",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "demetersbless",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "orchardist",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "brightharvest",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "cultivatedseeds",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "farming",
-            "ability": "beekeeper",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "metalworking",
-            "ability": "automatedsmithing",
-            "exclusiveTier": 2
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "stonebreaker",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "stonecutter",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "oreminer",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "gemstoneminer",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "tunneldigger",
-            "exclusiveTier": 2
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "mining",
-            "ability": "veinminer",
-            "exclusiveTier": 2
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "combat",
-            "ability": "drunkenmaster",
-            "exclusiveTier": 2
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "cooking",
-            "ability": "juicer",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "cooking",
-            "ability": "fastfood",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "cooking",
-            "ability": "welldone",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "cooking",
-            "ability": "gourmet",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "metalworking",
-            "ability": "blacksmith",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "pottery",
-            "ability": "layerlayer",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "pottery",
-            "ability": "infallible",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 3,
-            "skill": "pottery",
-            "ability": "inspiration",
-            "exclusiveTier": 3
-        }
-    ]
-  },
-  "salvager": {
-    "requirements": [
-      {
-        "code": "or",
-        "minimumTier": 1,
+    "metalrecovery": {
         "requirements": [
-          {
-            "code": "ability",
-            "minimumTier": 1,
-            "skill": "metalworking",
-            "ability": "metalworker",
-            "requiredTier": 1
-          },
-          {
-            "code": "class",
-            "minimumTier": 1,
-            "classes": [
-                "clockmaker",
-                "entropic"
-            ]
-          }
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "metalworking",
+                "ability": "metalworker",
+                "requiredTier": 1
+            }
         ]
-      },
-      {
-        "code": "ability",
-        "minimumTier": 2,
-        "skill": "metalworking",
-        "ability": "metalworker",
-        "requiredTier": 1
-      },
-      {
-        "code": "class",
-        "minimumTier": 2,
-        "classes": [
-            "clockmaker",
-            "entropic"
+    },
+    "hammerexpert": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "metalworking",
+                "ability": "metalworker",
+                "requiredTier": 1
+            }
         ]
-      }
-    ]
-  },
-  "bloomeryexpert": {
-    "requirements": [
-      {
-        "code": "ability",
-        "minimumTier": 1,
-        "skill": "metalworking",
-        "ability": "metalworker",
-        "requiredTier": 1
-      },
-      {
-        "code": "ability",
-        "minimumTier": 1,
-        "skill": "metalworking",
-        "ability": "smelter",
-        "requiredTier": 2
-      }
-    ]
-  },
-  "automatedsmithing": {
-    "requirements": [
-        {
-            "code": "ability",
-            "minimumTier": 1,
-            "skill": "metalworking",
-            "ability": "metalworker",
-            "requiredTier": 1
-        },
-        {
-            "code": "ability",
-            "minimumTier": 1,
-            "skill": "metalworking",
-            "ability": "machinelearning",
-            "requiredTier": 1
-        },
-        {
-            "code": "ability",
-            "minimumTier": 2,
-            "skill": "metalworking",
-            "ability": "metalworker",
-            "requiredTier": 1
-        },
-        {
-            "code": "ability",
-            "minimumTier": 2,
-            "skill": "metalworking",
-            "ability": "machinelearning",
-            "requiredTier": 1
-        },
-        {
-            "code": "class",
-            "minimumTier": 2,
-            "classes": [
-                "blacksmith",
-                "deepforger"
-            ]
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "survival",
-            "ability": "allrounder",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "farming",
-            "ability": "greenthumb",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "farming",
-            "ability": "demetersbless",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "farming",
-            "ability": "orchardist",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "farming",
-            "ability": "brightharvest",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "farming",
-            "ability": "cultivatedseeds",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "farming",
-            "ability": "beekeeper",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "metalworking",
-            "ability": "mastersmith",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "mining",
-            "ability": "stonebreaker",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "mining",
-            "ability": "stonecutter",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "mining",
-            "ability": "oreminer",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "mining",
-            "ability": "gemstoneminer",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "mining",
-            "ability": "tunneldigger",
-            "exclusiveTier": 2
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "mining",
-            "ability": "veinminer",
-            "exclusiveTier": 2
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "combat",
-            "ability": "drunkenmaster",
-            "exclusiveTier": 2
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "cooking",
-            "ability": "juicer",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "cooking",
-            "ability": "fastfood",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "cooking",
-            "ability": "welldone",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "cooking",
-            "ability": "gourmet",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "metalworking",
-            "ability": "blacksmith",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "pottery",
-            "ability": "layerlayer",
-            "exclusiveTier": 4
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "pottery",
-            "ability": "infallible",
-            "exclusiveTier": 3
-        },
-        {
-            "code": "exclusiveAbility",
-            "minimumTier": 2,
-            "skill": "pottery",
-            "ability": "inspiration",
-            "exclusiveTier": 3
-        }
-    ]
-  }
+    },
+    "blacksmith": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "metalworker",
+                "requiredTier": 1
+            },
+            {
+                "minimumTier": 3,
+                "code": "skill",
+                "skill": "metalworking",
+                "requiredTier": 15
+            },
+            {
+                "code": "class",
+                "minimumTier": 3,
+                "classes": [
+                    "blacksmith",
+                    "deepforger"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "metalworking",
+                "ability": "automatedsmithing",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "metalworking",
+                "ability": "mastersmith",
+                "exclusiveTier": 3
+            }
+        ]
+    },
+    "finishingtouch": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "metalworking",
+                "ability": "metalworker",
+                "requiredTier": 1
+            }
+        ]
+    },
+    "metalworker": {
+        "requirements": [
+            {
+                "code": "class",
+                "minimumTier": 2,
+                "classes": [
+                    "blacksmith",
+                    "deepforger"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "survival",
+                "ability": "allrounder",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "combat",
+                "ability": "warrior",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "cooking",
+                "ability": "chef",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "digging",
+                "ability": "digger",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "farming",
+                "ability": "farmer",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "forestry",
+                "ability": "forester",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "mining",
+                "ability": "miner",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "pottery",
+                "ability": "potter",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "temporaladaptation",
+                "ability": "timelord",
+                "exclusiveTier": 2
+            }
+        ]
+    },
+    "duplicator": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "metalworking",
+                "ability": "metalworker",
+                "requiredTier": 1
+            }
+        ]
+    },
+    "mastersmith": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 1,
+                "skill": "metalworking",
+                "ability": "metalworker",
+                "requiredTier": 1
+            },
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "metalworking",
+                "ability": "metalworker",
+                "requiredTier": 2
+            },
+            {
+                "code": "class",
+                "minimumTier": 3,
+                "classes": [
+                    "blacksmith",
+                    "deepforger"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "metalworking",
+                "ability": "automatedsmithing",
+                "exclusiveTier": 2
+            }
+        ]
+    },
+    "salvager": {
+        "requirements": [
+            {
+                "code": "or",
+                "minimumTier": 1,
+                "requirements": [
+                    {
+                        "code": "ability",
+                        "minimumTier": 1,
+                        "skill": "metalworking",
+                        "ability": "metalworker",
+                        "requiredTier": 1
+                    },
+                    {
+                        "code": "class",
+                        "minimumTier": 1,
+                        "classes": [
+                            "clockmaker",
+                            "entropic"
+                        ]
+                    }
+                ]
+            },
+            {
+                "code": "ability",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "metalworker",
+                "requiredTier": 1
+            },
+            {
+                "code": "class",
+                "minimumTier": 2,
+                "classes": [
+                    "clockmaker",
+                    "entropic"
+                ]
+            }
+        ]
+    },
+    "bloomeryexpert": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 1,
+                "skill": "metalworking",
+                "ability": "metalworker",
+                "requiredTier": 1
+            },
+            {
+                "code": "ability",
+                "minimumTier": 1,
+                "skill": "metalworking",
+                "ability": "smelter",
+                "requiredTier": 2
+            }
+        ]
+    },
+    "automatedsmithing": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 1,
+                "skill": "metalworking",
+                "ability": "metalworker",
+                "requiredTier": 1
+            },
+            {
+                "code": "ability",
+                "minimumTier": 1,
+                "skill": "metalworking",
+                "ability": "machinelearning",
+                "requiredTier": 1
+            },
+            {
+                "code": "ability",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "metalworker",
+                "requiredTier": 2
+            },
+            {
+                "code": "class",
+                "minimumTier": 2,
+                "classes": [
+                    "blacksmith",
+                    "deepforger"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "metalworking",
+                "ability": "mastersmith",
+                "exclusiveTier": 3
+            }
+        ]
+    }
 }

@@ -51,7 +51,7 @@ namespace XSkills
                 "stonebreaker",
                 "xskills:ability-stonebreaker",
                 "xskills:abilitydesc-stonebreaker",
-                1, 3, new int[] { 10, 2, 30, 20, 4, 60, 20, 4, 100 }));
+                1, 4, new int[] { 10, 2, 30, 20, 4, 60, 20, 4, 100, 25, 4, 125 }));
 
             // chance to get a complete stone instead of broken ones
             // 0: base value
@@ -61,7 +61,7 @@ namespace XSkills
                 "stonecutter",
                 "xskills:ability-stonecutter",
                 "xskills:abilitydesc-stonecutter",
-                1, 3, new int[] { 2, 1, 12, 4, 2, 24, 4, 2, 44 }));
+                1, 4, new int[] { 2, 1, 12, 4, 2, 24, 4, 2, 44, 6, 2, 56 }));
 
             // more ore drops
             // 0: base value
@@ -71,7 +71,7 @@ namespace XSkills
                 "oreminer",
                 "xskills:ability-oreminer",
                 "xskills:abilitydesc-oreminer",
-                 1, 3, new int[] { 5, 1, 15, 10, 2, 30, 10, 2, 50 }));
+                 1, 4, new int[] { 5, 1, 15, 10, 2, 30, 10, 2, 50, 25, 2, 75 }));
 
             // more gemstone drops
             // 0: base value
@@ -81,7 +81,7 @@ namespace XSkills
                 "gemstoneminer",
                 "xskills:ability-gemstoneminer",
                 "xskills:abilitydesc-gemstoneminer",
-                5, 3, new int[] { 5, 1, 15, 10, 2, 30, 10, 2, 50 }));
+                5, 4, new int[] { 5, 1, 15, 10, 2, 30, 10, 2, 50, 25, 2, 75 }));
 
             // momentum
             // 0: base value
@@ -113,7 +113,7 @@ namespace XSkills
                 "miner",
                 "xskills:ability-miner",
                 "xskills:abilitydesc-miner",
-                5, 1, new int[] { 40 }));
+                5, 2, new int[] { 40, 60 }));
 
             // more crystal drops
             // 0: value

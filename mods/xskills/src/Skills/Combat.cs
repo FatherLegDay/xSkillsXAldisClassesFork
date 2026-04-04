@@ -165,7 +165,7 @@ namespace XSkills
                 "warrior",
                 "xskills:ability-warrior",
                 "xskills:abilitydesc-warrior",
-                5, 1, new int[] { 40 }));
+                5, 2, new int[] { 40, 60 }));
 
             // more knockback
             // 0: base value

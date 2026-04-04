@@ -108,7 +108,7 @@ namespace XSkills
                 "shepherd",
                 "xskills:ability-shepherd",
                 "xskills:abilitydesc-shepherd",
-                5, 1, new int[] { 40 }));
+                5, 2, new int[] { 40, 60 }));
 
             // makes meat preserve longer
             // 0: base value

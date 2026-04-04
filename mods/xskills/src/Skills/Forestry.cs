@@ -101,7 +101,7 @@ namespace XSkills
                 "forester",
                 "xskills:ability-forester",
                 "xskills:abilitydesc-forester",
-                5, 1, new int[] { 40 }));
+                5, 2, new int[] { 40, 60 }));
 
             // more charcoal drops
             // 0: drop bonus

@@ -53,7 +53,7 @@ namespace XSkills
                 "layerlayer",
                 "xskills:ability-layerlayer",
                 "xskills:abilitydesc-layerlayer",
-                1, 3, new int[] { 1, 2, 4 }));
+                1, 4, new int[] { 1, 2, 4, 5 }));
 
             //can't remove right voxels
             PerfectFitId = this.AddAbility(new Ability(
@@ -75,7 +75,7 @@ namespace XSkills
                 "potter",
                 "xskills:ability-potter",
                 "xskills:abilitydesc-potter",
-                5, 1, new int[] { 40 }));
+                5, 2, new int[] { 40, 60 }));
 
             // chance to instantly finish a pottering work
             // 0: base value
@@ -103,7 +103,7 @@ namespace XSkills
                 "infallible",
                 "xskills:ability-infallible",
                 "xskills:abilitydesc-infallible",
-                5, 2, new int[] { 1, 2 }));
+                5, 3, new int[] { 1, 2, 3 }));
 
             // chance to get a unique storage vessel
             // 0: chance
@@ -111,7 +111,7 @@ namespace XSkills
                 "inspiration",
                 "xskills:ability-inspiration",
                 "xskills:abilitydesc-inspiration",
-                7, 2, new int[] { 10, 20 }));
+                7, 3, new int[] { 10, 20, 30 }));
 
             // chance to get a unique storage vessel
             // 0: chance

@@ -126,7 +126,7 @@ namespace XSkills
                 "digger",
                 "xskills:ability-digger",
                 "xskills:abilitydesc-digger",
-                5, 1, new int[] { 40 }));
+                5, 2, new int[] { 40, 60 }));
 
             // sand and gravel blocks can be sieved
             // 0: chance
