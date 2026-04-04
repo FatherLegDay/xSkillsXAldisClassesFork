@@ -237,6 +237,31 @@ namespace XSkills
             }
             return drops.ToArray();
         }
+
+        // Use the same XP mapping as your patch. Public so other behaviors can reuse it.
+        public float CalculatePanningXp(ItemStack drop)
+        {
+            if (drop == null || drop.Item == null) return 0.0f;
+            string path = drop.Item.Code.Path.ToLowerInvariant();
+
+            // Rare/valuable items
+            if (path.Contains("clothes") || path.Contains("gear-temporal")) return 10.0f;
+
+            // Gems 
+            if (path.Contains("gem")) return 2.0f;
+
+            // Rare minerals and special items
+            if (path.Contains("nugget") || path.Contains("chunk") || path.Contains("spear") || path.Contains("arrow") || path.Contains("ore") || path.Contains("lore-book")) return 0.75f;
+
+            // Common clutter
+            if (path.Contains("gear") || path.Contains("ribcage") || path.Contains("candle")) return 0.2f;
+
+            // Junk
+            if (path.Contains("stone") || path.Contains("bone") || path.Contains("twine")) return 0.1f;
+
+            // Default fallback
+            return 0.1f;
+        }
     }//!class Digging
 
     public class XSkillsSoilBehavior : CollectingBehavior
@@ -376,8 +401,21 @@ namespace XSkills
 
             if (playerAbility.FValue(0) > world.Rand.NextDouble())
             {
-                drops.AddRange(digging.GeneratePanDrops(byPlayer.Entity, block.Code.Path, dropChanceMultiplier * 8.0f, 8));
+                // Get the pan drops for this block and add them to the drop list. The drop chance multiplier is multiplied by 8 to make the panning drops more common, since they are meant to replace the normal drops.
+                drops.AddRange(digging.GeneratePanDrops(byPlayer.Entity, block.Code.Path, dropChanceMultiplier * 8.0f, 2));
+                // Prevent the normal drops from being generated, since the pan drops are meant to replace them.
                 handling = EnumHandling.PreventDefault;
+
+                // Award Xp for panning drops when scrap detector procs.
+                float totalXp = 0.0f;
+                foreach (ItemStack stack in drops)
+                {
+                    totalXp += digging.CalculatePanningXp(stack);
+                }
+                if (totalXp > 0.0f)
+                {
+                    playerSkill.AddExperience(totalXp);
+                }
             }
             return drops;
         }
