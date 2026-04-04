@@ -123,8 +123,6 @@ namespace XSkills
                     {
                         float mul = QualityUtil.GetMiningSpeedMultiplier(quality);
                         float bonusPercent = (mul - 1.0f) * 100.0f;
-                        string expectedTooltip = Lang.Get("xskills:tooltip-miningspeed", bonusPercent.ToString("N1"));
-                        if (!dsc.ToString().Contains(expectedTooltip))
                         {
                             QualityUtil.AddMiningSpeedString(quality, dsc);
                         }
@@ -145,7 +143,6 @@ namespace XSkills
                     {
                         float mul = QualityUtil.GetDamageMultiplier(quality);
                         float bonusPercent = (mul - 1.0f) * 100.0f;
-                        string expectedTooltip = Lang.Get("xskills:tooltip-damage", bonusPercent.ToString("N1"));
                         {
                             QualityUtil.AddDamageString(quality, dsc);
                         }
@@ -162,8 +159,6 @@ namespace XSkills
                     {
                         float mul = QualityUtil.GetDamageMultiplier(quality);
                         float bonusPercent = (mul - 1.0f) * 100.0f;
-                        string expectedTooltip = Lang.Get("xskills:tooltip-damage", bonusPercent.ToString("N1"));
-                        if (!dsc.ToString().Contains(expectedTooltip))
                         {
                             QualityUtil.AddDamageString(quality, dsc);
                         }
@@ -187,8 +182,6 @@ namespace XSkills
                         int baseMax = __instance.Durability;
                         int added = (int)Math.Round(baseMax * (mul - 1.0f));
 
-                        string expectedTooltip = Lang.Get("xskills:tooltip-durability", bonusPercent.ToString("N1"), added);
-                        if (!dsc.ToString().Contains(expectedTooltip))
                         {
                             QualityUtil.AddDurabilityString(quality, __instance, inSlot, dsc);
                         }
