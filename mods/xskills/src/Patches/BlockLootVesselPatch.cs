@@ -73,47 +73,47 @@ namespace XSkills
             switch(skillName)
             {
                 case "farming":
-                    color = "darkgreen";
+                    color = "farming";
                     break;
 
                 case "cooking":
-                    color = "cherryred";
+                    color = "cooking";
                     break;
 
                 case "survival":
-                    color = "olive";
+                    color = "survival";
                     break;
 
                 case "digging":
-                    color = "orange";
+                    color = "digging";
                     break;
 
                 case "forestry":
-                    color = "darkolive";
+                    color = "forestry";
                     break;
 
                 case "mining":
-                    color = "darkgray";
+                    color = "mining";
                     break;
 
                 case "metalworking":
-                    color = "brickred";
+                    color = "metalworking";
                     break;
 
                 case "combat":
-                    color = "purpleorange";
+                    color = "combat";
                     break;
 
                 case "husbandry":
-                    color = "orangebrown";
+                    color = "husbandry";
                     break;
 
                 case "pottery":
-                    color = "darkbeige";
+                    color = "pottery";
                     break;
 
                 case "temporaladaptation":
-                    color = "gray";
+                    color = "temporal";
                     break;
 
                 default:

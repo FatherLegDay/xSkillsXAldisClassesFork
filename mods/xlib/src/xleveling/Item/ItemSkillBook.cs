@@ -75,9 +75,9 @@ namespace XLib.XLeveling
                 string[] strings = knowledge.Split(':');
                 string name;
                 if (strings.Length == 2) 
-                    name = Lang.GetIfExists(strings[0] + ":book-" + strings[1]);
+                    name = Lang.GetIfExists(strings[0] + ":skillbook-" + strings[1]);
                 else 
-                    name = Lang.GetIfExists("book-" + knowledge);
+                    name = Lang.GetIfExists("skillbook-" + knowledge);
                 if (name != null) return name;
             }
 
