@@ -18,12 +18,12 @@
     "variantgroups": [
 		{
 			"code": "color",
-			"states": [ "survival", "combat", "cooking", "digging", "farming", "forestry", "husbandry", "metalworking", "mining", "pottery", "temporal", "aged-survival", "aged-combat", "aged-cooking", "aged-digging", "aged-farming", "aged-forestry", "aged-husbandry", "aged-metalworking", "aged-mining", "aged-pottery", "aged-temporal" ]
+			"states": [ "pottery", "aged-pottery" ]
 		}
     ],
-	"shape": { "base": "game:block/clutter/bookshelves/small-normal" },
+	"shape": { "base": "xlib:block/skillbook/pottery" },
     "textures": {
-        "cover": { "base": "xskills:item/skillbook/{color}" }
+        "pottery": { "base": "xlib:item/skillbook/pottery/{color}" }
 	},
 	"maxstacksize": 1,
 	"creativeinventory": { "general": [ "*" ], "items": [ "*" ], "library": [ "*" ] },
@@ -35,9 +35,9 @@
 	},
 	"tpHandTransform": {
 		"translation": { "x": -0.79, "y": -0.36, "z": -0.73 },
-		"rotation": { "x": 0, "y": -84, "z": 7 },
+		"rotation": { "x": 180, "y": -20, "z": -60 },
 		"origin": { "x": 0.5, "y": 0.1, "z": 0.5 },
-		"scale": 0.67
+		"scale": 0.87
 	},
 	"groundTransform": {
 		"translation": { "x": 0, "y": 0, "z": 0 },
