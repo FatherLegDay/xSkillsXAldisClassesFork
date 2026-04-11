@@ -107,6 +107,25 @@ namespace XLib.XLeveling
                 dsc.AppendLine(Lang.Get("xlib:skillbook-dsc", skill.DisplayName, exp));
             if (knowledge != null) 
                 dsc.AppendLine(Lang.Get("xlib:skillbook-dsc2", Lang.Get(knowledge)));
+
+            
+            try
+            {
+                if (system?.Config?.skillBookUnlearnEnabled == true)
+                {
+                    float unlearn = (float)inSlot.Itemstack.Attributes.GetDecimal("unlearnPoints", 0.0);
+                    if (unlearn == 0.0f) unlearn = system.Config.skillBookUnlearnPoints;
+
+                    if (unlearn > 0.0f)
+                    {
+                        dsc.AppendLine("\n" + Lang.Get("xlib:you receive") + " " + unlearn.ToString("N2") + " " + Lang.Get("xlib:unlearnpoints"));
+                    }
+                }
+            }
+            catch
+            {
+                
+            }
         }
 
         /// <summary>
@@ -189,6 +208,26 @@ namespace XLib.XLeveling
                 {
                     skillSet.Knowledge.TryGetValue(knowledge, out int value);
                     (XLeveling.Instance(api)?.IXLevelingAPI as XLevelingServer)?.SetPlayerKnowledge(player, knowledge, value + 1);
+                }
+
+                try
+                {
+                    if (system?.Config?.skillBookUnlearnEnabled == true)
+                    {
+                        float unlearn = (float)stack.Attributes.GetDecimal("unlearnPoints", 0.0);
+                        if (unlearn == 0.0f) unlearn = system.Config.skillBookUnlearnPoints;
+
+                        if (unlearn > 0.0f && skillSet != null)
+                        {
+                            skillSet.UnlearnPoints = Math.Min(skillSet.UnlearnPoints + unlearn, 10.0f);
+                            CommandPackage package = new CommandPackage(EnumXLevelingCommand.UnlearnPoints, skillSet.UnlearnPoints);
+                            (byEntity.Api.Network.GetChannel("XLeveling") as IServerNetworkChannel)?.SendPacket(package, skillSet.Player as IServerPlayer);
+                        }
+                    }
+                }
+                catch 
+                {
+                
                 }
             }
         }

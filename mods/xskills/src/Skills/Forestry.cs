@@ -35,7 +35,7 @@ namespace XSkills
                 "lumberjack",
                 "xskills:ability-lumberjack",
                 "xskills:abilitydesc-lumberjack",
-                1, 3, new int[] { 10, 1, 20, 20, 2, 40, 20, 2, 60 }));
+                1, 4, new int[] { 10, 1, 20, 20, 2, 40, 20, 2, 60, 30, 3, 100 }));
 
             // more sapling drops
             // 0: base value 
@@ -43,7 +43,7 @@ namespace XSkills
                 "afforestation",
                 "xskills:ability-afforestation",
                 "xskills:abilitydesc-afforestation",
-                1, 2, new int[] { 10, 20 }));
+                1, 4, new int[] { 10, 20, 30, 50 }));
 
             // more stick drops
             // 0: base value
@@ -53,7 +53,7 @@ namespace XSkills
                 "moreladders",
                 "xskills:ability-moreladders",
                 "xskills:abilitydesc-moreladders",
-                1, 2, new int[] { 10, 2, 30, 20, 4, 60 }));
+                1, 3, new int[] { 10, 2, 30, 20, 4, 60, 30, 5, 120 }));
 
             //resin from pine
             // 0: base value
@@ -69,7 +69,7 @@ namespace XSkills
                 "treenursery",
                 "xskills:ability-treenursery",
                 "xskills:abilitydesc-treenursery",
-                3, 3, new int[] { 87, 74, 60 }));
+                3, 4, new int[] { 87, 74, 60, 45 }));
 
             // momentum
             // 0: base value
@@ -109,7 +109,7 @@ namespace XSkills
                 "charcoalburner",
                 "xskills:ability-charcoalburner",
                 "xskills:abilitydesc-charcoalburner",
-                5, 3, new int[] { 13, 26, 40 }));
+                5, 4, new int[] { 13, 26, 40, 65 }));
 
             // faster charcoal shoveling
             // 0: chance to break an additional layer
@@ -118,7 +118,7 @@ namespace XSkills
                 "stoker",
                 "xskills:ability-stoker",
                 "xskills:abilitydesc-stoker",
-                5, 2, new int[] { 25, 50 }));
+                5, 3, new int[] { 25, 50, 75 }));
 
             //higher grafting and rooting success rate for fruit trees
             // 0: base value

@@ -91,6 +91,20 @@ namespace XLib.XLeveling
         public bool disableCampfireChecks;
 
         /// <summary>
+        /// If true, skillbooks will grant unlearn points when consumed.
+        /// </summary>
+        [ProtoMember(11)]
+        [DefaultValue(false)]
+        public bool skillBookUnlearnEnabled;
+
+        /// <summary>
+        /// Global fallback number of unlearn points a skillbook gives (if the item doesn't specify `unlearnPoints`).
+        /// </summary>
+        [ProtoMember(12)]
+        [DefaultValue(0.0f)]
+        public float skillBookUnlearnPoints;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Config"/> class.
         /// </summary>
         public Config()
@@ -106,6 +120,9 @@ namespace XLib.XLeveling
             this.disabledRequirements = new List<string>();
             this.trackExpGain = false;
             this.disableCampfireChecks = false;
+
+            this.skillBookUnlearnEnabled = true;
+            this.skillBookUnlearnPoints = 0.05f;
         }
     }//!class Config
 }

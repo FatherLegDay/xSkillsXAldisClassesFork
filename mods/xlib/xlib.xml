@@ -3212,6 +3212,16 @@
             When enabled, the well-rested ability will not require a nearby fire.
             </summary>
         </member>
+        <member name="F:XLib.XLeveling.Config.skillBookUnlearnEnabled">
+            <summary>
+            If true, skillbooks will grant unlearn points when consumed.
+            </summary>
+        </member>
+        <member name="F:XLib.XLeveling.Config.skillBookUnlearnPoints">
+            <summary>
+            Global fallback number of unlearn points a skillbook gives (if the item doesn't specify `unlearnPoints`).
+            </summary>
+        </member>
         <member name="M:XLib.XLeveling.Config.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:XLib.XLeveling.Config"/> class.
