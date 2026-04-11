@@ -10,7 +10,7 @@
         "druid": -0.05,
         "wildrunner": -0.2,
         "innkeeper": 0.1,
-        "earthshaper": 0.4,
+        "earthshaper": 0.5,
         "deepforger": 0.15,
         "shadowstrider": -0.05,
         "timberborn": -0.1,
@@ -45,6 +45,35 @@
                 "skill": "digging",
                 "ability": "saltpeterdigger",
                 "exclusiveTier": 3
+            },
+            {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "digging",
+                "ability": "digger",
+                "requiredTier": 2
+            },
+            {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "earthshaper",
+                    "potter"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "digging",
+                "ability": "peatcutter",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "digging",
+                "ability": "saltpeterdigger",
+                "exclusiveTier": 4
             }
         ]
     },
@@ -70,6 +99,35 @@
                 "skill": "digging",
                 "ability": "saltpeterdigger",
                 "exclusiveTier": 3
+            },
+            {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "digging",
+                "ability": "digger",
+                "requiredTier": 2
+            },
+            {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "earthshaper",
+                    "potter"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "digging",
+                "ability": "claydigger",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "digging",
+                "ability": "saltpeterdigger",
+                "exclusiveTier": 4
             }
         ]
     },
@@ -95,6 +153,35 @@
                 "skill": "digging",
                 "ability": "peatcutter",
                 "exclusiveTier": 3
+            },
+            {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "digging",
+                "ability": "digger",
+                "requiredTier": 2
+            },
+            {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "earthshaper",
+                    "potter"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "digging",
+                "ability": "claydigger",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "digging",
+                "ability": "peatcutter",
+                "exclusiveTier": 4
             }
         ]
     },
@@ -128,6 +215,17 @@
                 "skill": "digging",
                 "ability": "claydigger",
                 "requiredTier": 1
+            }
+        ]
+    },
+    "quickpan": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "digging",
+                "ability": "digger",
+                "requiredTier": 2
             }
         ]
     },

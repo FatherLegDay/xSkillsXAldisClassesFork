@@ -48,7 +48,7 @@ namespace XSkills
                 "claydigger",
                 "xskills:ability-claydigger",
                 "xskills:abilitydesc-claydigger",
-                1, 3, new int[] { 10, 2, 30, 20, 4, 60, 20, 4, 100 }));
+                1, 4, new int[] { 10, 2, 30, 20, 4, 60, 20, 4, 100, 25, 5, 150 }));
 
             // more peat drops
             // 0: base value
@@ -58,7 +58,7 @@ namespace XSkills
                 "peatcutter",
                 "xskills:ability-peatcutter",
                 "xskills:abilitydesc-peatcutter",
-                1, 3, new int[] { 10, 2, 30, 20, 4, 60, 20, 4, 100 }));
+                1, 4, new int[] { 10, 2, 30, 20, 4, 60, 20, 4, 100, 25, 5, 150 }));
 
             // more saltpeter drops
             // 0: base value
@@ -68,7 +68,7 @@ namespace XSkills
                 "saltpeterdigger",
                 "xskills:ability-saltpeterdigger",
                 "xskills:abilitydesc-saltpeterdigger",
-                1, 3, new int[] { 10, 2, 30, 20, 4, 60, 20, 4, 100 }));
+                1, 4, new int[] { 10, 2, 30, 20, 4, 60, 20, 4, 100, 25, 5, 150 }));
 
             // momentum
             // 0: base value
@@ -108,7 +108,7 @@ namespace XSkills
                 "quickpan",
                 "xskills:ability-quickpan",
                 "xskills:abilitydesc-quickpan",
-                3, 2, new int[] { 50, 100 }));
+                3, 3, new int[] { 50, 100, 150 }));
 
             //// more loot from panning
             //// 0: base value

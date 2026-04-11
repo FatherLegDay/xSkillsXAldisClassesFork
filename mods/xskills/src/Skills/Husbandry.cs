@@ -36,7 +36,7 @@ namespace XSkills
                 "hunter", "bowyer",
                 "xskills:ability-hunter",
                 "xskills:abilitydesc-hunter", 
-                1, 3, new int[] { 10, 0, 10, 10, 1, 20, 10, 1, 30 }));
+                1, 4, new int[] { 10, 0, 10, 10, 1, 20, 10, 1, 30, 25, 1, 50 }));
 
             // more mob drops(flesh)
             // 0: base value
@@ -48,7 +48,7 @@ namespace XSkills
                 "butcher",
                 "xskills:ability-butcher",
                 "xskills:abilitydesc-butcher",
-                1, 3, new int[] { 5, 1, 15, 1, 10, 5, 2, 25, 1, 15, 5, 2, 45, 1, 20}));
+                1, 4, new int[] { 5, 1, 15, 1, 10, 5, 2, 25, 1, 15, 5, 2, 45, 1, 20, 5, 3, 60, 1, 20 }));
 
             // more mob drops(hides)
             // 0: base value
@@ -60,7 +60,7 @@ namespace XSkills
                 "furrier",
                 "xskills:ability-furrier",
                 "xskills:abilitydesc-furrier",
-                1, 3, new int[] { 5, 1, 15, 1, 10, 5, 2, 25, 1, 15, 5, 2, 45, 1, 20 }));
+                1, 4, new int[] { 5, 1, 15, 1, 10, 5, 2, 25, 1, 15, 5, 2, 45, 1, 20, 5, 3, 60, 1, 20 }));
 
             // can harvest more bones from carcasses
             // 0: base value
@@ -70,7 +70,7 @@ namespace XSkills
                 "bonebreaker",
                 "xskills:ability-bonebreaker",
                 "xskills:abilitydesc-bonebreaker",
-                1, 3, new int[] { 10, 1, 20, 15, 2, 40, 20, 2, 60 }));
+                1, 4, new int[] { 10, 1, 20, 15, 2, 40, 20, 2, 60, 20, 3, 80 }));
 
             // more eggs and milk
             // 0: base value
@@ -92,7 +92,7 @@ namespace XSkills
                 "feeder",
                 "xskills:ability-feeder",
                 "xskills:abilitydesc-feeder",
-                3, 2, new int[] { 10, 1, 20, 1, 4, 20, 1, 40, 1, 8}));
+                3, 2, new int[] { 10, 1, 20, 1, 4, 20, 1, 40, 1, 8 }));
 
             // reduced animal seaking range
             // 0: base value
@@ -118,7 +118,7 @@ namespace XSkills
                 "preserver",
                 "xskills:ability-preserver",
                 "xskills:abilitydesc-preserver",
-                5, 1, new int[] { 10, 1, 30 }));
+                5, 2, new int[] { 10, 1, 30, 15, 2, 65 }));
 
             // can tan hide with less recources
             // 0: base value
@@ -128,7 +128,7 @@ namespace XSkills
                 "tanner",
                 "xskills:ability-tanner",
                 "xskills:abilitydesc-tanner",
-                5, 3, new int[] { 10, 1, 20, 10, 2, 30, 10, 2, 50 }));
+                5, 4, new int[] { 10, 1, 20, 10, 2, 30, 10, 2, 50, 25, 2, 75 }));
 
             // chance to get cheese from milking
             // 0: base value
@@ -155,7 +155,7 @@ namespace XSkills
                 "breeder",
                 "xskills:ability-breeder",
                 "xskills:abilitydesc-breeder",
-                8, 1, new int[] { 10, 2, 1, 60 }));
+                8, 2, new int[] { 10, 2, 1, 60, 10, 2, 1, 75 }));
 
             // increased offstrings from animals
             // 0: base value
@@ -166,7 +166,7 @@ namespace XSkills
                 "masshusbandry",
                 "xskills:ability-masshusbandry",
                 "xskills:abilitydesc-masshusbandry",
-                10, 1, new int[] { 0, 1, 1, 30 }));
+                10, 2, new int[] { 0, 1, 1, 30, 10, 1, 1, 50 }));
 
             //behaviors
             api.RegisterEntityBehaviorClass("XSkillsAnimal", typeof(XSkillsAnimalBehavior));

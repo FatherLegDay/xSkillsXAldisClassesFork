@@ -31,6 +31,164 @@
                 "skill": "forestry",
                 "ability": "forester",
                 "requiredTier": 1
+            },
+            {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "forester",
+                "requiredTier": 2
+            },
+            {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "lumberjack",
+                    "timberborn"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "treenursery",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "afforestation",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "moreladders",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "charcoalburner",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "stoker",
+                "exclusiveTier": 3
+            }
+        ]
+    },
+    "afforestation": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "forestry",
+                "ability": "forester",
+                "requiredTier": 1
+            },
+            {
+                "code": "class",
+                "minimumTier": 3,
+                "classes": [
+                    "lumberjack",
+                    "timberborn"
+                ]
+            },
+            {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "forester",
+                "requiredTier": 2
+            },
+            {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "druid"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "lumberjack",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "moreladders",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "charcoalburner",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "stoker",
+                "exclusiveTier": 3
+            }
+        ]
+    },
+    "moreladders": {
+        "requirements": [
+            {
+                "code": "class",
+                "minimumTier": 3,
+                "classes": [
+                    "lumberjack",
+                    "timberborn"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "forestry",
+                "ability": "lumberjack",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "forestry",
+                "ability": "afforestation",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "forestry",
+                "ability": "treenursery",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "forestry",
+                "ability": "charcoalburner",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "forestry",
+                "ability": "stoker",
+                "exclusiveTier": 3
             }
         ]
     },
@@ -49,6 +207,48 @@
                 "skill": "forestry",
                 "ability": "afforestation",
                 "requiredTier": 1
+            },
+            {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "forester",
+                "requiredTier": 2
+            },
+            {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "druid"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "lumberjack",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "moreladders",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "charcoalburner",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "stoker",
+                "exclusiveTier": 3
             }
         ]
     },
@@ -163,6 +363,94 @@
                 "skill": "forestry",
                 "ability": "forester",
                 "requiredTier": 1
+            },
+            {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "forester",
+                "requiredTier": 2
+            },
+            {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "carpenter"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "lumberjack",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "afforestation",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "moreladders",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "treenursery",
+                "exclusiveTier": 4
+            }
+        ]
+    },
+    "stoker": {
+        "requirements": [
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "forestry",
+                "ability": "forester",
+                "requiredTier": 2
+            },
+            {
+                "code": "class",
+                "minimumTier": 3,
+                "classes": [
+                    "carpenter"
+                ]
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "forestry",
+                "ability": "lumberjack",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "forestry",
+                "ability": "afforestation",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "forestry",
+                "ability": "moreladders",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "forestry",
+                "ability": "treenursery",
+                "exclusiveTier": 4
             }
         ]
     },
