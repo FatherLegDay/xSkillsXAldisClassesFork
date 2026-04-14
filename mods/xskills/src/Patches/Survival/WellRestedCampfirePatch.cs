@@ -47,7 +47,7 @@ namespace XSkills
             if (playerAbility.Tier < 1) return;
 
             // Fire Detection
-            BlockPos pos = player.ServerPos.AsBlockPos;
+            BlockPos pos = player.Pos.AsBlockPos;
             BlockPos tmpPos = new BlockPos(pos.dimension);
             bool nearFire = false;
 

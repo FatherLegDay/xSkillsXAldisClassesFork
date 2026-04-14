@@ -5,7 +5,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-  			<VINTAGE_STORY>C:\Users\Mrzub\AppData\Roaming\Vintagestory 1.22.2</VINTAGE_STORY>
+  			<VINTAGE_STORY>C:\Users\madas\AppData\Roaming\VintageStory1.22\Vintagestory</VINTAGE_STORY>
     <OutputPath>.\bin</OutputPath>
     <IntermediateOutputPath>.\obj\Debug\xskills\</IntermediateOutputPath>
   </PropertyGroup>
@@ -24,16 +24,16 @@
       <HintPath>$(VINTAGE_STORY)\Lib\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="ACulinaryArtillery">
-      <HintPath>..\..\..\vshelper\dependencies\ACulinaryArtillery.dll</HintPath>
+      <HintPath>D:\VS modding\Lib1.22\ACulinaryArtillery.dll</HintPath>
     </Reference>
     <Reference Include="cairo-sharp">
       <HintPath>$(VINTAGE_STORY)\Lib\cairo-sharp.dll</HintPath>
     </Reference>
     <Reference Include="Overhaullib">
-      <HintPath>..\..\..\vshelper\dependencies\Overhaullib.dll</HintPath>
+      <HintPath>D:\VS modding\Lib1.22\Overhaullib.dll</HintPath>
     </Reference>
     <Reference Include="primitivesurvival">
-      <HintPath>..\..\..\vshelper\dependencies\primitivesurvival.dll</HintPath>
+      <HintPath>D:\VS modding\Lib1.22\primitivesurvival.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net, Version=2.1.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

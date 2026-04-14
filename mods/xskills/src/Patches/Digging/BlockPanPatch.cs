@@ -101,12 +101,12 @@ namespace XSkills
                     {
                         if (!player.InventoryManager.TryGiveItemstack(drop, true))
                         {
-                            byEntity.Api.World.SpawnItemEntity(drop, byEntity.ServerPos.XYZ);
+                            byEntity.Api.World.SpawnItemEntity(drop, byEntity.Pos.XYZ);
                         }
                     }
                     else
                     {
-                        byEntity.Api.World.SpawnItemEntity(drop, byEntity.ServerPos.XYZ);
+                        byEntity.Api.World.SpawnItemEntity(drop, byEntity.Pos.XYZ);
                     }
                 }
 

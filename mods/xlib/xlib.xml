@@ -3148,7 +3148,6 @@
             </summary>
             <param name="collObj">The collectible object.</param>
         </member>
-
         <member name="M:XLib.XEffects.XLibToolBehavior.GetMiningSpeed(Vintagestory.API.Common.ItemStack,Vintagestory.API.Common.BlockSelection,Vintagestory.API.Common.Block,Vintagestory.API.Common.IPlayer,Vintagestory.API.Common.EnumHandling@)">
             <summary>
             Multiplies resulted mining speed of the item by return value if 'bhHandling' is not equal to 'PassThrough'.
@@ -3222,6 +3221,12 @@
             A value indicating if a chat message should be send if the player got experience
             </summary>
         </member>
+        <member name="F:XLib.XLeveling.Config.configVersion">
+            <summary>
+            The configuration version used for migrations and compatibility checks.
+            Increment this value when changing the config layout.
+            </summary>
+        </member>
         <member name="F:XLib.XLeveling.Config.disableCampfireChecks">
             <summary>
             If true, skip checking for lit firepits / campfire to qualify as "resting".
@@ -3236,10 +3241,6 @@
         <member name="F:XLib.XLeveling.Config.skillBookUnlearnPoints">
             <summary>
             Global fallback number of unlearn points a skillbook gives (if the item doesn't specify `unlearnPoints`).
-        <member name="F:XLib.XLeveling.Config.configVersion">
-            <summary>
-            The configuration version used for migrations and compatibility checks.
-            Increment this value when changing the config layout.
             </summary>
         </member>
         <member name="M:XLib.XLeveling.Config.#ctor">

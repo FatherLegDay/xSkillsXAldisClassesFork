@@ -16,16 +16,16 @@ namespace XSkills
             return (quality * 0.05f) + 1;
         }
 
-        public override int GetMaxDurability(ItemStack itemstack, ref EnumHandling bhHandling)
+        public override int GetMaxDurability(ItemStack itemstack, int durability, ref EnumHandling bhHandling)
         {
             if (itemstack.Collectible.Durability <= 1) return 0;
             bhHandling = EnumHandling.Handled;
             return (int)(itemstack.Collectible.Durability * (GetMaxDurabilityMultiplier(itemstack) - 1 ));
         }
 
-        public override float GetMiningSpeed(IItemStack itemstack, BlockSelection blockSel, Block block, IPlayer forPlayer, ref EnumHandling bhHandling)
+        public override float GetMiningSpeed(ItemStack itemstack, BlockSelection blockSel, Block block, IPlayer forPlayer, ref EnumHandling bhHandling)
         {
-            float result = base.OnGetMiningSpeed(itemstack, blockSel, block, forPlayer, ref bhHandling);
+            float result = base.GetMiningSpeed(itemstack, blockSel, block, forPlayer, ref bhHandling);
             float quality = itemstack.Attributes.GetFloat("quality", 0.0f);
             return result * quality * 0.02f;
         }

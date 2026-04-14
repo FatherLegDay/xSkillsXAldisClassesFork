@@ -8,7 +8,7 @@
     <OutputPath>.\bin</OutputPath>
     <IntermediateOutputPath>.\obj\Debug\xlib\</IntermediateOutputPath>
     <DocumentationFile>..\..\..\..\..\..\..\bin\xlib.xml</DocumentationFile>
-	<VINTAGE_STORY>C:\Users\Mrzub\AppData\Roaming\Vintagestory 1.22.2</VINTAGE_STORY>
+	<VINTAGE_STORY>C:\Users\madas\AppData\Roaming\VintageStory1.22\Vintagestory</VINTAGE_STORY>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>.\bin</OutputPath>
