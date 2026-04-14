@@ -66,6 +66,11 @@ namespace XLib.XLeveling
         /// <returns></returns>
         public override string GetHeldItemName(ItemStack itemStack)
         {
+            if (itemStack?.Attributes == null)
+            {
+                return base.GetHeldItemName(itemStack);
+            }
+
             string skillName = itemStack.Attributes.GetString("skill");
             float exp = (float)itemStack.Attributes.GetDecimal("experience");
             string knowledge = itemStack.Attributes.GetString("knowledge");
@@ -74,16 +79,20 @@ namespace XLib.XLeveling
             {
                 string[] strings = knowledge.Split(':');
                 string name;
-                if (strings.Length == 2) 
+
+                if (strings.Length == 2)
                     name = Lang.GetIfExists(strings[0] + ":skillbook-" + strings[1]);
-                else 
+                else
                     name = Lang.GetIfExists("skillbook-" + knowledge);
+
                 if (name != null) return name;
             }
 
-            Skill skill = system.GetSkill(skillName);
+            Skill skill = system?.GetSkill(skillName);
+
             if (skill == null)
                 return Lang.Get("game:item-" + this.Code.Path.Replace("skill", ""));
+
             return skill.DisplayName + ": " + exp.ToString("0.00");
         }
 
@@ -98,10 +107,16 @@ namespace XLib.XLeveling
         {
             base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
 
+            if (inSlot?.Itemstack?.Attributes == null)
+            {
+                return;
+            }
+
             string skillName = inSlot.Itemstack.Attributes.GetString("skill");
             float exp = (float)inSlot.Itemstack.Attributes.GetDecimal("experience");
             string knowledge = inSlot.Itemstack.Attributes.GetString("knowledge");
-            Skill skill = system.GetSkill(skillName);
+
+            Skill skill = system?.GetSkill(skillName);
 
             if (skill != null && exp != 0.0f)
                 dsc.AppendLine(Lang.Get("xlib:skillbook-dsc", skill.DisplayName, exp));

@@ -265,8 +265,6 @@ namespace XLib.XLeveling
 
             bool forceConfigReset = false;
 
-            bool forceConfigReset = true;
-
             //load general configuration
             string path = Path.Combine("XLevelingXAldisClasses", "xleveling.json");
             ICoreServerAPI api = XLeveling.Api as ICoreServerAPI;

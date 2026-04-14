@@ -28,7 +28,7 @@ namespace XSkills
             this.farming = XLeveling.Instance(api)?.GetSkill("farming") as Farming;
         }
 
-        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, ref EnumHandling handling)
+        public override void OnBlockBroken(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, float dropQuantityMultiplier, ref EnumHandling handling)
         {
             if (byPlayer == null || husbandry == null || xp <= 0.0f) return;
             PlayerSkill playerSkill = byPlayer.Entity.GetBehavior<PlayerSkillSet>()?[husbandry.Id];

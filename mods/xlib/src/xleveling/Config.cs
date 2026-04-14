@@ -82,7 +82,6 @@ namespace XLib.XLeveling
         /// </summary>
         public bool trackExpGain;
 
-        // --- ДОБАВЛЯЕМ ВЕРСИЮ КОНФИГА ---
         /// <summary>
         /// The configuration version used for migrations and compatibility checks.
         /// Increment this value when changing the config layout.
@@ -94,21 +93,21 @@ namespace XLib.XLeveling
         /// If true, skip checking for lit firepits / campfire to qualify as "resting".
         /// When enabled, the well-rested ability will not require a nearby fire.
         /// </summary>
-        [ProtoMember(10)]
+        [ProtoMember(11)]
         [DefaultValue(false)]
         public bool disableCampfireChecks;
 
         /// <summary>
         /// If true, skillbooks will grant unlearn points when consumed.
         /// </summary>
-        [ProtoMember(11)]
+        [ProtoMember(12)]
         [DefaultValue(false)]
         public bool skillBookUnlearnEnabled;
 
         /// <summary>
         /// Global fallback number of unlearn points a skillbook gives (if the item doesn't specify `unlearnPoints`).
         /// </summary>
-        [ProtoMember(12)]
+        [ProtoMember(13)]
         [DefaultValue(0.0f)]
         public float skillBookUnlearnPoints;
 
