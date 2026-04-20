@@ -43,7 +43,6 @@
                 "code": "class",
                 "minimumTier": 4,
                 "classes": [
-                    "lumberjack",
                     "timberborn"
                 ]
             },
@@ -151,7 +150,6 @@
                 "code": "class",
                 "minimumTier": 3,
                 "classes": [
-                    "lumberjack",
                     "timberborn"
                 ]
             },
@@ -375,7 +373,7 @@
                 "code": "class",
                 "minimumTier": 4,
                 "classes": [
-                    "carpenter"
+                    "timberborn"
                 ]
             },
             {
@@ -421,7 +419,7 @@
                 "code": "class",
                 "minimumTier": 3,
                 "classes": [
-                    "carpenter"
+                    "timberborn"
                 ]
             },
             {

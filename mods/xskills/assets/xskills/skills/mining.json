@@ -14,7 +14,7 @@
         "innkeeper": -0.1,
         "entropic": 0.15,
         "deepforger": 0.25,
-        "mason": 0.25,
+        "handwright": 0.25,
         "earthshaper": 0.25,
         "shadowstrider": -0.05,
         "timberborn": -0.1,
@@ -67,7 +67,7 @@
                 "code": "class",
                 "minimumTier": 4,
                 "classes": [
-                    "mason",
+                    "handwright",
                     "earthshaper"
                 ]
             },
@@ -149,7 +149,7 @@
                 "code": "class",
                 "minimumTier": 4,
                 "classes": [
-                    "mason",
+                    "handwright",
                     "earthshaper"
                 ]
             },
@@ -583,7 +583,7 @@
                 "code": "class",
                 "minimumTier": 2,
                 "classes": [
-                    "mason",
+                    "handwright",
                     "earthshaper"
                 ]
             },
