@@ -1,21 +1,24 @@
 {
     "classexpmult": {
         "miner": 0.25,
-        "potter": 0.15,
         "farmer": -0.15,
         "lumberjack": -0.05,
-        "carpenter": 0.15,
-        "squire": -0.05,
         "blacksmith": 0.15,
-        "druid": -0.1,
-        "mercenary": -0.1,
-        "wildrunner": -0.1,
+        "potter": 0.15,
+        "mason": 0.25,
+        "carpenter": 0.15,
         "wanderer": -0.05,
         "innkeeper": -0.1,
+        "handwright": 0.15,
+        "druid": -0.1,
+        "squire": -0.05,
+        "wildrunner": -0.1,
+        "mercenary": -0.1,
         "entropic": 0.15,
-        "deepforger": 0.25,
-        "mason": 0.25,
+        "threadweaver": 0.15,
+        "tailor": 0.1,
         "earthshaper": 0.25,
+        "deepforger": 0.25,
         "shadowstrider": -0.05,
         "timberborn": -0.1,
         "commoner": 0.1,
@@ -68,6 +71,7 @@
                 "minimumTier": 4,
                 "classes": [
                     "mason",
+                    "handwright",
                     "earthshaper"
                 ]
             },
@@ -150,6 +154,7 @@
                 "minimumTier": 4,
                 "classes": [
                     "mason",
+                    "handwright",
                     "earthshaper"
                 ]
             },
@@ -379,14 +384,6 @@
     "miner": {
         "requirements": [
             {
-                "code": "class",
-                "minimumTier": 2,
-                "classes": [
-                    "blacksmith",
-                    "deepforger"
-                ]
-            },
-            {
                 "code": "exclusiveAbility",
                 "minimumTier": 2,
                 "skill": "survival",
@@ -584,6 +581,7 @@
                 "minimumTier": 2,
                 "classes": [
                     "mason",
+                    "handwright",
                     "earthshaper"
                 ]
             },
