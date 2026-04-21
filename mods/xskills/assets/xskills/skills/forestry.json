@@ -1,27 +1,33 @@
 {
     "classexpmult": {
-        "potter": 0.1,
+        "miner": 0.1,
         "farmer": -0.05,
         "lumberjack": 0.25,
-        "carpenter": 0.15,
-        "squire": 0.15,
         "blacksmith": -0.05,
-        "druid": -0.1,
+        "potter": 0.1,
+        "mason": 0.0,
+        "carpenter": 0.15,
         "wanderer": 0.1,
         "innkeeper": 0.15,
         "handwright": 0.1,
+        "druid": -0.1,
+        "squire": 0.15,
+        "wildrunner": 0.0,
+        "mercenary": -0.15,
+        "entropic": 0.0,
+        "threadweaver": 0.0,
+        "tailor": 0.0,
         "earthshaper": -0.1,
         "deepforger": 0.05,
+        "shadowstrider": -0.05,
         "timberborn": 0.25,
         "commoner": 0.1,
         "hunter": 0.1,
         "malefactor": -0.2,
         "clockmaker": -0.15,
         "blackguard": -0.05,
-        "miner": 0.1,
         "archer": 0.15,
-        "vanguard": -0.15,
-        "mercenary": -0.15
+        "vanguard": -0.15
     },
     "lumberjack": {
         "requirements": [
@@ -43,6 +49,7 @@
                 "code": "class",
                 "minimumTier": 4,
                 "classes": [
+                    "lumberjack",
                     "timberborn"
                 ]
             },
@@ -150,6 +157,7 @@
                 "code": "class",
                 "minimumTier": 3,
                 "classes": [
+                    "lumberjack",
                     "timberborn"
                 ]
             },
@@ -373,7 +381,8 @@
                 "code": "class",
                 "minimumTier": 4,
                 "classes": [
-                    "timberborn"
+                    "carpenter",
+                    "handwright"
                 ]
             },
             {
@@ -419,7 +428,8 @@
                 "code": "class",
                 "minimumTier": 3,
                 "classes": [
-                    "timberborn"
+                    "carpenter",
+                    "handwright"
                 ]
             },
             {
