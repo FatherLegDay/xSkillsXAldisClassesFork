@@ -126,11 +126,12 @@ namespace XSkills
             // 5, 1, 25
             // 8, 1, 30
             // 12, 1, 35
+            // 16, 2, 45
             MagneticHookId = this.AddAbility(new Ability(
                 "magnetichook",
                 "xskills:ability-magnetichook",
                 "xskills:abilitydesc-magnetichook",
-                6, 3, new int[] { 5, 1, 25, 8, 1, 30, 12, 1, 35 }));
+                6, 4, new int[] { 5, 1, 25, 8, 1, 30, 12, 1, 35, 16, 2, 45 }));
 
         }
     }

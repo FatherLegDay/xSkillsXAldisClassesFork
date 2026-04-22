@@ -125,6 +125,20 @@
                 "skill": "fishing",
                 "ability": "fisher",
                 "requiredTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "fishing",
+                "ability": "fishfilleter",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "fishing",
+                "ability": "magnetichook",
+                "exclusiveTier": 4
             }
         ]
     },
@@ -143,6 +157,27 @@
                 "skill": "fishing",
                 "ability": "doublehook",
                 "exclusiveTier": 1
+            },
+            {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "fishing",
+                "ability": "fisher",
+                "requiredTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "fishing",
+                "ability": "fishfilleter",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "fishing",
+                "ability": "doublehook",
+                "exclusiveTier": 4
             }
         ]
     },
@@ -181,6 +216,20 @@
                 "skill": "fishing",
                 "ability": "fisher",
                 "requiredTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "fishing",
+                "ability": "doublehook",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "fishing",
+                "ability": "magnetichook",
+                "exclusiveTier": 4
             }
         ]
     },
