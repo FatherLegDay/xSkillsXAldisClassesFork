@@ -198,13 +198,6 @@
     "chef": {
         "requirements": [
             {
-                "code": "class",
-                "minimumTier": 2,
-                "classes": [
-                    "innkeeper"
-                ]
-            },
-            {
                 "code": "exclusiveAbility",
                 "minimumTier": 2,
                 "skill": "survival",
@@ -273,6 +266,13 @@
                 "skill": "temporaladaptation",
                 "ability": "timelord",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "ability",
+                "minimumTier": 2,
+                "skill": "fishing",
+                "ability": "fisher",
+                "requiredTier": 2
             }
         ]
     },

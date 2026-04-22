@@ -42,7 +42,7 @@ namespace XSkills
                 "fisher",
                 "xskills:ability-fisher",
                 "xskills:abilitydesc-fisher",
-                5, 1, new int[] { 40 }));
+                5, 2, new int[] { 40, 60 }));
 
             // Крепкая леска: шанс не потратить прочность удочки
             // 3 - мин уровень (было 2)
@@ -64,11 +64,12 @@ namespace XSkills
             // 8, 1, 25, 2
             // 12, 1, 35, 3
             // 18, 1, 45, 4
+            // 24, 2, 55, 5
             FishFilleterId = this.AddAbility(new Ability(
                 "fishfilleter",
                 "xskills:ability-fishfilleter",
                 "xskills:abilitydesc-fishfilleter",
-                4, 3, new int[] { 8, 1, 25, 2, 12, 1, 35, 3, 18, 1, 45, 4 }));
+                4, 4, new int[] { 8, 1, 25, 2, 12, 1, 35, 3, 18, 1, 45, 4, 24, 2, 55, 5 }));
 
 
             // Хорошая наживка: ускорение поклевки
@@ -112,11 +113,12 @@ namespace XSkills
             // 5, 1, 25
             // 8, 1, 30
             // 12, 1, 35
+            // 16, 2, 45
             DoubleHookId = this.AddAbility(new Ability(
                 "doublehook",
                 "xskills:ability-doublehook",
                 "xskills:abilitydesc-doublehook",
-                8, 3, new int[] { 5, 1, 25, 8, 1, 30, 12, 1, 35 }));
+                8, 4, new int[] { 5, 1, 25, 8, 1, 30, 12, 1, 35, 16, 2, 45 }));
 
 
             // Магнитный крючок: utility, но сильный экономически

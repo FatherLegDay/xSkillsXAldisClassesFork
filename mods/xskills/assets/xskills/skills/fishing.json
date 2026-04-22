@@ -1,9 +1,107 @@
 {
     "classexpmult": {
+        "miner": -0.15,
+        "farmer": 0.15,
+        "lumberjack": 0.1,
+        "blacksmith": -0.1,
+        "potter": -0.05,
+        "mason": -0.1,
+        "carpenter": -0.1,
+        "wanderer": -0.2,
+        "innkeeper": 0.25,
+        "handwright": -0.1,
+        "druid": 0.15,
+        "squire": 0.05,
+        "wildrunner": -0.1,
+        "mercenary": -0.1,
+        "entropic": 0.0,
+        "threadweaver": 0.15,
+        "tailor": 0.15,
+        "earthshaper": 0.1,
+        "deepforger": -0.05,
+        "shadowstrider": -0.05,
+        "timberborn": -0.1,
         "commoner": 0.1,
-        "hunter": 0.2,
-        "forager": 0.15,
-        "blackguard": -0.1
+        "hunter": 0.3,
+        "clockmaker": -0.2,
+        "malefactor": 0.15,
+        "blackguard": -0.1,
+        "archer": 0.1,
+        "vanguard": -0.1
+    },
+    "fisher": {
+        "requirements": [
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "cooking",
+                "ability": "chef",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "combat",
+                "ability": "warrior",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "digging",
+                "ability": "digger",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "farming",
+                "ability": "farmer",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "forestry",
+                "ability": "forester",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "husbandry",
+                "ability": "shepherd",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "metalworking",
+                "ability": "blacksmith",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "mining",
+                "ability": "miner",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "pottery",
+                "ability": "potter",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "temporaladaptation",
+                "ability": "timelord",
+                "exclusiveTier": 2
+            }
+        ]
     },
     "doublehook": {
         "requirements": [
@@ -20,6 +118,13 @@
                 "skill": "fishing",
                 "ability": "magnetichook",
                 "exclusiveTier": 1
+            },
+            {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "fishing",
+                "ability": "fisher",
+                "requiredTier": 2
             }
         ]
     },
@@ -60,6 +165,22 @@
                 "skill": "fishing",
                 "ability": "fisher",
                 "requiredTier": 1
+            },
+            {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "hunter",
+                    "archer",
+                    "malefactor"
+                ]
+            },
+            {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "fishing",
+                "ability": "fisher",
+                "requiredTier": 2
             }
         ]
     },

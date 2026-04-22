@@ -5,18 +5,18 @@
         "lumberjack": 0.25,
         "blacksmith": -0.05,
         "potter": 0.1,
-        "mason": 0.0,
+        "mason": 0.05,
         "carpenter": 0.15,
         "wanderer": 0.1,
         "innkeeper": 0.15,
         "handwright": 0.1,
         "druid": -0.1,
         "squire": 0.15,
-        "wildrunner": 0.0,
+        "wildrunner": 0.1,
         "mercenary": -0.15,
         "entropic": 0.0,
-        "threadweaver": 0.0,
-        "tailor": 0.0,
+        "threadweaver": 0.1,
+        "tailor": 0.05,
         "earthshaper": -0.1,
         "deepforger": 0.05,
         "shadowstrider": -0.05,
@@ -358,6 +358,13 @@
                 "skill": "temporaladaptation",
                 "ability": "timelord",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "ability",
+                "minimumTier": 2,
+                "skill": "fishing",
+                "ability": "fisher",
+                "requiredTier": 2
             }
         ]
     },

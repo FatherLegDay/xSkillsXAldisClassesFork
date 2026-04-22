@@ -5,7 +5,7 @@
         "lumberjack": 0.1,
         "blacksmith": -0.05,
         "potter": -0.15,
-        "mason": 0.0,
+        "mason": -0.2,
         "carpenter": -0.1,
         "wanderer": 0.25,
         "innkeeper": 0.1,
@@ -195,6 +195,13 @@
                 "skill": "temporaladaptation",
                 "ability": "timelord",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "ability",
+                "minimumTier": 2,
+                "skill": "fishing",
+                "ability": "fisher",
+                "requiredTier": 2
             }
         ]
     },
