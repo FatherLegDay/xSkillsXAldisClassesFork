@@ -15,6 +15,12 @@
 		},
 		"handbook": { "groupBy": [ "skillbook-*" ] }
 	},
+        displayable: {
+            shelf: {
+                size: { width: 1.5, height: 6, length: 5 },
+                RandYRotAngle: 0
+            }
+        },
     "variantgroups": [
 		{
 			"code": "color",

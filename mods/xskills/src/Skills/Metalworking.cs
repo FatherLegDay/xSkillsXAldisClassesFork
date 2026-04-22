@@ -353,7 +353,7 @@ namespace XSkills
                         if (voxelsPerItem == 0) continue;
                         returnedIngots = 1;
                         int neededItems = (int)(42 / voxelsPerItem * proportion + 1.0f);
-                        recipe.Output.ResolvedItemstack.Collectible.CombustibleProps.SmeltedRatio = 
+                        recipe.Output.ResolvedItemstack.Collectible.CombustibleProps.SmeltedRatio =
                             Math.Max(neededItems, recipe.Output.ResolvedItemstack.Collectible.CombustibleProps.SmeltedRatio);
                         neededVoxels = voxelsPerItem * neededItems;
                     }
@@ -374,7 +374,7 @@ namespace XSkills
     }//!class Smithing
 
     [ProtoContract]
-    public  class MetalworkingConfig : CustomSkillConfig
+    public class MetalworkingConfig : CustomSkillConfig
     {
         public override Dictionary<string, string> Attributes
         {
@@ -507,7 +507,7 @@ namespace XSkills
 
                 //return if one product is meltable
                 ItemStack[] moldedStacks = beTool.GetMoldedStacks(beTool.MetalContent);
-                foreach(ItemStack itemStack in moldedStacks)
+                foreach (ItemStack itemStack in moldedStacks)
                 {
                     if (itemStack.Collectible.CombustibleProps != null) return;
                 }
@@ -597,7 +597,7 @@ namespace XSkills
             double end = typeof(BlockEntityBloomery).GetField("burningStartTotalDays", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(beb) as double? ?? 0.0;
             double now = world.Calendar.TotalDays;
 
-            float result = (float) Math.Min(1.0 - (now - start) / (end - start), 1.0);
+            float result = (float)Math.Min(1.0 - (now - start) / (end - start), 1.0);
             return Lang.Get("xskills:progress", result);
         }
 

@@ -99,6 +99,7 @@ namespace XSkills
         /// </summary>
         /// <param name="quality">The quality value.</param>
         /// <returns>Multiplier to apply to mining speed (e.g., 1.0 = no change).</returns>
+       
         public static float GetMiningSpeedMultiplier(float quality)
         {
             if (quality <= 0.0f) return 1.0f;
@@ -130,49 +131,12 @@ namespace XSkills
         /// <param name="quality">The quality value.</param>
         /// <param name="dsc">The string builder.</param>
         // returns damage multiplier based on piecewise quality ranges so q=15 => +30%
-        public static float GetDamageMultiplier(float quality)
-        {
-            if (quality <= 0.0f) return 1.0f;
-
-            // 0-5: +1% per point (so total at 5 = 1.0 + 5*0.01 = 1.05)
-            if (quality <= 5.0f)
-            {
-                return 1.0f + quality * 0.01f;
-            }
-
-            // 5-10: +2% per point above 5 (so total at 10 = 1.0 + 5*0.01 + 5*0.02 = 1.15)
-            if (quality <= 10.0f)
-            {
-                float baseAt5 = 1.0f + 5.0f * 0.01f; // 1.05
-                return baseAt5 + (quality - 5.0f) * 0.02f;
-            }
-
-            // 10-15: +3% per point above 10 (so total at 15 = 1.0 + 5*(0.01+0.02+0.03)=1.30)
-            if (quality <= 15.0f)
-            {
-                float baseAt10 = 1.0f + 5.0f * 0.01f + 5.0f * 0.02f; // 1.20
-                return baseAt10 + (quality - 10.0f) * 0.03f;
-            }
-            // Above 15: +3.5% per point above 15 (so total at 20 = 1.0 + 5*(0.01+0.02+0.03) + 5*0.035 = 1.475)
-            float baseAt15 = 1.0f + 5.0f * 0.01f + 5.0f * 0.02f + 5.0f * 0.03f; // 1.30
-            return baseAt15 + (quality - 15.0f) * 0.035f; 
-        }
 
         public static float GetDurabilityMultiplier(float quality)
         {
             // Linear scaling: +5% durability per quality point (1.0 -> no change)
             if (quality <= 0.0f) return 1.0f;
             return 1.0f + 0.05f * quality;
-        }
-        public static void AddDamageString(float quality, StringBuilder dsc)
-        {
-            if (quality > 0.0f)
-            {
-                float mul = GetDamageMultiplier(quality);
-                float bonusPercent = (mul - 1.0f) * 100.0f;
-                string color = QualityColor(quality);
-                dsc.AppendLine(string.Format("<font color=\"{0}\">" + Lang.Get("xskills:tooltip-damage") + "+{1:N1}%</font>", color, bonusPercent));
-            }
         }
         public static void AddMiningSpeedString(float quality, StringBuilder dsc)
         {

@@ -13,6 +13,12 @@
 			"rotation": { "x": 0, "y": 35, "z": 90 },
 			"origin": { "x": 0.5, "y": 0.05, "z": 0.5 }
 		},
+        displayable: {
+            shelf: {
+                size: { width: 1.5, height: 6, length: 5 },
+                RandYRotAngle: 0
+            }
+        },
 		"handbook": { "groupBy": [ "skillbook-*" ] }
 	},
     "variantgroups": [

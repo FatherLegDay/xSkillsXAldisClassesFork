@@ -45,7 +45,7 @@ namespace XSkills
             float diff = Math.Min(temperature, 1050.0f) - Math.Min(temp, 1050.0f);
             float quality = itemstack.Attributes.GetFloat("quality", 0.0f);
 
-            if (quality > 0.0f && (diff < -4.5f || diff > 0.0f))
+            if (quality > 0.0f && (diff < -1.0f || diff > 0.0f))
             {
                 //equals 2.0 quality at 1000 °C
                 itemstack.Attributes.SetFloat("quality", Math.Max(quality - diff * 0.002f, 0.01f));
@@ -133,42 +133,6 @@ namespace XSkills
                 
                 }
 
-
-                try
-                {
-                    string damageLabel = Lang.Get("Attack power: -{0} hp", __instance.GetAttackPower(inSlot.Itemstack).ToString("0.#"));
-                    string full = dsc.ToString();
-
-                    if (full.Contains(damageLabel))
-                    {
-                        float mul = QualityUtil.GetDamageMultiplier(quality);
-                        float bonusPercent = (mul - 1.0f) * 100.0f;
-                        {
-                            QualityUtil.AddDamageString(quality, dsc);
-                        }
-                    }
-                }
-                catch
-                {
-
-                }
-
-                try
-                {
-                    if (inSlot.Itemstack?.Attributes.GetBool("xskills-hasdamage") == true)
-                    {
-                        float mul = QualityUtil.GetDamageMultiplier(quality);
-                        float bonusPercent = (mul - 1.0f) * 100.0f;
-                        {
-                            QualityUtil.AddDamageString(quality, dsc);
-                        }
-                    }
-                }
-                catch
-                {
-
-                }
-
                 try
                 {
                     int maxDurability = __instance.GetMaxDurability(inSlot.Itemstack);
@@ -246,17 +210,6 @@ namespace XSkills
         }
 
         [HarmonyPostfix]
-        [HarmonyPatch("GetAttackPower")]
-        public static void Postfix1(ref float __result, ItemStack itemStack)
-        {
-            float quality = itemStack?.Attributes.TryGetFloat("quality") ?? 0.0f;
-            if (quality > 0.0f && __result > 0.5f)
-            {
-                __result = (float)(__result * QualityUtil.GetDamageMultiplier(quality));
-            }
-        }
-
-        [HarmonyPostfix]
         [HarmonyPatch("GetMiningSpeed")]
         public static void Postfix2(ref float __result, IItemStack itemstack)
         {
@@ -265,7 +218,7 @@ namespace XSkills
         }
 
         [HarmonyPatch("OnCreatedByCrafting")]
-        public static void Postfix(ItemSlot[] allInputslots, ItemSlot outputSlot)
+        public static void Postfix(ItemSlot[] allInputSlots, ItemSlot outputSlot)
         {
             if (outputSlot.Itemstack == null) return;
             int maxDurability = outputSlot.Itemstack.Collectible.GetMaxDurability(outputSlot.Itemstack);
@@ -274,7 +227,7 @@ namespace XSkills
             float quality = 0.0f;
             int count = 0;
             bool useQuality = false;
-            foreach(ItemSlot slot in allInputslots)
+            foreach(ItemSlot slot in allInputSlots)
             {
                 if (slot.Itemstack == null) continue;
                 float? inputQuality = slot.Itemstack.Attributes.TryGetFloat("quality");
@@ -305,7 +258,7 @@ namespace XSkills
 
             // Propagate "createdBy" from any input to the crafted output so a smithed origin survives crafting.
             // Only apply for items that support durability (same domain where quality was applied)
-            foreach (ItemSlot slot in allInputslots)
+            foreach (ItemSlot slot in allInputSlots)
             {
                 if (slot?.Itemstack == null) continue;
                 string createdBy = slot.Itemstack.Attributes.GetString("createdBy");
