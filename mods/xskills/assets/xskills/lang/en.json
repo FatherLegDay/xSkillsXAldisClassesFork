@@ -31,6 +31,8 @@
     "xskills:group-collecting": "Collecting",
     "xskills:group-processing": "Processing",
 
+    "ability-survivor": "Survivor",
+    "abilitydesc-survivor": "You will receive {0}% more experience for all survival activities. The amount of specializations you can learn is limited.",
     "ability-longlife": "Long Life",
     "abilitydesc-longlife": "Increases your health by {0}% and additional {1}% for each level at the survival skill. Maxed out at {2}%.",
     "ability-hugestomach": "Huge Stomach",
