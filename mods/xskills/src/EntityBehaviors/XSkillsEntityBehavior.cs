@@ -326,46 +326,6 @@ namespace XSkills
                     }
                 }
             }
-
-            // Apply weapon quality multiplier (CombatOverhaul: weapons don't use attack damage; map smithing quality to damage)
-            try
-            {
-                ItemStack weaponStack = null;
-
-                // Prefer explicit weapon stack from damage source (CombatOverhaul / weapon projectiles)
-                weaponStack = (dmgSource as IWeaponDamageSource)?.Weapon;
-
-                if (weaponStack == null)
-                {
-                    // Projectile-based weapon stacks
-                    EntityProjectile proj = dmgSource.SourceEntity as EntityProjectile;
-                    if (proj != null)
-                    {
-                        weaponStack = proj.ProjectileStack ?? proj.WeaponStack;
-                    }
-                    else
-                    {
-                        // Fallback to active hotbar slot (melee)
-                        weaponStack = itemStack;
-                    }
-                }
-
-                if (weaponStack != null)
-                {
-                    string qtype = QualityUtil.GetQualityType(weaponStack.Collectible);
-                    // Only apply to actual weapons (and tools used as weapons)
-                    if (qtype == "weapon" || qtype == "tool")
-                    {
-                        float q = QualityUtil.GetQuality(weaponStack);
-                        if (q > 0.0f)
-                        {
-                            damage *= QualityUtil.GetDamageMultiplier(q);
-                        }
-                    }
-                }
-            }
-            catch { }
-
             // attempt to apply bleed / other combat skill effects that live on the Combat skill
             try
             {
@@ -440,6 +400,7 @@ namespace XSkills
                 if (playerAbility.Tier > 0)
                 {
                     float health = damage * playerAbility.FValue(0);
+
                     EntityBehaviorHealth playerHealth = (byPlayer.GetBehavior("health") as EntityBehaviorHealth);
                     if (playerHealth == null) return;
                     if (playerHealth != null) playerHealth.Health = Math.Min(playerHealth.Health + health, playerHealth.MaxHealth);

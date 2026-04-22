@@ -84,7 +84,7 @@
       },
       {
          "type": "item",
-         "code": "xlib:skillbook-aged-olive",
+         "code": "xlib:skillbook-fishing",
          "chance": 1,
          "attributes": {"skill": "fishing", "experience": 50.0}
       }

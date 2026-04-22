@@ -197,11 +197,11 @@
                 "exclusiveTier": 2
             },
             {
-                "code": "ability",
-                "minimumTier": 2,
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
                 "skill": "fishing",
                 "ability": "fisher",
-                "requiredTier": 2
+                "exclusiveTier": 2
             }
         ]
     },

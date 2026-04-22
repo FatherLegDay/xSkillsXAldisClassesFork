@@ -152,7 +152,7 @@ namespace XSkills
         {
             if (entity.WatchedAttributes == null || this.survival == null) return;
             PlayerAbility playerAbility = this.entity.GetBehavior<PlayerSkillSet>()?[this.survival.Id]?[survival.DiverId];
-            if ((playerAbility?.Tier ?? 0) < 1) return; 
+            if ((playerAbility?.Tier ?? 0) < 1) return;
 
             TreeAttribute oxygen = entity.WatchedAttributes.GetTreeAttribute("oxygen") as TreeAttribute;
             float currentOxygen = oxygen.GetFloat("currentoxygen");
@@ -207,7 +207,7 @@ namespace XSkills
                     }
                 }
             }
-            
+
             //combat
             if (this.combat != null)
             {
@@ -326,7 +326,7 @@ namespace XSkills
 
             timeSinceUpdate += deltaTime;
 
-            if(timeSinceUpdate >= 1.0f)
+            if (timeSinceUpdate >= 1.0f)
             {
                 ApplyAbilitiesHealth();
                 ApplyAbilitiesStability();
@@ -354,7 +354,7 @@ namespace XSkills
         {
             ITreeAttribute healthTree = entity.WatchedAttributes.GetTreeAttribute("health");
             PlayerSkill playerSkill = entity.GetBehavior<PlayerSkillSet>()?[this.combat.Id];
-            
+
             //link inventories
             XSkillsPlayerInventory inv = (this.entity as EntityPlayer)?.Player?.InventoryManager?.GetOwnInventory("xskillshotbar") as XSkillsPlayerInventory;
             if (inv != null) inv.Linked = true;

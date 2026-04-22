@@ -10,15 +10,15 @@ namespace XSkills
 {
     public class XSkillsAnimalBehavior : XSkillsEntityBehavior
     {
-        public IPlayer Feeder 
-        { 
-            get 
+        public IPlayer Feeder
+        {
+            get
             {
                 string uid = entity.WatchedAttributes.GetString("owner");
                 if (uid == null) return null;
-                return entity.Api.World.PlayerByUid(uid); 
+                return entity.Api.World.PlayerByUid(uid);
             }
-            set 
+            set
             {
                 if (value != null) entity.WatchedAttributes.SetString("owner", value.PlayerUID);
                 else entity.WatchedAttributes.RemoveAttribute("owner");

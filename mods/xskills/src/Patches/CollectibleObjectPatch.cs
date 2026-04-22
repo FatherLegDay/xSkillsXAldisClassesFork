@@ -247,9 +247,9 @@ namespace XSkills
 
         [HarmonyPostfix]
         [HarmonyPatch("GetAttackPower")]
-        public static void Postfix1(ref float __result, IItemStack withItemStack)
+        public static void Postfix1(ref float __result, ItemStack itemStack)
         {
-            float quality = withItemStack?.Attributes.TryGetFloat("quality") ?? 0.0f;
+            float quality = itemStack?.Attributes.TryGetFloat("quality") ?? 0.0f;
             if (quality > 0.0f && __result > 0.5f)
             {
                 __result = (float)(__result * QualityUtil.GetDamageMultiplier(quality));
