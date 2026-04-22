@@ -120,7 +120,7 @@ namespace XSkills
                     break;
 
                 case "fishing":
-                    color = "olive"; // Если не добавлял цвет в JSON, напиши тут "gray" или "olive"
+                    color = "fishing"; 
                     break;
 
                 default:
