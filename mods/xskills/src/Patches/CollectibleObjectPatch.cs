@@ -135,6 +135,41 @@ namespace XSkills
 
                 try
                 {
+                    string damageLabel = Lang.Get("Attack power: {0} damage", __instance.GetAttackPower(inSlot.Itemstack).ToString("0.#"));
+                    string full = dsc.ToString();
+
+                    if (full.Contains(damageLabel))
+                    {
+                        float mul = QualityUtil.GetDamageMultiplier(quality);
+                        float bonusPercent = (mul - 1.0f) * 100.0f;
+                        {
+                            QualityUtil.AddDamageString(quality, dsc);
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+
+                try
+                {
+                    if (inSlot.Itemstack?.Attributes.GetBool("xskills-hasdamage") == true)
+                    {
+                        float mul = QualityUtil.GetDamageMultiplier(quality);
+                        float bonusPercent = (mul - 1.0f) * 100.0f;
+                        {
+                            QualityUtil.AddDamageString(quality, dsc);
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+
+                try
+                {
                     int maxDurability = __instance.GetMaxDurability(inSlot.Itemstack);
                     string durabilityLabel = Lang.Get("Durability: {0} / {1}", inSlot.Itemstack.Collectible.GetRemainingDurability(inSlot.Itemstack), maxDurability);
                     string full = dsc.ToString();
@@ -207,6 +242,16 @@ namespace XSkills
         {
             float quality = itemstack?.Attributes.TryGetFloat("quality") ?? 0.0f;
             if (quality > 0.0f && __result > 1) __result = (int)(__result * (1.0f + quality * 0.05f));
+        }
+
+        [HarmonyPostfix]
+        [HarmonyPatch("GetAttackPower")]
+        public static void GetAttackPowerPostfix(ref float __result, ItemStack itemStack)
+        {
+            float quality = itemStack?.Attributes.TryGetFloat("quality") ?? 0.0f;
+            if (quality > 0.0f && __result > 0.5f)
+
+                __result *= QualityUtil.GetDamageMultiplier(quality);
         }
 
         [HarmonyPostfix]

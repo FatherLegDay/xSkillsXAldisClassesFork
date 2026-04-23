@@ -33,6 +33,10 @@ namespace XSkills
                     __result.KnockbackMultiplier * (1.0f + quality * 0.01f),
                     (int)(__result.ArmorPiercingBonus * (1.0f + quality * 0.01f))
                     );
+                if (quality > 0f)
+                {
+                    stack.Attributes.SetBool("xskills-hasdamage", true);
+                }
             }
         }
     }
