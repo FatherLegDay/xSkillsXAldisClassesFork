@@ -3,7 +3,7 @@
         "miner": 0.15,
         "farmer": -0.15,
         "lumberjack": -0.1,
-        "blacksmith": 0.25,
+        "blacksmith": 0.35,
         "potter": 0.1,
         "mason": 0.1,
         "carpenter": 0.05,
@@ -17,7 +17,7 @@
         "entropic": 0.2,
         "threadweaver": -0.1,
         "tailor": -0.1,
-        "earthshaper": 0.0,
+        "earthshaper": 0.05,
         "deepforger": 0.25,
         "shadowstrider": 0.0,
         "timberborn": -0.05,
@@ -104,14 +104,6 @@
     "metalworker": {
         "requirements": [
             {
-                "code": "class",
-                "minimumTier": 2,
-                "classes": [
-                    "blacksmith",
-                    "deepforger"
-                ]
-            },
-            {
                 "code": "exclusiveAbility",
                 "minimumTier": 2,
                 "skill": "survival",
@@ -179,6 +171,13 @@
                 "minimumTier": 2,
                 "skill": "temporaladaptation",
                 "ability": "timelord",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "fishing",
+                "ability": "fisher",
                 "exclusiveTier": 2
             }
         ]
