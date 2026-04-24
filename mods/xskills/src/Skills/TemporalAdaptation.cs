@@ -28,7 +28,7 @@ namespace XSkills
                 "temporalstable",
                 "xskills:ability-temporalstable",
                 "xskills:abilitydesc-temporalstable",
-                1, 3, new int[] { 5, 1, 15, 10, 2, 30, 10, 2, 50 }));
+                1, 4, new int[] { 5, 1, 15, 10, 2, 30, 10, 2, 50, 20, 3, 70 }));
 
             // reduces the loss of temporal stability deep down
             // 0: base value
@@ -56,7 +56,7 @@ namespace XSkills
                 "temporalrecovery",
                 "xskills:ability-temporalrecovery",
                 "xskills:abilitydesc-temporalrecovery",
-                1, 2, new int[] { 50, 100 }));
+                1, 3, new int[] { 50, 100, 165 }));
 
             // chance to avoid attacks when the player is temporal unstable
             // 0: value
@@ -64,7 +64,7 @@ namespace XSkills
                 "shifter",
                 "xskills:ability-shifter",
                 "xskills:abilitydesc-shifter",
-                3, 3, new int[] { 11, 22, 33}));
+                3, 3, new int[] { 11, 22, 33 }));
 
             // increased mining speed and food consumption
             // 0: value
@@ -72,7 +72,7 @@ namespace XSkills
                 "fastforward",
                 "xskills:ability-fastforward",
                 "xskills:abilitydesc-fastforward",
-                3, 2, new int[] { 10, 20 }));
+                3, 3, new int[] { 10, 20, 40 }));
 
             // profession
             // 0: ep bonus
@@ -88,7 +88,7 @@ namespace XSkills
                 "stableminer",
                 "xskills:ability-stableminer",
                 "xskills:abilitydesc-stableminer",
-                5, 2, new int[] { 10, 20 }));
+                5, 3, new int[] { 10, 20, 30 }));
 
             // increased damage in a temporal stable area
             // 0: value
@@ -96,7 +96,7 @@ namespace XSkills
                 "stablewarrior",
                 "xskills:ability-stablewarrior",
                 "xskills:abilitydesc-stablewarrior",
-                5, 2, new int[] { 10, 20 }));
+                5, 3, new int[] { 10, 20, 30 }));
 
             // inverts stable miner and stable warrior and inceases values
             // 0: value
@@ -104,7 +104,7 @@ namespace XSkills
                 "temporalunstable",
                 "xskills:ability-temporalunstable",
                 "xskills:abilitydesc-temporalunstable",
-                10, 3, new int[] { 33, 66, 100 }));
+                10, 4, new int[] { 33, 66, 100, 133 }));
 
             // no damage from temporal stability
             TimelessId = this.AddAbility(new Ability(

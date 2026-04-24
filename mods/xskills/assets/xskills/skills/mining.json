@@ -1,6 +1,6 @@
 {
     "classexpmult": {
-        "miner": 0.25,
+        "miner": 0.3,
         "farmer": -0.15,
         "lumberjack": -0.05,
         "blacksmith": 0.15,
@@ -15,8 +15,8 @@
         "wildrunner": -0.1,
         "mercenary": -0.1,
         "entropic": 0.15,
-        "threadweaver": 0.15,
-        "tailor": 0.1,
+        "threadweaver": -0.1,
+        "tailor": -0.1,
         "earthshaper": 0.25,
         "deepforger": 0.25,
         "shadowstrider": -0.05,
@@ -451,6 +451,13 @@
                 "minimumTier": 2,
                 "skill": "temporaladaptation",
                 "ability": "timelord",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "fishing",
+                "ability": "fisher",
                 "exclusiveTier": 2
             }
         ]

@@ -14,13 +14,13 @@
         "squire": 0.1,
         "wildrunner": -0.05,
         "mercenary": -0.2,
-        "entropic": 0.0,
+        "entropic": 0.15,
         "threadweaver": 0.05,
-        "tailor": 0.1,
+        "tailor": 0.05,
         "earthshaper": 0.25,
         "deepforger": -0.1,
         "shadowstrider": -0.05,
-        "timberborn": 0.0,
+        "timberborn": 0.05,
         "commoner": 0.1,
         "blackguard": -0.2,
         "hunter": 0.15,
@@ -63,14 +63,6 @@
     },
     "potter": {
         "requirements": [
-                {
-                    "code": "class",
-                    "minimumTier": 2,
-                    "classes": [
-                        "potter",
-                        "earthshaper"
-                    ]
-                },
                 {
                     "code": "exclusiveAbility",
                     "minimumTier": 2,
@@ -134,13 +126,20 @@
                     "ability": "miner",
                     "exclusiveTier": 2
                 },
-                {
-                    "code": "exclusiveAbility",
-                    "minimumTier": 2,
-                    "skill": "temporaladaptation",
-                    "ability": "timelord",
-                    "exclusiveTier": 2
-                }
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "temporaladaptation",
+                "ability": "timelord",
+                "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "fishing",
+                "ability": "fisher",
+                "exclusiveTier": 2
+            }
         ]
     },
     "fastpotter": {

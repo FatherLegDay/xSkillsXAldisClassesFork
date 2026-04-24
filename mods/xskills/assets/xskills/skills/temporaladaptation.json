@@ -5,11 +5,11 @@
         "lumberjack": -0.1,
         "blacksmith": -0.05,
         "potter": -0.1,
-        "mason": 0.0,
+        "mason": -0.05,
         "carpenter": -0.1,
         "wanderer": 0.15,
         "innkeeper": -0.05,
-        "handwright": 0.0,
+        "handwright": -0.05,
         "druid": 0.1,
         "squire": -0.1,
         "wildrunner": 0.15,
@@ -17,7 +17,7 @@
         "entropic": 0.25,
         "threadweaver": 0.15,
         "tailor": 0.1,
-        "earthshaper": 0.0,
+        "earthshaper": 0.05,
         "deepforger": -0.05,
         "shadowstrider": 0.25,
         "timberborn": 0.1,
@@ -57,6 +57,28 @@
                 "minimumTier": 3,
                 "skill": "temporaladaptation",
                 "ability": "temporaladapted",
+                "exclusiveTier": 3
+            },
+            {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "clockmaker",
+                    "entropic"
+                ]
+            },
+            {
+                "code": "ability",
+                "minimumTier": 4,
+                "skill": "temporaladaptation",
+                "ability": "timelord",
+                "requiredTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 4,
+                "skill": "temporaladaptation",
+                "ability": "fastforeward",
                 "exclusiveTier": 3
             }
         ]
@@ -111,6 +133,32 @@
             }
         ]
     },
+    "temporalrecovery": {
+        "requirements": [
+            {
+                "code": "class",
+                "minimumTier": 3,
+                "classes": [
+                    "clockmaker",
+                    "entropic"
+                ]
+            },
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "temporaladaptation",
+                "ability": "timelord",
+                "requiredTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "temporaladaptation",
+                "ability": "fastforeward",
+                "exclusiveTier": 3
+            }
+        ]
+    },
     "shifter": {
         "requirements": [
             {
@@ -141,6 +189,25 @@
                 "minimumTier": 2,
                 "skill": "temporaladaptation",
                 "requiredLevel": 6
+            },
+            {
+                "code": "class",
+                "minimumTier": 3,
+                "classes": [
+                    "clockmaker",
+                    "entropic",
+                    "miner",
+                    "deepforger",
+                    "mason",
+                    "handwright"
+                ]
+            },
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "temporaladaptation",
+                "ability": "timelord",
+                "requiredTier": 2
             }
         ]
     },
@@ -215,6 +282,84 @@
                 "skill": "pottery",
                 "ability": "potter",
                 "exclusiveTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 2,
+                "skill": "fishing",
+                "ability": "fisher",
+                "exclusiveTier": 2
+            }
+        ]
+    },
+    "stableminer": {
+        "requirements": [
+            {
+                "code": "class",
+                "minimumTier": 3,
+                "classes": [
+                    "clockmaker",
+                    "entropic",
+                    "miner",
+                    "deepforger"
+                ]
+            },
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "temporaladaptation",
+                "ability": "timelord",
+                "requiredTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "mining",
+                "ability": "oreminer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "mining",
+                "ability": "gemstoneminer",
+                "exclusiveTier": 4
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "temporaladaptation",
+                "ability": "stablewarrior",
+                "exclusiveTier": 3
+            }
+        ]
+    },
+    "stablewarrior": {
+        "requirements": [
+            {
+                "code": "class",
+                "minimumTier": 3,
+                "classes": [
+                    "clockmaker",
+                    "entropic",
+                    "mercenary",
+                    "squire",
+                    "vanguard"
+                ]
+            },
+            {
+                "code": "ability",
+                "minimumTier": 3,
+                "skill": "temporaladaptation",
+                "ability": "timelord",
+                "requiredTier": 2
+            },
+            {
+                "code": "exclusiveAbility",
+                "minimumTier": 3,
+                "skill": "temporaladaptation",
+                "ability": "stableminer",
+                "exclusiveTier": 3
             }
         ]
     },
@@ -233,6 +378,14 @@
                 "skill": "temporaladaptation",
                 "ability": "temporalstable",
                 "exclusiveTier": 1
+            },
+            {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "clockmaker",
+                    "entropic"
+                ]
             }
         ]
     },

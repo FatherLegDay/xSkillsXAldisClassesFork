@@ -52,6 +52,12 @@ namespace XSkills
             (XLeveling.Instance(api))?.RegisterSkill(this);
             this.Config = new SurvivalSkillConfig();
 
+            SpecialisationID = this.AddAbility(new Ability(
+            "survivor",
+            "xskills:ability-survivor",
+            "xskills:abilitydesc-survivor",
+            5, 1, new int[] { 15 }));
+
             // more life
             // 0: base value
             // 1: value per level
