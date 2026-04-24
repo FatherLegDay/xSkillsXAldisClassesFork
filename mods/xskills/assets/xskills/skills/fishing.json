@@ -127,6 +127,16 @@
                 "requiredTier": 2
             },
             {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "hunter",
+                    "archer",
+                    "malefactor",
+                    "wanderer"
+                ]
+            },
+            {
                 "code": "exclusiveAbility",
                 "minimumTier": 4,
                 "skill": "fishing",
@@ -164,6 +174,16 @@
                 "skill": "fishing",
                 "ability": "fisher",
                 "requiredTier": 2
+            },
+            {
+                "code": "class",
+                "minimumTier": 4,
+                "classes": [
+                    "hunter",
+                    "archer",
+                    "malefactor",
+                    "wanderer"
+                ]
             },
             {
                 "code": "exclusiveAbility",
@@ -207,7 +227,8 @@
                 "classes": [
                     "hunter",
                     "archer",
-                    "malefactor"
+                    "malefactor",
+                    "wanderer"
                 ]
             },
             {
