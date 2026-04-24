@@ -1186,7 +1186,7 @@ namespace XLib.XLeveling
 
             string skillName = arguments[0] as string;
             float experience = arguments[1] as float? ?? 0.0f;
-            string color = arguments[2] as string ?? "aged-gray";
+            string color = arguments[2] as string ?? skillName;
             string knowledge = arguments[3] as string ?? null;
             int count = arguments[4] as int? ?? 1;
             Skill skill = this.XLeveling.GetSkill(skillName, true);
@@ -1203,14 +1203,49 @@ namespace XLib.XLeveling
             }
 
             IWorldAccessor world = this.XLeveling.Api.World;
-            AssetLocation asset = new AssetLocation("xlib", "skillbook-" + color);
-            Item book = world.GetItem(asset);
-            if (book == null)
+            // Clean input
+            color = color?.Trim().ToLowerInvariant();
+
+            // Build valid colors ONLY for this skill
+            string baseColor = skill.Name.ToLowerInvariant();
+
+            List<string> validColors = new List<string>
             {
-                return CommandErrorResult("Could not find item: \"" + asset.Path + "\". Maybe the book color does not exist?");
+                baseColor,
+                "aged-" + baseColor
+            };
+
+            // Allow shorthand "aged"
+            if (color == "aged")
+            {
+                color = "aged-" + baseColor;
             }
 
-            ItemStack stack = new ItemStack(book, Math.Max(count, 1));
+            // Validate
+            if (!validColors.Contains(color))
+            {
+                return CommandErrorResult(
+                    $"Invalid color '{color}'. Valid: {string.Join(", ", validColors)}"
+                );
+            }
+
+            // Create correct variant stack
+            AssetLocation asset = new AssetLocation("xlib", "skillbook-" + color);
+            Item item = world.GetItem(asset);
+
+            if (item == null)
+            {
+                return CommandErrorResult($"Failed to find skillbook item with color '{color}'");
+            }
+
+            ItemStack stack = new ItemStack(item, Math.Max(count, 1));
+
+            if (stack == null)
+            {
+                return CommandErrorResult($"Failed to create skillbook with color '{color}'");
+            }
+
+            stack.StackSize = Math.Max(count, 1);
             stack.Attributes.SetString("skill", skill.Name);
             if (experience != 0.0f) stack.Attributes.SetFloat("experience", experience);
             if (knowledge != null) stack.Attributes.SetString("knowledge", knowledge);
