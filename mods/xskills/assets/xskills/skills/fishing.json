@@ -7,7 +7,7 @@
         "potter": -0.05,
         "mason": -0.1,
         "carpenter": -0.1,
-        "wanderer": -0.2,
+        "wanderer": 0.2,
         "innkeeper": 0.25,
         "handwright": -0.1,
         "druid": 0.15,
