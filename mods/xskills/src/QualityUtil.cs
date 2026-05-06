@@ -118,7 +118,7 @@ namespace XSkills
             }
 
             // Range 10 - 15: even stronger scaling (base from second range + 3.5% per point above 10)
-            if (quality <= 10.0f)
+            if (quality <= 15.0f)
             { 
                 float baseAt10 = 1.0f + 5.0f * 0.01f + 5.0f * 0.03f; // = 1.05 + 0.15 = 1.20
                 return baseAt10 + (quality - 10.0f) * 0.035f;
