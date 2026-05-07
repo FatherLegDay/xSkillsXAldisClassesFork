@@ -429,6 +429,7 @@ namespace XSkills
         // 1. Быстрая промывка (Quick Pan) - Ускоряем процесс анимации
         [HarmonyPatch("OnHeldInteractStep")]
         [HarmonyPrefix]
+        [HarmonyPriority(Priority.High)] //ЗАСТАВЛЯЕМ ВЫПОЛНЯТЬСЯ ПЕРВЫМ
         public static void StepPrefix(EntityAgent byEntity, ref float secondsUsed)
         {
             if (byEntity == null) return;
@@ -438,11 +439,8 @@ namespace XSkills
                 PlayerAbility quickPan = byEntity.GetBehavior<PlayerSkillSet>()?[digging.Id]?[digging.QuickPanId];
                 if (quickPan != null && quickPan.Tier > 0)
                 {
-                    // Добавляем компенсацию сетевой задержки (пинга) только для сервера.
-                    // 0.4 секунды реального времени с лихвой покроют задержку пакетов.
+                    // Компенсация пинга для сервера (из прошлого фикса)
                     float pingAllowance = (byEntity.Api.Side == EnumAppSide.Server) ? 0.4f : 0f;
-
-                    //  добавляем фору, затем умножаем (50% = x1.5, 100% = x2.0)
                     secondsUsed = (secondsUsed + pingAllowance) * (1.0f + quickPan.Value(0) / 100f);
                 }
             }
@@ -451,6 +449,7 @@ namespace XSkills
         // 2. Быстрая промывка (Quick Pan) - Ускоряем финиш (выдачу лута)
         [HarmonyPatch("OnHeldInteractStop")]
         [HarmonyPrefix]
+        [HarmonyPriority(Priority.High)] //ЗАСТАВЛЯЕМ ВЫПОЛНЯТЬСЯ ПЕРВЫМ
         public static void StopPrefix(EntityAgent byEntity, ref float secondsUsed)
         {
             if (byEntity == null) return;
@@ -460,7 +459,6 @@ namespace XSkills
                 PlayerAbility quickPan = byEntity.GetBehavior<PlayerSkillSet>()?[digging.Id]?[digging.QuickPanId];
                 if (quickPan != null && quickPan.Tier > 0)
                 {
-                    // Применяем ту же компенсацию в момент остановки взаимодействия
                     float pingAllowance = (byEntity.Api.Side == EnumAppSide.Server) ? 0.4f : 0f;
                     secondsUsed = (secondsUsed + pingAllowance) * (1.0f + quickPan.Value(0) / 100f);
                 }
@@ -533,7 +531,7 @@ namespace XSkills
                 {
                     stack = stack.Clone();
 
-                    // --- МАГИЯ УВЕЛИЧЕНИЯ ЛУТА ---
+                    // --- УВЕЛИЧЕНИЕ ЛУТА ---
                     float totalYield = stack.StackSize * yieldMultiplier;
                     int finalStackSize = (int)totalYield;
 
@@ -544,8 +542,8 @@ namespace XSkills
                     }
                     stack.StackSize = Math.Max(1, finalStackSize);
 
-                    // Начисляем немного опыта копателя за нахождение ценностей
-                    if (digging != null)
+                    // Бонусный опыт за удачную находку (только на сервере)
+                    if (digging != null && byEntity.Api.Side == EnumAppSide.Server)
                     {
                         PlayerSkill playerSkill = byEntity.GetBehavior<PlayerSkillSet>()?[digging.Id];
                         playerSkill?.AddExperience(stack.StackSize * 2.5f);
@@ -556,7 +554,7 @@ namespace XSkills
                         byEntity.Api.World.SpawnItemEntity(stack, byEntity.Pos.XYZ, null);
                     }
 
-                    return false; // Лут выдан, отменяем ванильный оригинальный метод CreateDrop
+                    return false; // Отменяем ванильный оригинальный метод
                 }
                 else
                 {
