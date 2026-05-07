@@ -561,7 +561,7 @@ namespace XSkills
                     i++;
                 }
             }
-            return false; // Отменяем ванильный метод CreateDrop
+            return false; // Отменяем ванильный метод
         }
     }
 }//!namespace XSkills
