@@ -35,6 +35,7 @@ namespace XSkills
         public int MachineLearningId { get; private set; }
         public int BloomeryExpertId { get; private set; }
         public int AutomatedSmithingId { get; private set; }
+        public int SafeQuenchingId { get; private set; }
 
         private List<SmithingRecipe> duplicatable;
 
@@ -171,6 +172,15 @@ namespace XSkills
                 "xskills:ability-automatedsmithing",
                 "xskills:abilitydesc-automatedsmithing",
                 10, 2, new int[] { 1, 2 }));
+            
+            //From xskills Fork
+            // Шанс спасти заготовку при неудачной закалке
+            // 0: шанс в процентах (например, 100%)
+            SafeQuenchingId = this.AddAbility(new Ability(
+                "safequenching",
+                "xskills:ability-safequenching",
+                "xskills:abilitydesc-safequenching",
+                5, 1, new int[] { 100 }));
 
             //behaviors
             api.RegisterEntityBehaviorClass("disassemblable", typeof(EntityBehaviorDisassemblable));

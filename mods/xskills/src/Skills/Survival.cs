@@ -321,7 +321,14 @@ namespace XSkills
                 EntityBehaviorHealth playerHealth = player.Entity.GetBehavior("health") as EntityBehaviorHealth;
                 if (playerHealth != null)
                 {
-                    player.Entity.Stats.Set("maxhealthExtraPoints", "longlife", 0.01f * playerAbility.SkillDependentValue() * playerHealth.BaseMaxHealth, false);
+                    // Считаем бонус
+                    float bonusHealth = 0.01f * playerAbility.SkillDependentValue() * playerHealth.BaseMaxHealth;
+
+                    // Применяем стат
+                    player.Entity.Stats.Set("maxhealthExtraPoints", "longlife", bonusHealth, false);
+
+                    // Это запустит внутренний пересчет MaxHealth и синхронизацию с клиентом.
+                    playerHealth.MarkDirty();
                 }
             }
         }
@@ -418,7 +425,7 @@ namespace XSkills
         }
 
         //steeplechaser
-        public static void OnSteeplechaser(PlayerAbility playerAbility, int oldTier)
+        public void OnSteeplechaser(PlayerAbility playerAbility, int oldTier)
         {
             float mult = 1.0f;
             if (oldTier > 0)
@@ -429,6 +436,16 @@ namespace XSkills
 
             EntityBehaviorControlledPhysics physics = playerAbility.PlayerSkill.PlayerSkillSet.Player.Entity.GetBehavior<EntityBehaviorControlledPhysics>();
             if (physics == null) return;
+            // Если это локальный игрок-клиент и способность сейчас "выключена" на кнопку, 
+            // мы не применяем изменение от прокачки прямо сейчас, чтобы не сломать высоту шага.
+            if (this.capi != null && !this.steeplechaserActive)
+            {
+                if (playerAbility.PlayerSkill.PlayerSkillSet.Player.PlayerUID == this.capi.World.Player.PlayerUID)
+                {
+                    return;
+                }
+            }
+
             physics.StepHeight *= mult;
         }
 
@@ -616,6 +633,7 @@ namespace XSkills
         {
             base.FromConfig(config);
             InitNightVision();
+            InitSteeplechaserToggle();
         }
 
         private void InitNightVision()
@@ -686,6 +704,49 @@ namespace XSkills
                 return true;
             });
         }
+
+        private bool steeplechaserActive = true;
+
+        private void InitSteeplechaserToggle()
+        {
+            capi = this.XLeveling.Api as ICoreClientAPI;
+            if (capi == null) return;
+
+#if !DEBUG
+    if (!(this.Config as SurvivalSkillConfig).allowSteeplechaserToggle) return;
+#endif
+
+            capi.Input.RegisterHotKey("steeplechasertoggle", Lang.Get("xskills:hotkey-steeplechasertoggle"), GlKeys.J, HotkeyType.CharacterControls);
+            capi.Input.SetHotKeyHandler("steeplechasertoggle", (KeyCombination key) =>
+            {
+                IPlayer player = capi.World.Player;
+                if (player?.Entity == null) return true;
+
+                PlayerAbility ability = player.Entity.GetBehavior<PlayerSkillSet>()?[this.Id]?[this.SteeplechaserId];
+                if (ability == null || ability.Tier <= 0) return true;
+
+                EntityBehaviorControlledPhysics physics = player.Entity.GetBehavior<EntityBehaviorControlledPhysics>();
+                if (physics == null) return true;
+
+                float mult = 1.0f + ability.Value(0) * 0.01f;
+
+                this.steeplechaserActive = !this.steeplechaserActive;
+
+                if (this.steeplechaserActive)
+                {
+                    physics.StepHeight *= mult;
+                    capi.ShowChatMessage(Lang.Get("xskills:steeplechaser-on"));
+                }
+                else
+                {
+                    physics.StepHeight /= mult;
+                    capi.ShowChatMessage(Lang.Get("xskills:steeplechaser-off"));
+                }
+
+                return true;
+            });
+        }
+
 
         public bool LoadShader()
         {
@@ -862,7 +923,7 @@ namespace XSkills
             IPlayer[] players = capi.World.GetPlayersAround(player.Pos.XYZ, 32.0f, 32.0f);
             foreach (IPlayer player1 in players)
             {
-                int playerBrightness = Math.Clamp(player1.Entity?.LightHsv?[2] ?? 0, (byte) 0, (byte) 32);
+                int playerBrightness = Math.Clamp(player1.Entity?.LightHsv?[2] ?? 0, (byte)0, (byte)32);
                 if (playerBrightness == 0) continue;
                 int distance = (int)player1.Entity.Pos.DistanceTo(player.Pos);
 
@@ -880,12 +941,18 @@ namespace XSkills
             {
                 Shader.Use();
                 capi.Render.GlToggleBlend(true, EnumBlendMode.Overlay);
+
                 capi.Render.GLDisableDepthTest();
+
                 Shader.BindTexture2D("primaryScene", capi.Render.FrameBuffers[(int)EnumFrameBuffer.Primary].ColorTextureIds[0], 0);
                 Shader.Uniform("intensity", nightVisionIntensity);
                 Shader.Uniform("brightness", NightVisionBrightness + ability.Value(0));
+
                 capi.Render.RenderMesh(quadRef);
                 Shader.Stop();
+
+                capi.Render.GLEnableDepthTest();
+                capi.Render.GlToggleBlend(true, EnumBlendMode.Standard);
             }
             curShader?.Use();
         }
@@ -903,6 +970,8 @@ namespace XSkills
                 Dictionary<string, string> result = new Dictionary<string, string>();
                 result.Add("invSwitchCD", this.invSwitchCD.ToString(provider));
                 result.Add("allowCatEyesToggle", this.allowCatEyesToggle.ToString(provider));
+                result.Add("allowSteeplechaserToggle", this.allowSteeplechaserToggle.ToString(provider));
+
                 return result;
             }
             set
@@ -916,6 +985,10 @@ namespace XSkills
 
                 value.TryGetValue("allowCatEyesToggle", out str);
                 if (str != null) bool.TryParse(str, out this.allowCatEyesToggle);
+
+                value.TryGetValue("allowSteeplechaserToggle", out str);
+                if (str != null) bool.TryParse(str, out this.allowSteeplechaserToggle);
+
             }
         }
 
@@ -926,5 +999,9 @@ namespace XSkills
         [ProtoMember(2)]
         [DefaultValue(false)]
         public bool allowCatEyesToggle = false;
+
+        [ProtoMember(3)]
+        [DefaultValue(true)]
+        public bool allowSteeplechaserToggle = true;
     }//!class CombatSkillConfig
 }//!namespace XSkills
