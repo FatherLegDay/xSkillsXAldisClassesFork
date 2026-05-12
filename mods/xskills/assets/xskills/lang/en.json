@@ -316,6 +316,8 @@
     "abilitydesc-bloomeryexpert": "You can take smelting results out of a bloomery without destroying it.",
     "ability-automatedsmithing": "Automated Smithing",
     "abilitydesc-automatedsmithing": "Your helve hammers can work items with up to {0} layers.",
+    "ability-safequenching": "Safe Quenching",
+    "abilitydesc-safequenching": "With this perk, your tools will no longer split into atoms during quenching. If the quenching fails, the item will simply be damaged.",
 
     "ability-thrift": "Thrift",
     "abilitydesc-thrift": "You will receive {0} more voxels for each clay you use for pottery.",
