@@ -239,7 +239,6 @@ namespace XSkills
             return drops.ToArray();
         }
 
-        // Use the same XP mapping as your patch. Public so other behaviors can reuse it.
         public float CalculatePanningXp(ItemStack drop)
         {
             if (drop == null || drop.Item == null) return 0.0f;

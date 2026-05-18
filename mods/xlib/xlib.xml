@@ -3243,6 +3243,15 @@
             Global fallback number of unlearn points a skillbook gives (if the item doesn't specify `unlearnPoints`).
             </summary>
         </member>
+        <member name="F:XLib.XLeveling.Config.disableAllClassRequirements">
+            <summary>
+            Initializes a new instance of the <see cref="T:XLib.XLeveling.Config"/> class.
+            </summary>
+            <summary>
+            
+            Отключение зависимостей от профессий
+            </summary>
+        </member>
         <member name="M:XLib.XLeveling.Config.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:XLib.XLeveling.Config"/> class.

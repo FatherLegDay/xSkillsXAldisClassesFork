@@ -291,6 +291,20 @@ namespace XLib.XLeveling
                 api.Server.LogError(error.Message);
             }
 
+            // Если в конфиге включено отключение всех классов, добавляем секретный флаг в список
+            if (this.Config != null && this.Config.disableAllClassRequirements)
+            {
+                if (this.Config.disabledRequirements == null)
+                {
+                    this.Config.disabledRequirements = new List<string>();
+                }
+
+                if (!this.Config.disabledRequirements.Contains("DISABLE_ALL_CLASSES"))
+                {
+                    this.Config.disabledRequirements.Add("DISABLE_ALL_CLASSES");
+                }
+            }
+
             // --- ЖЕСТКИЙ СБРОС ФАЙЛОВ (Удаляем старые конфиги с диска) ---
             if (forceConfigReset)
             {
@@ -315,6 +329,8 @@ namespace XLib.XLeveling
 
             this.XLeveling.Mod.Logger.Debug("Save: " + path);
             api.StoreModConfig(this.Config, path);
+
+            this.XLeveling.RemoveRequirements(this.Config.disabledRequirements);
 
             // 2. Теперь загружаем конфиги навыков (игра создаст новые, так как старых уже нет)
             foreach (Skill skill in this.XLeveling.SkillSetTemplate.Skills)

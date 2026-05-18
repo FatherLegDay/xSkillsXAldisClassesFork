@@ -436,7 +436,7 @@
                 "code": "exclusiveAbility",
                 "minimumTier": 2,
                 "skill": "metalworking",
-                "ability": "blacksmith",
+                "ability": "metalworker",
                 "exclusiveTier": 2
             },
             {

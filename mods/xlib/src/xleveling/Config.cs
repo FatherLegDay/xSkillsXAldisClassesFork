@@ -114,6 +114,18 @@ namespace XLib.XLeveling
         /// <summary>
         /// Initializes a new instance of the <see cref="Config"/> class.
         /// </summary>
+
+        /// <summary>
+        /// 
+        /// Отключение зависимостей от профессий
+        /// </summary>
+        [ProtoMember(14)]
+        [DefaultValue(false)]
+        public bool disableAllClassRequirements;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Config"/> class.
+        /// </summary>
+
         public Config()
         {
             this.unlearnCooldown = 120.0f;
@@ -130,6 +142,8 @@ namespace XLib.XLeveling
 
             this.skillBookUnlearnEnabled = true;
             this.skillBookUnlearnPoints = 0.05f;
+
+            this.disableAllClassRequirements = false;
         }
     }//!class Config
 }
