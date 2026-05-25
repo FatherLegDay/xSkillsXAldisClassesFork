@@ -572,7 +572,7 @@ namespace XSkills
                         if(voxels[xx,yy,zz])
                         {
                             search = false;
-                            if (yy > ymax) return;
+                            if (yy >= ymax) return;
                         }
                     }
                 }

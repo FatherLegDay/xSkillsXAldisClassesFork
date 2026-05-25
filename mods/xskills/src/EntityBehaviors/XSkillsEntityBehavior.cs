@@ -29,8 +29,8 @@ namespace XSkills
         protected Cooking cooking;
         protected TemporalAdaptation temporalAdaptation;
         protected float xp;
-
-        public float XP { get =>  xp; }
+        protected EntityPlayer lastAttacker;
+        public float XP { get => xp; }
 
         public override string PropertyName() => "XSkillsEntity";
 
@@ -73,6 +73,11 @@ namespace XSkills
                 damageSourceForDeath.SourceEntity as EntityPlayer ??
                 damageSourceForDeath.CauseEntity as EntityPlayer ??
                 (damageSourceForDeath.SourceEntity as EntityThrownStone)?.FiredBy as EntityPlayer;
+
+            if (byPlayer == null)
+            {
+                byPlayer = this.lastAttacker;
+            }
 
             PlayerSkillSet playerSkillSet = byPlayer?.GetBehavior<PlayerSkillSet>();
             if (playerSkillSet == null) return;
@@ -185,20 +190,23 @@ namespace XSkills
 
         public virtual float OnDamage(float damage, DamageSource dmgSource)
         {
-            EntityPlayer byPlayer = 
+            EntityPlayer byPlayer =
                 dmgSource.SourceEntity as EntityPlayer ??
                 dmgSource.CauseEntity as EntityPlayer ??
                 (dmgSource.SourceEntity as EntityThrownStone)?.FiredBy as EntityPlayer;
-            if (this.combat == null || byPlayer == null) return damage;
 
-            // capture raw incoming damage before ability multipliers for effects like bleed
-            float baseDamage = damage;
+            if (byPlayer != null)
+            {
+                this.lastAttacker = byPlayer;
+            }
+
+            if (this.combat == null || byPlayer == null) return damage;
 
             PlayerSkillSet playerSkillSet = byPlayer.GetBehavior<PlayerSkillSet>();
             PlayerSkill playerSkill = playerSkillSet?[this.combat.Id];
             if (playerSkill == null) return damage;
 
-            EnumTool? tool = null; 
+            EnumTool? tool = null;
             if (dmgSource.SourceEntity != null)
             {
                 EntityProjectile projectile = dmgSource.SourceEntity as EntityProjectile;
@@ -211,7 +219,7 @@ namespace XSkills
                         collectible = COProjectiles(dmgSource);
                     }
                     catch (System.IO.FileNotFoundException)
-                    {}
+                    { }
                 }
 
                 if (collectible != null)
@@ -367,6 +375,7 @@ namespace XSkills
             return damage;
         }
 
+
         protected float ApplyBareHandAbilities(float damage, EntityPlayer byPlayer)
         {
             InventoryCharacter inv = byPlayer.Player.InventoryManager.GetOwnInventory("character") as InventoryCharacter;
@@ -416,7 +425,7 @@ namespace XSkills
             base.OnEntityReceiveDamage(damageSource, ref damage);
             if (this.entity.Api.Side == EnumAppSide.Server)
             {
-                EntityPlayer byPlayer = 
+                EntityPlayer byPlayer =
                     damageSource.SourceEntity as EntityPlayer ??
                     damageSource.CauseEntity as EntityPlayer;
                 if (this.combat == null || byPlayer == null) return;
