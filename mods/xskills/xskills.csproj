@@ -88,7 +88,6 @@
     <Content Include="assets\xskills\recipes\cooking\salt.json" />
     <Content Include="assets\xskills\recipes\cooking\lime.json" />
     <Content Include="assets\xskills\recipes\grid\ingot-blistersteel.json" />
-    <Content Include="assets\xskills\shapes\item\bits\metalbit.json" />
     <Content Include="assets\xskills\skills\combat.json" />
     <Content Include="assets\xskills\skills\digging.json" />
     <Content Include="assets\xskills\skills\farming.json" />
@@ -116,6 +115,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="assets\xskills\shapes\item\bits\" />
     <Folder Include="src\Patches\Mining\" />
   </ItemGroup>
   <PropertyGroup>

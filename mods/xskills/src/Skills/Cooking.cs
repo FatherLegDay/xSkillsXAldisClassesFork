@@ -430,16 +430,18 @@ namespace XSkills
                     }
                 }
                 else if (mealContainer == null || mealContainer is BlockPie)
-                {
-                    float rel = scaledCooked - (int)scaledCooked;
-                    totalCooked = (int)scaledCooked + (world.Rand.NextDouble() < rel ? 1 : 0);
-                    if (outputStack.StackSize > cookedAmount) outputStack.StackSize += totalCooked - (int)(cookedAmount + 0.25f);
-                    else outputStack.StackSize = totalCooked;
-                }
-                else
-                {
-                    mealContainer.SetQuantityServings(world, outputStack, scaledCooked);
-                }
+
+                    if (outputStack.Collectible.NutritionProps != null)
+                    {
+                        float rel = scaledCooked - (int)scaledCooked;
+                        totalCooked = (int)scaledCooked + (world.Rand.NextDouble() < rel ? 1 : 0);
+                        if (outputStack.StackSize > cookedAmount) outputStack.StackSize += totalCooked - (int)(cookedAmount + 0.25f);
+                        else outputStack.StackSize = totalCooked;
+                    }
+                    else
+                    {
+                        mealContainer.SetQuantityServings(world, outputStack, scaledCooked);
+                    }
             }
 
             //desalinate
@@ -732,6 +734,10 @@ namespace XSkills
         [ProtoMember(2)]
         [DefaultValue(0.05f)]
         public float fruitPressExpPerLitre = 0.05f;
+
+        [ProtoMember(3)]
+        [DefaultValue(false)]
+        public bool bypassDesalinationLock = false;
     }
 
     public class XskillsCookingRecipeNames : ICookingRecipeNamingHelper

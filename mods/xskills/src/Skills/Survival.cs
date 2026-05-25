@@ -8,6 +8,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.Client.NoObf;
 using Vintagestory.Common;
@@ -287,8 +288,56 @@ namespace XSkills
             this.ExpEquationValue = 0.4f;
             this.ExpLossOnDeath = 0.5f;
             this.MaxExpLossOnDeath = 10.0f;
+
+            // КОМАНДА ДЛЯ ПОЧИНКИ ЖЕЛУДКОВ
+            if (api is ICoreServerAPI sapi)
+            {
+                sapi.ChatCommands.Create("fixstomach")
+                    .WithDescription("Fixes corrupted max satiety from the Huge Stomach bug")
+                    .RequiresPrivilege(Privilege.chat) // Доступна всем игрокам
+                    .HandleWith((args) =>
+                    {
+                        var callerPlayer = args.Caller.Player as IServerPlayer;
+                        if (callerPlayer == null) return TextCommandResult.Success("Only players can use this.");
+
+                        EntityBehaviorHunger hunger = callerPlayer.Entity.GetBehavior<EntityBehaviorHunger>();
+                        if (hunger != null)
+                        {
+                            //  Сбрасываем желудок на ванильную базу
+                            hunger.MaxSaturation = 1500f;
+
+                            //  Удаляем старые багованные метки
+                            callerPlayer.Entity.Attributes.RemoveAttribute("hugeStomachBonus");
+                            callerPlayer.Entity.Attributes.RemoveAttribute("hugeStomachExpected");
+
+                            // Обрезаем текущую еду внутри игрока, чтобы его не разорвало от 6000 сытости
+                            hunger.FruitLevel = Math.Min(hunger.FruitLevel, 1500f);
+                            hunger.GrainLevel = Math.Min(hunger.GrainLevel, 1500f);
+                            hunger.VegetableLevel = Math.Min(hunger.VegetableLevel, 1500f);
+                            hunger.ProteinLevel = Math.Min(hunger.ProteinLevel, 1500f);
+                            hunger.DairyLevel = Math.Min(hunger.DairyLevel, 1500f);
+                            hunger.Saturation = Math.Min(hunger.Saturation, 1500f);
+                            hunger.UpdateNutrientHealthBoost();
+
+                            // Заставляем игру пересчитать перк Huge Stomach с нуля для этого игрока
+                            var survivalSkill = XLeveling.Instance(api)?.GetSkill("survival") as Survival;
+                            if (survivalSkill != null)
+                            {
+                                var ability = callerPlayer.Entity.GetBehavior<PlayerSkillSet>()?[survivalSkill.Id]?[survivalSkill.HugeStomachId];
+                                if (ability != null && ability.Tier > 0)
+                                {
+                                    survivalSkill.OnHugeStomach(ability, 0);
+                                }
+                            }
+
+                            return TextCommandResult.Success("Your stomach has been successfully fixed and recalculated!");
+                        }
+                        return TextCommandResult.Success("Could not find hunger behavior.");
+                    });
+            }
         }
 
+        //  Словарь в памяти сервера для отслеживания бонусов в текущей сессии
         public void OnHugeStomach(PlayerAbility playerAbility, int oldTier)
         {
             IPlayer player = playerAbility.PlayerSkill.PlayerSkillSet.Player;
@@ -297,36 +346,52 @@ namespace XSkills
                 EntityBehaviorHunger playerHunger = player.Entity.GetBehavior<EntityBehaviorHunger>();
                 if (playerHunger != null)
                 {
-                    // 1. Узнаем, сколько объема твой мод УЖЕ добавил этому игроку ранее (если ничего, то 0)
+                    // 1. Получаем текущий желудок игрока
+                    float currentMaxSat = playerHunger.MaxSaturation;
+
+                    // 2. Читаем из базы: сколько мы добавляли в прошлый раз и какой итоговый желудок мы ему оставили
                     float alreadyAdded = player.Entity.Attributes.GetFloat("hugeStomachBonus", 0f);
+                    float expectedMaxSat = player.Entity.Attributes.GetFloat("hugeStomachExpected", -1f);
 
-                    // 2. Узнаем, какой бонус должен быть на текущем уровне перка
-                    float newBonus = playerAbility.Value(0);
+                    // 3. ЗАЩИТА ОТ БАГОВ (Смерть или Мод на расы):
+                    if (expectedMaxSat != -1f && Math.Abs(currentMaxSat - expectedMaxSat) > 1f)
+                    {
+                        alreadyAdded = 0f;
+                    }
 
-                    // 3. Вычисляем разницу, которую нужно прибавить к текущему размеру желудка
+                    // 4. Считаем дельту
+                    int currentTier = playerAbility.Tier;
+                    float newBonus = (currentTier > 0) ? playerAbility.Value(0) : 0f;
                     float delta = newBonus - alreadyAdded;
 
-                    // Если разница есть (перк вкачали впервые или повысили его уровень)
                     if (delta != 0)
                     {
                         float oldMaxSat = playerHunger.MaxSaturation;
                         float newMaxSat = oldMaxSat + delta;
 
-                        // Защита от деления на ноль
+                        if (newMaxSat < 100) newMaxSat = 100; // Защита от отрицательных значений
+
                         float saturationGrowth = oldMaxSat > 0 ? (newMaxSat / oldMaxSat) : 1f;
 
-                        // Обновляем значения
                         playerHunger.MaxSaturation = newMaxSat;
                         playerHunger.FruitLevel *= saturationGrowth;
                         playerHunger.GrainLevel *= saturationGrowth;
                         playerHunger.VegetableLevel *= saturationGrowth;
                         playerHunger.DairyLevel *= saturationGrowth;
                         playerHunger.ProteinLevel *= saturationGrowth;
-                        playerHunger.Saturation *= saturationGrowth;
+
+                        playerHunger.Saturation = Math.Min(playerHunger.Saturation * saturationGrowth, newMaxSat);
+
                         playerHunger.UpdateNutrientHealthBoost();
 
-                        // 4. Записываем новый бонус в атрибуты игрока, чтобы не прибавить его дважды в будущем
+                        // 5. Железно сохраняем новые данные в базу персонажа
                         player.Entity.Attributes.SetFloat("hugeStomachBonus", newBonus);
+                        player.Entity.Attributes.SetFloat("hugeStomachExpected", newMaxSat);
+                    }
+                    else if (expectedMaxSat == -1f)
+                    {
+                        // Инициализация для самых новых игроков, которые только зашли
+                        player.Entity.Attributes.SetFloat("hugeStomachExpected", currentMaxSat);
                     }
                 }
             }
@@ -381,7 +446,7 @@ namespace XSkills
             IPlayer player = playerAbility.PlayerSkill.PlayerSkillSet?.Player;
             if (player == null) return;
 
-            InventoryCharacter inv = 
+            InventoryCharacter inv =
                 player.InventoryManager?.
                 GetOwnInventory(GlobalConstants.characterInvClassName) as InventoryCharacter;
             if (inv == null) return;
@@ -423,7 +488,7 @@ namespace XSkills
             if (inv[(int)EnumCharacterDressType.ArmorBody].Itemstack != null) clothCounter += 2.0f; //armorbody
             if (inv[(int)EnumCharacterDressType.ArmorLegs].Itemstack != null) clothCounter += 2.0f; //armorlegs
 
-            for (int ii = (int)EnumCharacterDressType.ArmorLegs + 1; ii < inv.Count ; ++ii)
+            for (int ii = (int)EnumCharacterDressType.ArmorLegs + 1; ii < inv.Count; ++ii)
             {
                 if (inv[ii].Itemstack != null) clothCounter += 1.5f;
             }
@@ -457,6 +522,7 @@ namespace XSkills
 
             EntityBehaviorControlledPhysics physics = playerAbility.PlayerSkill.PlayerSkillSet.Player.Entity.GetBehavior<EntityBehaviorControlledPhysics>();
             if (physics == null) return;
+
             // Если это локальный игрок-клиент и способность сейчас "выключена" на кнопку, 
             // мы не применяем изменение от прокачки прямо сейчас, чтобы не сломать высоту шага.
             if (this.capi != null && !this.steeplechaserActive)
@@ -509,17 +575,17 @@ namespace XSkills
                 float yearRel = calendar.YearRel + (float)ii / calendar.DaysPerYear;
                 if (yearRel > 1.0f) { yearRel -= 1.0f; }
 
-                minTemperature[ii] =  100.0f;
+                minTemperature[ii] = 100.0f;
                 maxTemperature[ii] = -100.0f;
 
-                minRainfall[ii] =  1.0f;
+                minRainfall[ii] = 1.0f;
                 maxRainfall[ii] = -1.0f;
 
-                minCloudness[ii] =  1.0f;
+                minCloudness[ii] = 1.0f;
                 maxCloudness[ii] = -1.0f;
 
                 sunrise[ii] = 1.0f;
-                sunset[ii]  = 0.0f;
+                sunset[ii] = 0.0f;
 
                 for (int jj = 0; jj < 4; ++jj)
                 {
@@ -629,9 +695,9 @@ namespace XSkills
             SystemTemporalStability temporal = api.ModLoader.GetModSystem<SystemTemporalStability>();
             if (temporal != null)
             {
-                if(temporal.StormData.nextStormTotalDays <= days)
+                if (temporal.StormData.nextStormTotalDays <= days)
                 {
-                    switch(temporal.StormData.nextStormStrength)
+                    switch (temporal.StormData.nextStormStrength)
                     {
                         case EnumTempStormStrength.Light:
                             builder.AppendLine(Lang.Get("A light temporal storm is approaching"));
@@ -671,7 +737,7 @@ namespace XSkills
             if (!(this.Config as SurvivalSkillConfig).allowCatEyesToggle) return;
 #endif
 
-            capi.Input.RegisterHotKey("cateyestoggle", "Cat eyes toggle", GlKeys.P, HotkeyType.CharacterControls);
+            capi.Input.RegisterHotKey("cateyestoggle", Lang.Get("xskills:hotkey-cateyestoggle"), GlKeys.P, HotkeyType.CharacterControls);
             capi.Input.SetHotKeyHandler("cateyestoggle", (KeyCombination key) =>
             {
                 if (capi.World.Player.Entity.Controls.Sneak)
@@ -767,7 +833,6 @@ namespace XSkills
                 return true;
             });
         }
-
 
         public bool LoadShader()
         {

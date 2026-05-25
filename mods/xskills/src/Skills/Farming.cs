@@ -199,7 +199,6 @@ namespace XSkills
             api.RegisterBlockBehaviorClass("XSkillsMushroom", typeof(XSkillsMushroomBehavior));
             api.RegisterBlockBehaviorClass("XSkillsSkep", typeof(XSkillsSkepBehavior));
             api.RegisterBlockBehaviorClass("XSkillsBerryBush", typeof(XSkillsBerryBushBehavior));
-            api.RegisterBlockBehaviorClass("XSkillsNaturalFertiliser", typeof(XSkillsNaturalFertiliser));
 
             this.ExperienceEquation = QuadraticEquation;
             this.ExpBase = 200;
@@ -313,17 +312,46 @@ namespace XSkills
 
         public override ItemStack[] GetDrops(IWorldAccessor world, BlockPos pos, IPlayer byPlayer, ref float dropChanceMultiplier, ref EnumHandling handling)
         {
-            ItemStack[] result = new ItemStack[0];
-            PlayerSkill playerSkill = byPlayer?.Entity.GetBehavior<PlayerSkillSet>()?[farming.Id];
-            if (playerSkill == null) return result;
+            List<ItemStack> drops = new List<ItemStack>();
 
-            //experience
+            // Базовые проверки на наличие скилла
+            if (this.farming == null) return drops.ToArray();
+            PlayerSkill playerSkill = byPlayer?.Entity.GetBehavior<PlayerSkillSet>()?[farming.Id];
+            if (playerSkill == null) return drops.ToArray();
+
+            // 1. Опыт выдается всегда
             playerSkill.AddExperience(this.xp);
 
-            //gatherer
+            // 2. Проверяем наличие перка Gatherer
             PlayerAbility playerAbility = playerSkill[farming.GathererId];
-            if (playerAbility != null) dropChanceMultiplier += playerAbility.SkillDependentFValue();
-            return result;
+            if (playerAbility == null || playerAbility.Tier <= 0 || block.Drops == null)
+                return drops.ToArray();
+
+
+            // Вычисляем шанс бонуса (напр. 0.1 для 10%)
+            float bonusChance = playerAbility.SkillDependentFValue();
+
+            // Подстраховка: если мод возвращает сырое число 10.0 вместо 0.1
+            if (bonusChance >= 1.0f) bonusChance *= 0.01f;
+
+            // Проверяем, что в руках у игрока
+            EnumTool? activeTool = byPlayer.InventoryManager?.ActiveTool;
+
+            for (int index = 0; index < block.Drops.Length; index++)
+            {
+                BlockDropItemStack dropConfig = block.Drops[index];
+
+                // Обязательная проверка инструмента
+                if (dropConfig.Tool.HasValue && dropConfig.Tool.Value != activeTool) continue;
+
+                ItemStack bonusDrop = dropConfig.GetNextItemStack(bonusChance);
+                if (bonusDrop != null && bonusDrop.StackSize > 0)
+                {
+                    drops.Add(bonusDrop);
+                }
+            }
+
+            return drops.ToArray();
         }
     }
 
@@ -486,7 +514,7 @@ namespace XSkills
                         world.SpawnItemEntity(stack, blockSel.Position.ToVec3d().Add(0.5, 0.5, 0.5));
                     }
                 }
-                else 
+                else
                 {
                     foreach (BlockDropItemStack drop in drops)
                     {
@@ -596,7 +624,6 @@ namespace XSkills
         {
             List<ItemStack> drops = new List<ItemStack>();
 
-            // Вот здесь мы добавляем пропущенный return:
             if (this.farming == null) return drops.ToArray();
 
             PlayerSkill playerSkill = byPlayer?.Entity.GetBehavior<PlayerSkillSet>()?[this.farming.Id];
@@ -608,20 +635,38 @@ namespace XSkills
             PlayerAbility abilitySeeds = playerSkill[farming.DemetersBlessId];
             PlayerAbility abilityDrops = playerSkill[farming.GreenThumbId];
 
+            // Проверяем, находится ли растение на последней стадии роста
+            bool isMature = false;
+            if (this.block is BlockCrop cropBlock)
+            {
+                isMature = cropBlock.CurrentCropStage >= cropBlock.CropProps.GrowthStages;
+            }
+            else if (this.block.CropProps != null)
+            {
+                int currentCropStage = -1;
+                if (this.block.Variant != null && this.block.Variant.ContainsKey("stage"))
+                    int.TryParse(this.block.Variant["stage"], out currentCropStage);
+                else
+                    int.TryParse(this.block.Code?.EndVariant(), out currentCropStage);
+
+                isMature = currentCropStage >= this.block.CropProps.GrowthStages;
+            }
+
             for (int index = 0; index < block.Drops.Length; index++)
             {
-                // Проверяем ResolvedItemstack на null перед тем, как читать его имя!
-                if (this.xp > 0.0f && block.Drops[index].ResolvedItemstack != null && block.Drops[index].ResolvedItemstack.GetName().Contains("seeds"))
+                // Проверяем Collectible.Code.Path 
+                if (this.xp > 0.0f && block.Drops[index].ResolvedItemstack != null && block.Drops[index].ResolvedItemstack.Collectible.Code.Path.Contains("seed"))
                 {
-                    if (abilitySeeds != null)
+                    // Условие && isMature
+                    if (abilitySeeds != null && isMature)
                     {
                         float dropMultiplier = abilitySeeds.SkillDependentFValue() /* + dropChanceMultiplier*/;
                         ItemStack drop = block.Drops[index].GetNextItemStack(dropMultiplier);
                         if (drop != null) drops.Add(drop);
                     }
                 }
-                //green thumb
-                else if (abilityDrops != null)
+                //green thumb (здесь тоже добавлено && isMature, чтобы исключить дюп самого урожая на ранних стадиях)
+                else if (abilityDrops != null && isMature)
                 {
                     float dropMultiplier = abilityDrops.SkillDependentFValue() /* + dropChanceMultiplier*/;
                     ItemStack drop = block.Drops[index].GetNextItemStack(dropMultiplier);
@@ -629,9 +674,10 @@ namespace XSkills
                 }
             }
 
-            if (this.xp == 0.0f && drops.Count == 0)
+
+            if (drops.Count == 0 && !isMature)
             {
-                //repotting
+                //repotting (выдаем семечко, если растение не созрело и ничего не дропнуло)
                 if (playerSkill[farming.RepottingId].Tier > 0)
                 {
                     int first = block.Code.Path.IndexOf("-");
@@ -939,7 +985,7 @@ namespace XSkills
 
             PlayerAbility playerAbility = playerSkill[farming.BeemasterId];
             if (playerAbility == null || playerAbility.Tier <= 0) return false;
-            
+
             BlockEntityBeehive beh = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityBeehive;
             if (beh == null || !beh.Harvestable) return false;
 
@@ -950,7 +996,7 @@ namespace XSkills
 
         public override bool OnBlockInteractStep(float secondsUsed, IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling)
         {
-            if (blockSel == null)  return false;
+            if (blockSel == null) return false;
             BlockEntityBeehive beh = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityBeehive;
             if (beh == null || !beh.Harvestable) return false;
 

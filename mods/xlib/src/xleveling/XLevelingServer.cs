@@ -91,7 +91,12 @@ namespace XLib.XLeveling
             {
                 string invalidChars = new string(Path.GetInvalidFileNameChars());
                 Regex regex = new Regex(string.Format("[{0}]", Regex.Escape(invalidChars)));
-                string str = this.XLeveling.Api.World.Config.GetString("XLevelingSkillsFile") ?? (this.XLeveling.Api as ICoreServerAPI).WorldManager.SaveGame.WorldName;
+
+                // ДОБАВЛЕНА ЗАЩИТА: операторы ?. и ?? "xleveling_save" спасут от null 
+                string str = this.XLeveling.Api.World.Config.GetString("XLevelingSkillsFile")
+                    ?? (this.XLeveling.Api as ICoreServerAPI).WorldManager.SaveGame?.WorldName
+                    ?? "xleveling_save";
+
                 str = regex.Replace(str, "");
                 return str + ".json";
             }
@@ -136,13 +141,11 @@ namespace XLib.XLeveling
             this.XLeveling = xLeveling ?? throw new ArgumentNullException("The XLeveling system of a XLeveling server interface must not be null.");
             ICoreServerAPI api = this.XLeveling.Api as ICoreServerAPI ?? throw new Exception("Tried to create a server interface on the wrong side.");
 
-            api.Event.PlayerNowPlaying += OnPlayerNowPlaying;
-            api.Event.PlayerDisconnect += OnPlayerDisconnect;
-            api.Event.PlayerCreate += OnPlayerCreate;
-            api.Event.GameWorldSave += OnWorldSave;
-            api.Event.PlayerDeath += OnPlayerDeath;
+
             this.Config = new Config();
             this.PlayerSkillSets = new Dictionary<IPlayer, PlayerSkillSet>();
+
+            this.DiscPlayerSkillSets = new Dictionary<string, SavedPlayerSkillSet>();
 
             //set paths and load data
             string savePath = SaveFileDirectory;
@@ -243,6 +246,11 @@ namespace XLib.XLeveling
                     parsers.OptionalWord("knowledge"),
                     parsers.OptionalInt("quantity"),
                 });
+            api.Event.PlayerNowPlaying += OnPlayerNowPlaying;
+            api.Event.PlayerDisconnect += OnPlayerDisconnect;
+            api.Event.PlayerCreate += OnPlayerCreate;
+            api.Event.GameWorldSave += OnWorldSave;
+            api.Event.PlayerDeath += OnPlayerDeath;
         }
 
         /// <summary>
@@ -435,6 +443,8 @@ namespace XLib.XLeveling
         /// </summary>
         private void SaveData()
         {
+            if (this.PlayerSkillSets == null || this.DiscPlayerSkillSets == null) return;
+
             string saveFileName = this.SaveFileName;
             Dictionary<string, SavedPlayerSkillSet> toStore = new Dictionary<string, SavedPlayerSkillSet>();
 
@@ -464,7 +474,7 @@ namespace XLib.XLeveling
                 {
                     toStore.Add(key, this.DiscPlayerSkillSets[key]);
                 }
-                catch(Exception exp)
+                catch (Exception exp)
                 {
                     this.XLeveling.Api.Logger.Warning("Exception thrown during XLeveling data save but save will continue.");
                     this.XLeveling.Api.Logger.Warning(exp);
