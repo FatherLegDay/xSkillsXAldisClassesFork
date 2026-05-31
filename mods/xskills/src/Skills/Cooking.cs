@@ -126,7 +126,7 @@ namespace XSkills
                 "happymeal",
                 "xskills:ability-happymeal",
                 "xskills:abilitydesc-happymeal",
-                5, 3, new int[] { 10, 1, 20, 20, 2, 40, 20, 2, 60 }));
+                5, 4, new int[] { 10, 1, 20, 20, 2, 40, 20, 2, 60, 20, 2, 80 }));
 
             // Increases the amount of juice for every fruit
             // 0: increased amount
