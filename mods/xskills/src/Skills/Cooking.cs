@@ -413,13 +413,15 @@ namespace XSkills
                 }
             }
 
-            //dilution
+            // dilution
             playerAbility = skill[this.DilutionId];
             float scaledCooked = servings;
             int totalCooked = (int)cookedAmount;
+
             if (playerAbility?.Tier > 0 && firstStage && !outputStack.Collectible.Code.Path.Equals("glueportion-pitch-hot"))
             {
                 scaledCooked = servings * (1.0f + playerAbility.SkillDependentFValue());
+
                 if (liquidContainer != null)
                 {
                     float mult = 1.0f + playerAbility.SkillDependentFValue();
@@ -430,47 +432,82 @@ namespace XSkills
                     }
                 }
                 else if (mealContainer == null || mealContainer is BlockPie)
-
+                {
                     if (outputStack.Collectible.NutritionProps != null)
                     {
                         float rel = scaledCooked - (int)scaledCooked;
                         totalCooked = (int)scaledCooked + (world.Rand.NextDouble() < rel ? 1 : 0);
-                        if (outputStack.StackSize > cookedAmount) outputStack.StackSize += totalCooked - (int)(cookedAmount + 0.25f);
-                        else outputStack.StackSize = totalCooked;
+                        if (outputStack.StackSize > cookedAmount)
+                            outputStack.StackSize += totalCooked - (int)(cookedAmount + 0.25f);
+                        else
+                            outputStack.StackSize = totalCooked;
                     }
-                    else
-                    {
-                        mealContainer.SetQuantityServings(world, outputStack, scaledCooked);
-                    }
+                }
+                else
+                {
+                    // Теперь этот код сработает корректно для горшков/котлов (mealContainer)
+                    mealContainer.SetQuantityServings(world, outputStack, scaledCooked);
+                }
             }
 
             //desalinate
             playerAbility = skill[this.DesalinateId];
-            if (playerAbility.Tier > 0 && (
+            if (playerAbility != null && playerAbility.Tier > 0 && outputStack?.Collectible?.Code != null && (
                 outputStack.Collectible.Code.Path.Equals("salt") ||
                 outputStack.Collectible.Code.Path.Equals("lime")))
             {
-                ItemSlot[] slots = (outputSlot.Inventory as InventorySmelting)?.CookingSlots;
-                ItemSlot slot = (slots?.Length ?? 0) > 1 ? slots[1] : null;
-
                 int size0 = outputStack.StackSize * playerAbility.Value(0);
+
                 int size1 = outputStack.StackSize * playerAbility.Value(1);
-                if (slot != null && slot.Itemstack == null)
+                if (size1 <= 0) size1 = (int)(outputStack.StackSize * playerAbility.FValue(1));
+                if (size1 <= 0) size1 = 1;
+
+                // Умножение соли
+                outputStack.StackSize = size0;
+                if (outputSlot != null && outputSlot.Itemstack != null)
+                {
+                    outputSlot.Itemstack.StackSize = size0;
+                }
+
+                if (outputStack.StackSize == 0)
+                {
+                    outputStack = null;
+                    if (outputSlot != null) outputSlot.Itemstack = null;
+                }
+
+                // Ищем пустой слот ВНУТРИ котелка
+                ItemSlot bonusSlot = null;
+                InventoryBase inv = outputSlot?.Inventory as InventoryBase;
+
+                if (inv != null)
+                {
+                    // Пропускаем слоты 0, 1, 2 
+                    for (int i = 3; i < inv.Count; i++)
+                    {
+                        if (inv[i].Itemstack == null || inv[i].Itemstack.StackSize == 0)
+                        {
+                            bonusSlot = inv[i];
+                            break;
+                        }
+                    }
+                }
+
+                // Выдаем известь в найденный пустой слот
+                if (bonusSlot != null && size1 > 0 && outputStack != null)
                 {
                     string itemName = outputStack.Collectible.Code.Path.Equals("salt") ? "game:lime" : "game:salt";
-                    outputStack.StackSize = size0;
-                    if (outputStack.StackSize == 0)
-                    {
-                        outputStack = null;
-                        outputSlot.Itemstack = null;
-                    }
+                    AssetLocation itemLoc = new AssetLocation(itemName);
 
-                    Item itemLime = world.GetItem(new AssetLocation(itemName));
-                    ItemStack stack = itemLime != null && size1 > 0 ? new ItemStack(itemLime, size1) : null;
-                    slot.Itemstack = stack;
-                    slot.MarkDirty();
-                    outputSlot.MarkDirty();
+                    CollectibleObject bonusCollectible = world.GetItem(itemLoc) as CollectibleObject ?? world.GetBlock(itemLoc);
+
+                    if (bonusCollectible != null)
+                    {
+                        bonusSlot.Itemstack = new ItemStack(bonusCollectible, size1);
+                        bonusSlot.MarkDirty();
+                    }
                 }
+
+                outputSlot?.MarkDirty();
             }
             if (outputStack == null) return;
 
@@ -502,11 +539,16 @@ namespace XSkills
                     CookingRecipe recipe = (mealContainer as BlockCookedContainer)?.GetCookingRecipe(world, outputStack) ?? (mealContainer as BlockMeal)?.GetCookingRecipe(world, outputStack);
                     if (recipe != null)
                     {
-                        ItemStack stack = GetMissingIngredient(contentStacks, recipe, world, true);
-                        stack.StackSize = size;
-                        if (attr != null) stack.Attributes["transitionstate"] = attr;
+                        // Если уровень 4, то allowBad = false
+                        bool allowBad = playerAbility.Tier < 4;
+
+                        ItemStack stack = GetMissingIngredient(contentStacks, recipe, world, allowBad);
+
+                        // Проверяем, что ингредиент нашелся, и только потом работаем с ним
                         if (stack != null)
                         {
+                            stack.StackSize = size;
+                            if (attr != null) stack.Attributes["transitionstate"] = attr;
                             newStacks[ii] = stack;
                             mealContainer.SetContents(recipe.Code, outputStack, newStacks, mealContainer.GetQuantityServings(world, outputStack));
                         }
@@ -682,7 +724,7 @@ namespace XSkills
         public void OnSaltyBackpack(PlayerAbility playerAbility, int oldTier)
         {
             IPlayer player = playerAbility.PlayerSkill.PlayerSkillSet.Player;
-            player.Entity.Stats.Set("perishMult", "ability", - 1.0f + playerAbility.FValue(0));
+            player.Entity.Stats.Set("perishMult", "ability", -1.0f + playerAbility.FValue(0));
 
             InventoryBase backPackInv = player.InventoryManager.GetOwnInventory(GlobalConstants.backpackInvClassName) as InventoryBase;
             InventoryBase hotBarInv = player.InventoryManager.GetOwnInventory(GlobalConstants.hotBarInvClassName) as InventoryBase;
@@ -725,8 +767,12 @@ namespace XSkills
 
                 value.TryGetValue("expBase", out str);
                 if (str != null) float.TryParse(str, styles, provider, out this.expBase);
+
                 value.TryGetValue("fruitPressExpPerLitre", out str);
                 if (str != null) float.TryParse(str, styles, provider, out this.fruitPressExpPerLitre);
+
+                value.TryGetValue("bypassDesalinationLock", out str);
+                if (str != null) bool.TryParse(str, out this.bypassDesalinationLock);
             }
         }
 
