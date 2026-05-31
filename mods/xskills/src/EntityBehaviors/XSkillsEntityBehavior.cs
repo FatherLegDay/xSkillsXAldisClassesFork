@@ -365,8 +365,9 @@ namespace XSkills
     }
 }
 
-return damage;
-}
+            return damage;
+        }
+
         protected float ApplyBareHandAbilities(float damage, EntityPlayer byPlayer)
         {
             InventoryCharacter inv = byPlayer.Player.InventoryManager.GetOwnInventory("character") as InventoryCharacter;
