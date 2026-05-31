@@ -88,11 +88,11 @@ namespace XSkills
     {
         public HeavyArmorExpertAbility(string name, string displayName = null, string description = null, int minLevel = 1, int maxTier = 1, int valuesPerTier = 0, bool hideUntilLearnable = false)
             : base(name, displayName, description, minLevel, maxTier, valuesPerTier, hideUntilLearnable)
-        {}
+        { }
 
         public HeavyArmorExpertAbility(string name, string displayName, string description, int minLevel, int maxTier, int[] values, bool hideUntilLearnable = false)
             : base(name, displayName, description, minLevel, maxTier, values, hideUntilLearnable)
-        {}
+        { }
 
         protected override void InitTraits()
         {
@@ -100,9 +100,10 @@ namespace XSkills
             {
                "healingeffectivness", "hungerrate"
             };
+
             MalusTraits = new List<string>()
             {
-                "rangedWeaponsAcc", "rangedWeaponsSpeed"
+             "rangedWeaponsAcc", "rangedWeaponsSpeed", "walkspeed"
             };
 
             if (XSkills.Instance.Api.ModLoader.IsModEnabled("combatoverhaul"))
@@ -117,6 +118,7 @@ namespace XSkills
                 {"rangedWeaponsAcc", "game:Ranged Accuracy"},
                 {"rangedWeaponsSpeed", "game:Ranged Charge Speed"},
                 {"steadyAim", "combatoverhaul:stat-steadyAim"},
+                {"walkspeed", "game:Walk speed"}
             };
         }
     }
@@ -140,7 +142,7 @@ namespace XSkills
             MalusTraits = new List<string>();
             TraitTranslations = new Dictionary<string, string>()
             {
-                {"walkspeed", "game:Walkspeed"},
+                {"walkspeed", "game:Walk speed"},
             };
         }
     }

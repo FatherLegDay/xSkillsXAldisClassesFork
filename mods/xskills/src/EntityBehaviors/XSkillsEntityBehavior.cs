@@ -1,7 +1,4 @@
-﻿using CombatOverhaul.Armor;
-using CombatOverhaul.DamageSystems;
-using CombatOverhaul.RangedSystems;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using Vintagestory.API.Client;
@@ -162,30 +159,32 @@ namespace XSkills
             return null;
         }
 
-        //calculates an armor tier for combat overhaul armor sets
+        // Combat Overhaul fix
         private static float COProtectionTier(InventoryCharacter inv)
         {
-            int filled = 0;
-            int open = 0;
-            int stacks = 0;
+            int pieces = 0;
             float protectionTier = 0.0f;
-            for (int ii = (int)EnumCharacterDressType.ArmorLegs + 1; ii < inv.Count; ++ii)
-            {
-                ArmorSlot armorSlot = (inv[ii] as ArmorSlot);
-                if (armorSlot == null) continue;
-                if (armorSlot.Available) ++open;
-                else ++filled;
-                if (armorSlot.Itemstack != null) ++stacks;
 
-                protectionTier += (
-                    inv[ii].Itemstack?.
-                    Collectible.GetBehavior<ArmorBehavior>())?.
-                    Resists.Resists[EnumDamageType.SlashingAttack] ?? 0.0f;
+            for (int ii = (int)EnumCharacterDressType.ArmorHead; ii < inv.Count; ++ii)
+            {
+                ItemSlot slot = inv[ii];
+                ItemStack itemstack = slot?.Itemstack;
+                if (itemstack == null) continue;
+
+                float tier = itemstack.Collectible?
+                    .GetCollectibleInterface<IWearableStatsSupplier>()?
+                    .GetProtectionModifiers(slot)?
+                    .ProtectionTier ?? 0.0f;
+
+                if (tier <= 0.0f) continue;
+
+                protectionTier += tier;
+                ++pieces;
             }
-            if (stacks == 0) return 0;
-            protectionTier = (protectionTier * filled / stacks) / (filled + open);
-            protectionTier *= 0.55f;
-            return protectionTier;
+
+            if (pieces == 0) return 0.0f;
+
+            return (protectionTier / pieces) * 0.55f;
         }
 
         public virtual float OnDamage(float damage, DamageSource dmgSource)
@@ -345,37 +344,29 @@ namespace XSkills
             //burning rage
             playerAbility = playerSkill[combat.BurningRageId];
             if (playerAbility.FValue(0) > byPlayer.World.Rand.NextDouble()) this.entity.Ignite();
+
             // Drunken master: apply only to melee damage as a percentage modifier
             if (melee)
             {
-                PlayerAbility drunkenMasterAbility = playerSkill[combat.DrunkenMasterId];
-                if (drunkenMasterAbility != null && drunkenMasterAbility.Tier > 0)
-                {
-                    float intoxication = byPlayer.WatchedAttributes.GetFloat("intoxication");
-                    if (intoxication > 0.0f)
-                    {
-                        // Increase damage by up to FValue(0) percent depending on intoxication
-                        damage *= 1.0f + drunkenMasterAbility.FValue(0) * Math.Min(intoxication, 1.0f);
-                    }
-                    else
-                    {
-                        // Decrease damage by FValue(1) percent when sober (clamped to >= 0)
-                        damage *= Math.Max(0.0f, 1.0f - drunkenMasterAbility.FValue(1));
-                    }
-                }
-            }
-            // attempt to apply bleed / other combat skill effects that live on the Combat skill
-            try
+            PlayerAbility drunkenMasterAbility = playerSkill[combat.DrunkenMasterId];
+            if (drunkenMasterAbility != null && drunkenMasterAbility.Tier > 0)
             {
-                // pass the modified damage (after ability multipliers) so bleed scales with melee bonuses
-                this.combat?.OnDamage(this.entity, damage, dmgSource, melee);
-            }
-            catch { }
-
-            return damage;
+            float intoxication = byPlayer.WatchedAttributes.GetFloat("intoxication");
+            if (intoxication > 0.0f)
+            {
+            // Increase damage by up to FValue(0) percent depending on intoxication
+            damage *= 1.0f + drunkenMasterAbility.FValue(0) * Math.Min(intoxication, 1.0f);
         }
+        else
+        {
+            // Decrease damage by FValue(1) percent when sober (clamped to >= 0)
+            damage *= Math.Max(0.0f, 1.0f - drunkenMasterAbility.FValue(1));
+        }
+    }
+}
 
-
+return damage;
+}
         protected float ApplyBareHandAbilities(float damage, EntityPlayer byPlayer)
         {
             InventoryCharacter inv = byPlayer.Player.InventoryManager.GetOwnInventory("character") as InventoryCharacter;
@@ -383,13 +374,13 @@ namespace XSkills
 
             PlayerSkill playerSkill = byPlayer.GetBehavior<PlayerSkillSet>()?[this.combat.Id];
             if (playerSkill == null) return damage;
+
             PlayerAbility monkAbility = playerSkill[combat.MonkId];
             PlayerAbility ironFistAbility = playerSkill[combat.IronFistId];
-            PlayerAbility drunkenMaster = playerSkill[combat.DrunkenMasterId];
+
             int tier = (monkAbility?.Tier + ironFistAbility?.Tier) ?? 0;
             if (tier == 0) return damage;
 
-            float intoxication = byPlayer.WatchedAttributes.GetFloat("intoxication");
             float protectionTier = 0.0f;
 
             if (inv.Count > (int)EnumCharacterDressType.ArmorLegs + 1)
@@ -412,11 +403,6 @@ namespace XSkills
             if (ironFistAbility.Tier > 0) damage *= protectionTier * ironFistAbility.Value(0);
             else damage *= Math.Max((monkAbility.Value(0) - ((protectionTier / 3.0f) * monkAbility.Value(0))), 1);
 
-            if (drunkenMaster.Tier > 0)
-            {
-                if (intoxication > 0.0f) damage *= 1.0f + drunkenMaster.FValue(0) * Math.Min(intoxication, 1.0f);
-                else damage *= 1.0f - drunkenMaster.FValue(1);
-            }
             return damage;
         }
 

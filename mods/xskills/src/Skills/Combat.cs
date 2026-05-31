@@ -259,16 +259,6 @@ namespace XSkills
                 "xskills:abilitydesc-monsterexpert",
                 10, 1, new int[] {}));
 
-            //bleed enemies dealing damage over time
-            //0: percent of base damage per tick
-            //1: duration seconds
-            //2: chance to apply
-            BleedId = this.AddAbility(new Ability(
-                "bleed",
-                "xskills:ability-bleed",
-                "xskills:abilitydesc-bleed",
-                10, 1, new int[] { 20, 5, 30 }));
-
             //behaviors
             api.RegisterEntityBehaviorClass("XSkillsEntity", typeof(XSkillsEntityBehavior));
 
@@ -312,14 +302,27 @@ namespace XSkills
                     float value = temp?.Value ?? 0.0f;
                     stat.ValuesByKey.TryGetValue("CombatOverhaul:Armor", out temp);
                     value += temp?.Value ?? 0.0f;
-                    value = value >= 0.0f ? playerAbility.FValue(0) : 0.0f;
+
+                    // Значение бонуса если нет штрафа к скорости
+                    float bonusValue = value >= 0.0f ? playerAbility.FValue(0) : 0.0f;
+
                     foreach (string statName in (playerAbility.Ability as ArmorAbility)?.BonusTraits)
                     {
                         try
                         {
                             stat = stats[statName];
                             if (stat == null) continue;
-                            stat.Set("ability-armorexpert", value);
+
+                            // Инвертируем значение для скорости голодания, 
+                            // чтобы бонус замедлял голод, а не ускорял его
+                            if (statName == "hungerrate")
+                            {
+                                stat.Set("ability-armorexpert", -bonusValue);
+                            }
+                            else
+                            {
+                                stat.Set("ability-armorexpert", bonusValue);
+                            }
                         }
                         catch (KeyNotFoundException) { }
                     }
@@ -364,8 +367,8 @@ namespace XSkills
             }
             //delay the call to make sure armor stats are applied before the call
             IInventory inv = byPlayer.InventoryManager.GetOwnInventory(GlobalConstants.characterInvClassName);
-            if (inv != null) inv.SlotModified += 
-                    (int slotID) => byPlayer.Entity.Api.Event.RegisterCallback( 
+            if (inv != null) inv.SlotModified +=
+                    (int slotID) => byPlayer.Entity.Api.Event.RegisterCallback(
                         (float _) => ApplyArmorAbilities(byPlayer), 0);
         }
 
@@ -379,86 +382,6 @@ namespace XSkills
             }
         }
 
-        // Apply bleeding effect when an entity is damaged by another entity that has the bleed ability
-        // targetEntity: entity that received the damage
-        // damage: raw damage value
-        // dmgSource: original damage source (may contain attacker entity)
-        // melee: whether the hit was a melee hit (defaults to true)
-        public void OnDamage(Entity targetEntity, float damage, DamageSource dmgSource, bool melee = true)
-        {
-            if (targetEntity == null || dmgSource == null) return;
-
-            // only run on server - effects and damage must be applied server-side
-            if (targetEntity.Api.Side == EnumAppSide.Client) return;
-
-            // determine attacker entity (source or cause)
-            Entity attacker = dmgSource.SourceEntity ?? dmgSource.CauseEntity;
-            if (attacker == null) return;
-
-            // try to get the attacker's PlayerSkill (may be null for non-player attackers)
-            PlayerSkill attackerSkill = attacker.GetBehavior<PlayerSkillSet>()?[this.Id];
-            if (attackerSkill == null) return;
-
-            // get the bleed ability from the attacker's PlayerSkill
-            PlayerAbility bleedAbility = attackerSkill[this.BleedId];
-            if (bleedAbility == null || bleedAbility.Tier <= 0 || !melee) return;
-
-            // ability values: [0]=percent of base damage per tick, [1]=duration seconds, [2]=chance percent
-            // PlayerAbility.FValue already returns value * 0.01f, so treat those as fractions (0..1)
-            double chance = bleedAbility.FValue(2);
-            if (attacker.World?.Rand == null || attacker.World.Rand.NextDouble() >= chance) return;
-
-            float perTick = damage * bleedAbility.FValue(0);
-            float duration = bleedAbility.Value(1);
-
-            XEffectsSystem effectSystem = this.XLeveling.Api.ModLoader.GetModSystem<XEffectsSystem>();
-            if (effectSystem == null) return;
-
-            // Prefer constructing the DotEffect with the damage source so it's properly set
-            EffectType eType = effectSystem.EffectType("bleed");
-            DotEffect bleed = null;
-            if (eType != null)
-            {
-                // create a sanitized damage source so the DOT damage does NOT count as an entity-caused hit
-                // This prevents the DOT from triggering bleed or other on-hit effects
-                DamageSource internalSource = new DamageSource()
-                {
-                    Source = EnumDamageSource.Internal,
-                    Type = dmgSource?.Type ?? EnumDamageType.Injury,
-                    DamageTier = dmgSource?.DamageTier ?? 0
-                };
-
-                // single stack only (no configurable stack count)
-                bleed = new DotEffect(eType, duration, 1, 1, perTick, internalSource);
-                // apply defaults from effect type (interval, intensity defaults etc.) so the effect will tick
-                try { bleed.FromTree(eType.Defaults); } catch { }
-                // ensure interval is set so OnTick -> OnInterval will be called
-                if (bleed.Interval <= 0.0f) bleed.Interval = 1.0f;
-                // ensure our values take precedence
-                bleed.Duration = duration;
-                bleed.Damage = perTick;
-                bleed.Stacks = 1;
-            }
-            if (bleed == null) return;
-
-            AffectedEntityBehavior affected = targetEntity.GetBehavior<AffectedEntityBehavior>();
-            if (affected == null)
-            {
-                // ensure the target entity can receive effects; add behavior dynamically on server
-                try
-                {
-                    affected = new AffectedEntityBehavior(targetEntity);
-                    targetEntity.AddBehavior(affected);
-                }
-                catch (System.Exception e) { this.XLeveling.Api.Logger.Error(e); }
-            }
-
-            if (affected != null)
-            {
-                affected.AddEffect(bleed);
-                affected.MarkDirty();
-            }
-        }
     }//!class Combat
 
     [ProtoContract]
