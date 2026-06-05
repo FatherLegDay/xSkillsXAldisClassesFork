@@ -1,7 +1,9 @@
 ﻿using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.Client.NoObf;
@@ -144,10 +146,29 @@ namespace XSkills
             PatchMethod(harmony, anvilType, patch, "recipeVoxels");
         }
 
-        public static void TryPutPrefix(BlockEntityAnvil __instance, ref bool __state, IPlayer byPlayer)
+        public static bool TryPutPrefix(BlockEntityAnvil __instance, ref bool __state, IPlayer byPlayer)
         {
-            CollectibleObject collectible = byPlayer.InventoryManager.ActiveHotbarSlot?.Itemstack?.Collectible;
+            CollectibleObject collectible = byPlayer?.InventoryManager?.ActiveHotbarSlot?.Itemstack?.Collectible;
             __state = collectible is ItemMetalPlate;
+
+            // Ванильные куски металла куются на наковальне только с перком.
+            if (collectible != null && MetalBitAnvilBehavior.IsMetalBit(collectible))
+            {
+                Metalworking metalworking = XLeveling.Instance(__instance.Api)?.GetSkill("metalworking") as Metalworking;
+                if (metalworking == null) return true;
+
+                PlayerAbility ability = byPlayer?.Entity?.GetBehavior<PlayerSkillSet>()?[metalworking.Id]?[metalworking.BitForgingId];
+                if (ability == null || ability.Tier <= 0)
+                {
+                    if (__instance.Api.Side == EnumAppSide.Client)
+                    {
+                        (__instance.Api as ICoreClientAPI).TriggerIngameError(__instance, "needbitforging",
+                            Lang.Get("xskills:ingameerror-bitforging"));
+                    }
+                    return false; // пропускаем оригинальный TryPut -> кусок не кладётся
+                }
+            }
+            return true;
         }
 
         public static void TryPutPostfix(BlockEntityAnvil __instance, bool __state, IPlayer byPlayer)

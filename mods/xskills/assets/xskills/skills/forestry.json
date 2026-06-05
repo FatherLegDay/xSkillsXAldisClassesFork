@@ -320,13 +320,6 @@
             {
                 "code": "exclusiveAbility",
                 "minimumTier": 2,
-                "skill": "forestry",
-                "ability": "forester",
-                "exclusiveTier": 2
-            },
-            {
-                "code": "exclusiveAbility",
-                "minimumTier": 2,
                 "skill": "husbandry",
                 "ability": "shepherd",
                 "exclusiveTier": 2
