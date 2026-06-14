@@ -120,12 +120,10 @@
     {
         "dependsOn": [ { "modid": "aculinaryartillery" } ],
         "file": "aculinaryartillery:blocktypes/mixingbowl",
-        "op": "addmerge",
+        "op": "add",
         "path": "/entityBehaviors",
         "value": [
-            {
-                "name": "XskillsOwnable"
-            }
+            { "name": "XskillsOwnable" }
         ]
     },
     {
@@ -252,6 +250,17 @@
     {
         "dependsOn": [ { "modid": "decor" } ],
         "file": "decor:blocktypes/stoves/tablestoneoven",
+        "op": "addmerge",
+        "path": "/entityBehaviors",
+        "value": [
+            {
+                "name": "XskillsOwnable"
+            }
+        ]
+    },
+    {
+        "dependsOn": [ { "modid": "artofgrowingpatch" } ],
+        "file": "artofgrowing:blocktypes/wood/firepit",
         "op": "addmerge",
         "path": "/entityBehaviors",
         "value": [
