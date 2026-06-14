@@ -731,7 +731,7 @@ namespace XSkills
             capi.Event.ReloadShader += LoadShader;
             LoadShader();
             nightVisionRenderer = new NightVisionRenderer(capi, nightVisionShaderProg);
-            capi.Event.RegisterRenderer(nightVisionRenderer, EnumRenderStage.Ortho);
+            capi.Event.RegisterRenderer(nightVisionRenderer, EnumRenderStage.AfterFinalComposition);
 
 #if !DEBUG
             if (!(this.Config as SurvivalSkillConfig).allowCatEyesToggle) return;
@@ -981,7 +981,7 @@ namespace XSkills
 
         public IShaderProgram Shader { get; internal set; }
 
-        public double RenderOrder => 0.85;
+        public double RenderOrder => -1.0;
         public int RenderRange => 1;
 
         PlayerAbility ability;
