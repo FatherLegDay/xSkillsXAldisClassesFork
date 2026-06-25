@@ -60,6 +60,7 @@ namespace XSkills
                     float newDuration = existingEffect.Runtime;
                     newDuration = newDuration - addDurationThisTick;
                     newDuration = Math.Clamp(newDuration, 0, maxCapSeconds);
+                    existingEffect.Duration = maxCapSeconds;
                     existingEffect.Runtime = newDuration;
                     existingEffect.Update(expMultiplier);
                 }
