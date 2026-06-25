@@ -1,7 +1,6 @@
-﻿using HarmonyLib;
+﻿using System;
+using HarmonyLib;
 using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
-using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using XLib.XEffects;
 using XLib.XLeveling;
@@ -13,96 +12,74 @@ namespace XSkills
     {
         static void Postfix(EntityAgent __instance, float dt)
         {
-            if (__instance.World.Side != EnumAppSide.Server) return;
             if (!(__instance is EntityPlayer player)) return;
 
             // If campfire checks are disabled in the config, exit early
             var cfg = XLeveling.Instance(__instance.Api)?.Config;
             if (cfg?.disableCampfireChecks == true) return;
+            
+            float accum = player.Attributes.GetFloat("restAccumLocal", 0f) + dt;
 
-            float accum = player.WatchedAttributes.GetFloat("restAccum", 0f) + dt;
-
-            if (accum < 0.5f)
+            if (accum < 1f)
             {
-                player.WatchedAttributes.SetFloat("restAccum", accum);
+                player.Attributes.SetFloat("restAccumLocal", accum);
                 return;
             }
 
-            player.WatchedAttributes.SetFloat("restAccum", 0f);
+            player.Attributes.SetFloat("restAccumLocal", 0f);
 
+            if (!_IsNearFire(__instance, player)) return; 
+            
             XEffectsSystem effectSystem = __instance.Api.ModLoader.GetModSystem<XEffectsSystem>();
             if (effectSystem == null) return;
 
             AffectedEntityBehavior affectedBehavior = player.GetBehavior<AffectedEntityBehavior>();
             if (affectedBehavior == null) return;
-
-            XSkillsPlayerBehavior pbh = player.GetBehavior("XSkillsPlayer") as XSkillsPlayerBehavior;
-            if (pbh == null) return;
-
-            Survival survival = XLeveling.Instance(__instance.Api).GetSkill("survival") as Survival;
+            
+            Survival survival = XLeveling.Instance(player.Api).GetSkill("survival") as Survival;
             if (survival == null) return;
 
-            PlayerAbility playerAbility = player.GetBehavior<PlayerSkillSet>()?[survival.Id]?[survival.WellRestedId];
-            if (playerAbility == null) return;
-            if (playerAbility.Tier < 1) return;
+            PlayerAbility wellRestedAbility = player.GetBehavior<PlayerSkillSet>()?[survival.Id]?[survival.WellRestedId];
 
-            // Fire Detection
-            BlockPos pos = player.Pos.AsBlockPos;
-            BlockPos tmpPos = new BlockPos(pos.dimension);
-
-            // Manage rest time
-            float restTime = player.WatchedAttributes.GetFloat("restTime", 0f);
-
-            if (_IsNearFire(__instance, player))
+            if (wellRestedAbility != null && wellRestedAbility.Tier > 0)
             {
-                restTime += accum;
-            }
-            else
-            {
-                restTime = 0f;
-            }
+                var existingEffect = affectedBehavior.Effect("rested");
+                
+                float val1 = wellRestedAbility.Value(1); 
+                float val2 = wellRestedAbility.Value(2);
 
-            player.WatchedAttributes.SetFloat("restTime", restTime);
+                float maxCapSeconds = Math.Max(val1, val2); 
+                float requiredWaitSeconds = Math.Max(1f, Math.Min(val1, val2)); 
+                float expMultiplier = wellRestedAbility.FValue(0); 
 
-            // If the player has been resting for less than set ammount of seconds, don't apply the effect divided by 10 to make it = set ammount of seconds as the accum is 0.5 seconds
-            // (This check is now driven by the configured ability value instead of hard-coded constant)
+                float buffPerSecond = maxCapSeconds / requiredWaitSeconds;
+                float addDurationThisTick = (buffPerSecond * accum) + accum;
 
-            // Apply effect;
-            if (playerAbility == null) return;
-            if (playerAbility.Tier < 1) return;
-
-            // Pull intensity (index 0), duration (index 1) and required rest time (index 2) from the wellrested ability
-            float intensity = (float)playerAbility.FValue(0);
-            float duration = (float)playerAbility.Value(1);
-            float requiredRest = (float)playerAbility.Value(2);
-
-            // If the player has been resting for less than the configured required rest time, don't apply the effect
-            if (restTime < requiredRest)
-            {
-                return;
-            }
-
-            var active = affectedBehavior.Effect("rested");
-
-            if (active == null)
-            {
-                active = effectSystem.CreateEffect("rested");
-                if (active == null)
-                    return;
-
-                // set intensity and duration from ability values
-                active.Update(intensity);
-                active.Duration = duration;
-                affectedBehavior.AddEffect(active);
-            }
-            else
-            {
-                // update existing effect to match current ability values
-                active.Update(intensity);
-                active.Duration = duration;
+                if (existingEffect != null)
+                {
+                    float newDuration = existingEffect.Runtime;
+                    newDuration = newDuration - addDurationThisTick;
+                    newDuration = Math.Clamp(newDuration, 0, maxCapSeconds);
+                    existingEffect.Runtime = newDuration;
+                    existingEffect.Update(expMultiplier);
+                }
+                else
+                {
+                    if (__instance.World.Side == EnumAppSide.Server)
+                    {
+                        Effect newEffect = effectSystem.CreateEffect("rested");
+                        if (newEffect != null)
+                        {
+                            newEffect.Duration = maxCapSeconds;
+                            newEffect.Runtime = maxCapSeconds - addDurationThisTick;
+                            newEffect.Update(expMultiplier);
+                            affectedBehavior.AddEffect(newEffect);
+                        }
+                    }
+                }
             }
         }
-        
+
         // IsNearFire got seperated out as a performance optimization.
         // as soon as we find a campfire, we don't need to search for any others. we can just exit the loop immediately.
         private static bool _IsNearFire(EntityAgent __instance, EntityPlayer player)
