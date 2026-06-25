@@ -49,30 +49,11 @@ namespace XSkills
             // Fire Detection
             BlockPos pos = player.Pos.AsBlockPos;
             BlockPos tmpPos = new BlockPos(pos.dimension);
-            bool nearFire = false;
-
-            // Check a 7x3x7 area around the player for lit firepits
-            for (int dx = -3; dx <= 3 && !nearFire; dx++)
-            {
-                for (int dy = -1; dy <= 1 && !nearFire; dy++)
-                {
-                    for (int dz = -3; dz <= 3 && !nearFire; dz++)
-                    {
-                        tmpPos.Set(pos.X + dx, pos.Y + dy, pos.Z + dz);
-                        Block block = __instance.World.BlockAccessor.GetBlock(tmpPos);
-
-                        if (block?.Code?.Path.Contains("firepit-lit") == true)
-                        {
-                            nearFire = true;
-                        }
-                    }
-                }
-            }
 
             // Manage rest time
             float restTime = player.WatchedAttributes.GetFloat("restTime", 0f);
 
-            if (nearFire)
+            if (_IsNearFire(__instance, player))
             {
                 restTime += accum;
             }
@@ -120,6 +101,34 @@ namespace XSkills
                 active.Update(intensity);
                 active.Duration = duration;
             }
+        }
+        
+        // IsNearFire got seperated out as a performance optimization.
+        // as soon as we find a campfire, we don't need to search for any others. we can just exit the loop immediately.
+        private static bool _IsNearFire(EntityAgent __instance, EntityPlayer player)
+        {
+            // We use 'Pos' instead of 'ServerPos' because this now evaluates on the Client side too!
+            BlockPos pos = player.Pos.AsBlockPos;
+            BlockPos tmpPos = new BlockPos(pos.dimension);
+            
+            // Check a 7x3x7 area around the player for lit firepits
+            for (int dx = -3; dx <= 3; dx++)
+            {
+                for (int dy = -1; dy <= 1; dy++)
+                {
+                    for (int dz = -3; dz <= 3; dz++)
+                    {
+                        tmpPos.Set(pos.X + dx, pos.Y + dy, pos.Z + dz);
+                        Block block = __instance.World.BlockAccessor.GetBlock(tmpPos);
+
+                        if (block?.Code?.Path.Contains("firepit-lit") == true)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
     }
 }
