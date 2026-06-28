@@ -89,7 +89,7 @@ namespace XSkills
                 string path = stack.Collectible.Code.Path;
                 if (path.StartsWith("metalbit-"))
                 {
-                    metal = path.Substring(9); 
+                    metal = path.Substring(9);
                 }
                 else
                 {
@@ -256,6 +256,42 @@ namespace XSkills
                 }
             }
             return added;
+        }
+        public override void OnCreatedByCrafting(ItemSlot[] allInputslots, ItemSlot outputSlot, IRecipeBase byRecipe, ref EnumHandling handled)
+        {
+            base.OnCreatedByCrafting(allInputslots, outputSlot, byRecipe, ref handled);
+
+            ItemSlot workItemSlot = allInputslots.FirstOrDefault(s => s.Itemstack?.Collectible is ItemWorkItem);
+
+            if (workItemSlot != null && workItemSlot.Itemstack != null)
+            {
+                // Просим саму игру десериализовать сжатые воксели в 3D-массив
+                byte[,,] voxels = ItemWorkItem.GetVoxels(workItemSlot.Itemstack);
+
+                if (voxels != null)
+                {
+                    int metalVoxelCount = 0;
+
+                    // Он пройдется по всем координатам x, y, z
+                    foreach (byte voxel in voxels)
+                    {
+                        if (voxel == 1) // 1 = EnumVoxelMaterial.Metal
+                        {
+                            metalVoxelCount++;
+                        }
+                    }
+
+                    // Считаем куски. Math.Floor отбросит нечетный воксель, если игрок сковал, например, 41 единицу
+                    // (1 потерянный воксель спишем на стружку от зубила)
+                    int expectedBits = (int)Math.Floor((float)metalVoxelCount / VoxelsPerBit);
+
+                    expectedBits = Math.Max(1, Math.Min(expectedBits, outputSlot.Itemstack.Collectible.MaxStackSize));
+
+                    // Выдаем честно заработанное
+                    outputSlot.Itemstack.StackSize = expectedBits;
+                    handled = EnumHandling.PassThrough;
+                }
+            }
         }
     }//!class MetalBitAnvilBehavior
 }//!namespace XSkills

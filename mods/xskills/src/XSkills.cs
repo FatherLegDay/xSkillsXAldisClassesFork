@@ -1,19 +1,20 @@
-﻿using HarmonyLib;
+﻿using CombatOverhaul.Implementations;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.Server;
 using Vintagestory.Client.NoObf;
 using Vintagestory.Common;
 using Vintagestory.Server;
 using XLib.XLeveling;
-using Vintagestory.API.Datastructures;
-using CombatOverhaul.Implementations;
 
 namespace XSkills
 {
@@ -56,7 +57,6 @@ namespace XSkills
 
                 //type = api.ClassRegistry.GetBlockEntity("ExpandedOven");
                 //if (type != null) BlockEntityOvenPatch.Apply(harmony, type, xskills);
-
                 type = api.ClassRegistry.GetBlockEntity("OvenBakingTop");
                 if (type != null) BlockEntityOvenPatch.Apply(harmony, type, xskills);
 
@@ -91,9 +91,13 @@ namespace XSkills
                 {
                     ApplyCOPatch(xskills);
                 }
+
+                if (api.ModLoader.IsModEnabled("electricalprogressiveqol"))
+                {
+                    BlockEntityEFruitPressPatch.Apply(harmony);
+                }
             }
         }
-
         /// <summary>
         /// Apply patches for Combat Overhaul.
         /// </summary>

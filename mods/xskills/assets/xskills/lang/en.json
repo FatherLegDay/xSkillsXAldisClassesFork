@@ -318,6 +318,8 @@
     "abilitydesc-automatedsmithing": "Your helve hammers can work items with up to {0} layers.",
     "ability-safequenching": "Safe Quenching",
     "abilitydesc-safequenching": "With this perk, your tools will no longer split into atoms during quenching. If the quenching fails, the item will simply be damaged.",
+    "ability-bitforging": "Bit Forging",
+    "abilitydesc-bitforging": "Allows forging items directly from metal bits once they reach working temperature. Each bit adds a small amount of material to the work item.",
 
     "ability-thrift": "Thrift",
     "abilitydesc-thrift": "You will receive {0} more voxels for each clay you use for pottery.",

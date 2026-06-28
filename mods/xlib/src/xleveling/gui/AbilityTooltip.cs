@@ -39,8 +39,10 @@ namespace XLib.XLeveling
         {
             ElementBounds dialogBounds = ElementStdBounds.AutosizedMainDialog.WithParent(parentBounds).WithAlignment(EnumDialogArea.RightMiddle).WithFixedOffset(240, 0);
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
-            ElementBounds nameBounds = ElementBounds.Fixed(0, 0, 200, 24);
-            ElementBounds infoBounds = ElementBounds.Fixed(0, 28, 200, 200);
+
+            // Увеличиваем ширину с 200 до 400 
+            ElementBounds nameBounds = ElementBounds.Fixed(0, 0, 400, 24);
+            ElementBounds infoBounds = ElementBounds.Fixed(0, 28, 400, 200);
 
             bgBounds.BothSizing = ElementSizing.FitToChildren;
             bgBounds.WithChildren(nameBounds, infoBounds);
@@ -63,6 +65,12 @@ namespace XLib.XLeveling
             List<RichTextComponent> components = new List<RichTextComponent>();
             this.abilityNameText.SetNewText(playerAbility.Ability.DisplayName);
             StringBuilder sb = new StringBuilder();
+
+            // Выводим описание текущего уровня, если перк уже вкачан хотя бы на 1 пункт
+            if (playerAbility.Tier > 0)
+            {
+                sb.Append(playerAbility.Ability.FormattedDescription(playerAbility.Tier));
+            }
 
             double[] green = { 0.0, 0.7, 0.0 };
             double[] red = { 0.8, 0.0, 0.0 };
