@@ -62,7 +62,9 @@ namespace XSkills
                     newDuration = Math.Clamp(newDuration, 0, maxCapSeconds);
                     existingEffect.Duration = maxCapSeconds;
                     existingEffect.Runtime = newDuration;
-                    existingEffect.Update(expMultiplier);
+                    float _fx = expMultiplier * ((maxCapSeconds - newDuration) / maxCapSeconds);
+                    _fx = _fx > existingEffect.Intensity ? _fx : existingEffect.Intensity;
+                    existingEffect.Update(_fx);
                 }
                 else
                 {
@@ -73,7 +75,7 @@ namespace XSkills
                         {
                             newEffect.Duration = maxCapSeconds;
                             newEffect.Runtime = maxCapSeconds - addDurationThisTick;
-                            newEffect.Update(expMultiplier);
+                            newEffect.Update(expMultiplier * ((maxCapSeconds - newEffect.Runtime) / maxCapSeconds));
                             affectedBehavior.AddEffect(newEffect);
                         }
                     }
